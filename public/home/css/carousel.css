@@ -53,14 +53,19 @@ body {
     background-color: #777;
 }
 .carousel-inner > .item > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
+    width: 100%;
+    max-width: 1200px;
+    min-width: 900px;
+    overflow: auto;
+    alignment: center;
     height: 500px;
+    margin: 0 auto;
 }
 
 
+#blackonwhite {
+    color: black;
+}
 /* MARKETING CONTENT
 -------------------------------------------------- */
 
@@ -131,8 +136,4 @@ body {
     .featurette-heading {
         margin-top: 120px;
     }
-}
-
-#blackonwhite {
-    color: black;
 }
