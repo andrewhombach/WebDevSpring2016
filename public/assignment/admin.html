@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Form Maker</a>
+            <a class="navbar-brand" href="home.html">Form Maker</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -53,7 +53,7 @@
             <ul class="nav nav-sidebar">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="profile.html">Profile</a></li>
-                <li><a href="admin.html">Admin</a></li>
+                <li class="active"><a href="admin.html">Admin</a></li>
                 <li><a href="forms.html">Forms</a></li>
             </ul>
         </div>
@@ -63,10 +63,22 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>Role</th>
-                        <th>Action</th>
+                        <th>
+                            <span class="caret"></span>
+                            Username
+                        </th>
+                        <th>
+                            <span class="caret"></span>
+                            Password
+                        </th>
+                        <th>
+                            <span class="caret"></span>
+                            Role
+                        </th>
+                        <th>
+                            <span class="caret"></span>
+                            Action
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,8 +93,14 @@
                             <input type="role" class="form-control" id="role" placeholder="role1, role2">
                         </td>
                         <td>
-                            <span class="glyphicon glyphicon-plus"></span>
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <div class="input-group">
+                                <button class="btn btn-success">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                                <button class="btn btn-info">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -90,8 +108,14 @@
                         <td></td>
                         <td>student</td>
                         <td>
-                            <span class="glyphicon glyphicon-plus"></span>
-                            <span class="glyphicon glyphicon-pencil"></span>
+                            <div class="input-group">
+                                <button class="btn btn-success">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                                <button class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -99,8 +123,14 @@
                         <td></td>
                         <td>faculty | admin</td>
                         <td>
-                            <span class="glyphicon glyphicon-plus"></span>
-                            <span class="glyphicon glyphicon-pencil"></span>
+                            <div class="input-group">
+                                <button class="btn btn-success">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                                <button class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 <tr>
@@ -108,8 +138,14 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <span class="glyphicon glyphicon-pencil"></span>
+                        <div class="input-group">
+                            <button class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button class="btn btn-warning">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
