@@ -15,6 +15,7 @@
                 $scope.forms = response;
             };
             FormService.findAllFormsForUser($rootScope.cUser._id, callback);
+            $scope.form = null;
         }
 
         init();
@@ -34,9 +35,6 @@
 
         function selectForm (fIndex) {
             $scope.form = $scope.forms[fIndex];
-
         }
-
-
     }
 })();

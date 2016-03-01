@@ -4,8 +4,7 @@
         .controller("SidebarController", SidebarController);
 
     function SidebarController($scope, $rootScope, $location) {
-        $location = $location.url;
-
+        $scope.$location = $location.url;
     }
 })();
 

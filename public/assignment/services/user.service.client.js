@@ -40,9 +40,7 @@
             users = model.users;
             for (var u in users) {
                 if (users[u].username == username && users[u].password == password) {
-                    console.log(users[u]);
                     callback(users[u]);
-
                 }
             }
         }
@@ -52,9 +50,10 @@
         }
 
         function deleteUserById (userId, callback) {
-            for (var u in model.users) {
-                if (model.users[u]._id === userId) {
-                    model.users.splice(u, 1);
+            var users = model.users;
+            for (var u in users) {
+                if (users[u]._id === userId) {
+                    users.splice(u, 1);
                     callback(model.users);
                 }
             }
@@ -73,9 +72,10 @@
         }
 
         function updateUser (userId, user, callback) {
-            for (var u in model.users) {
-                if (model.users[u]._id === userId) {
-                    model.users[u] = user;
+            var users = model.users;
+            for (var u in users) {
+                if (users[u]._id === userId) {
+                    users[u] = user;
                     callback(model.users[u]);
                 }
             }

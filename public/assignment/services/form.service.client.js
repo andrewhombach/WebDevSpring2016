@@ -29,19 +29,21 @@
         }
 
         function findAllFormsForUser (userId, callback) {
+            var forms = model.forms;
             var userFormList = [];
-            for (var f in model.forms) {
-                if (model.forms[f].userId === userId) {
-                    userFormList.push(model.forms[f]);
+            for (var f in forms) {
+                if (forms[f].userId === userId) {
+                    userFormList.push(forms[f]);
                 }
             }
             callback(userFormList);
         }
 
         function deleteFormById (formId, callback) {
-            for (var f in model.forms) {
-                if (model.forms[f]._id == formId) {
-                    model.forms.splice(f, 1);
+            var forms = model.forms;
+            for (var f in forms) {
+                if (forms[f]._id == formId) {
+                    forms.splice(f, 1);
                 }
             }
             callback(model.forms);
@@ -49,11 +51,10 @@
         }
 
         function updateFormById (formId, newForm, callback) {
-            for (var f in model.forms) {
-                if (model.forms[f]._id === formId) {
-                    console.log(model.forms[f]);
-                    model.forms[f] = newForm;
-                    console.log(newForm);
+            var forms = model.forms;
+            for (var f in forms) {
+                if (forms[f]._id === formId) {
+                    forms[f] = newForm;
                     callback(model.forms);
                 }
             }
