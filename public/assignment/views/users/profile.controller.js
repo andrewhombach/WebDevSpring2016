@@ -5,6 +5,7 @@
 
     function ProfileController ($scope, $rootScope, UserService) {
         $scope.update = update;
+        $scope.user = $rootScope.cUser;
 
         function update (user) {
             var callback = function (response) {
@@ -13,7 +14,5 @@
             UserService.updateUser(user._id, user, callback);
             console.log($rootScope.cUser);
          }
-
     }
-
 })();

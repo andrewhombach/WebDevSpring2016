@@ -37,15 +37,18 @@
         return model;
 
         function findUserByCredentials (username, password, callback) {
-            for (var user in users) {
-                if (users[user].username === username && users[user].password === password) {
-                    callback(users[user]);
+            users = model.users;
+            for (var u in users) {
+                if (users[u].username == username && users[u].password == password) {
+                    console.log(users[u]);
+                    callback(users[u]);
+
                 }
             }
         }
 
         function findAllUsers (callback) {
-            callback(users)
+            callback(model.users)
         }
 
         function deleteUserById (userId, callback) {
