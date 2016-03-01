@@ -23,58 +23,31 @@
         <tbody>
         <tr>
             <td>
-                <input type="text" class="form-control" id="formname" placeholder="name">
+                <input ng-model="form.title" type="text" class="form-control" id="formname" placeholder="name">
             </td>
             <td>
                 <div class="input-group">
-                    <button class="btn btn-success">
+                    <button ng-click="addForm(form)" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button class="btn btn-info">
+                    <button ng-click="updateForm(form)" class="btn btn-info">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr>
-            <td>Registration Form</td>
-            <td>
-                <div class="input-group">
-                    <button class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                    <button class="btn btn-info">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Contact List</td>
-
-            <td>
-                <div class="input-group">
-                    <button class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                    <button class="btn btn-info">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>To do List</td>
-            <td>
-                <div class="input-group">
-                    <button class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                    <button class="btn btn-info">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                </div>
-            </td>
+        <tr ng-repeat="form in forms">
+            <td>{{form.title}}</td>
+        <td>
+            <div class="input-group">
+                <button ng-click="deleteForm(form)" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <button ng-click="selectForm($index)" class="btn btn-warning">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+            </div>
+        </td>
         </tr>
         </tbody>
     </table>

@@ -52,10 +52,10 @@
         }
 
         function deleteUserById (userId, callback) {
-            for (var user in users) {
-                if (users[user]._id === userId) {
-                    users[user].splice(user, 1);
-                    callback(users);
+            for (var u in model.users) {
+                if (model.users[u]._id === userId) {
+                    model.users.splice(u, 1);
+                    callback(model.users);
                 }
             }
         }
