@@ -11,10 +11,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="cUser" ng-class="{'active': $location.url()=='/register'}"><a href="#/register">Register</a></li>
-                <li ng-hide="cUser" ng-class="{'active': $location.url()=='/login'}"><a href="#/login">Login</a></li>
+                <li ng-hide="$location.url() == '/register' || cUser" ng-class="{'active': $location.url()=='/register'}"><a href="#/register">Register</a></li>
+                <li ng-hide="$location.url() == '/login' || cUser" ng-class="{'active': $location.url()=='/login'}"><a href="#/login">Login</a></li>
                 <li ng-show="cUser" ng-class="{'active': $location.url()=='/profile'}"><a href="#/profile">{{cUser.username}}</a></li>
-                <li ng-show="cUser" ng-click="logout()" ><a href="#">Logout</a></li>
+                <li ng-show="cUser" ng-click="logout()" ><a href="#/home">Logout</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
