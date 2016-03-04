@@ -4,5 +4,6 @@
         .controller("AdminController", AdminController);
 
     function AdminController() {
+
     }
 })();
