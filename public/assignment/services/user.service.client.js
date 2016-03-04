@@ -40,7 +40,7 @@
         function findUserByCredentials (username, password, callback) {
             var users = model.users;
             for (var u in users) {
-                if (users[u].username == username && users[u].password == password) {
+                if (users[u].username === username && users[u].password === password) {
                     callback(model.users[u]);
                 }
             }

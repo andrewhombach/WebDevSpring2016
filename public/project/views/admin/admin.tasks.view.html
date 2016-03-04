@@ -10,7 +10,7 @@
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="#/admin/projects">Projects</a></li>
         <li role="presentation"><a href="#/admin/users">Users</a></li>
-        <li role="presentation" class="active" ><a href="#/admin/tasks">Tasks</a></li>
+        <li role="presentation" class="active"><a href="#/admin/tasks">Tasks</a></li>
     </ul>
     <br>
 
@@ -41,7 +41,7 @@
                 <span class="caret"></span>
                 Project
             </th>
-            <th>
+            <th width="100px">
                 <span class="caret"></span>
                 Action
             </th>
@@ -86,7 +86,7 @@
             <td>{{task.dueDate}}</td>
             <td>{{task.userIds.toString()}}</td>
             <td>{{task.project}}</td>
-            <td>
+            <td width="100px">
                 <div class="input-group">
                     <button ng-click="deleteTask(task)" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span>

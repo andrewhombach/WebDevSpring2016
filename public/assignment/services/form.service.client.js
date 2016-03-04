@@ -43,7 +43,7 @@
         function deleteFormById (formId, callback) {
             var forms = model.forms;
             for (var f in forms) {
-                if (forms[f]._id == formId) {
+                if (forms[f]._id === formId) {
                     forms.splice(f, 1);
                 }
             }
@@ -56,7 +56,7 @@
             for (var f in forms) {
                 if (forms[f]._id === formId) {
                     forms[f] = newForm;
-                    callback(model.forms);
+                    callback(newForm);
                 }
             }
 
