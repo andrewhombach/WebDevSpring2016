@@ -1,3 +1,4 @@
+"use strict";
 (function () {
     angular
         .module("FormBuilderApp")
@@ -37,7 +38,7 @@
         return model;
 
         function findUserByCredentials (username, password, callback) {
-            users = model.users;
+            var users = model.users;
             for (var u in users) {
                 if (users[u].username == username && users[u].password == password) {
                     callback(model.users[u]);
