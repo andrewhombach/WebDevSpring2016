@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("FormBuilderApp")
+        .module("CoLabApp")
         .controller("HeaderController", headerController);
 
     function headerController($rootScope, $location, $scope) {

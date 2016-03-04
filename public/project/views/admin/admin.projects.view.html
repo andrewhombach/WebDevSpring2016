@@ -1,0 +1,86 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminProjectsController">
+    <h1 class="page-header">Projects
+        <div align="right" class="input-group">
+            <button ng-click="changePicker()" class="btn btn-info">
+                See All or User
+            </button>
+        </div>
+    </h1>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#/admin/projects">Projects</a></li>
+        <li role="presentation"><a href="#/admin/users">Users</a></li>
+        <li role="presentation"><a href="#/admin/tasks">Tasks</a></li>
+    </ul>
+    <br>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>
+                <span class="caret"></span>
+                Project Name
+            </th>
+            <th>
+                Project ID
+            </th>
+            <th>
+                Users
+            </th>
+            <th>
+                Tasks
+            </th>
+            <th>
+                <span class="caret"></span>
+                Action
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <input ng-model="project.name" type="text" class="form-control" placeholder="project name">
+            </td>
+            <td>
+                <input ng-model="project._id" type="text" class="form-control" placeholder="project id">
+            </td>
+            <td>
+                <input ng-model="project.userIds" type="text" class="form-control" placeholder="comma seperated user IDs">
+            </td>
+            <td>
+                <input ng-model="project.tasks" type="text" class="form-control" placeholder="comma seperated task IDs">
+            </td>
+            <td>
+                <div class="input-group">
+                    <button ng-click="addProject(project)" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                    <button ng-click="updateProject(project)" class="btn btn-info">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr ng-repeat="project in projects">
+            <td>{{project.name}}</td>
+            <td>{{project._id}}</td>
+            <td>
+                {{project.userIds.toString()}}
+            </td>
+            <td>
+                {{project.tasks.toString()}}
+            </td>
+            <td>
+                <div class="input-group">
+                    <button ng-click="deleteProject(project)" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <button ng-click="selectProject($index)" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

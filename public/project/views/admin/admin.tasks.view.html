@@ -1,0 +1,102 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminTasksController">
+    <h1 class="page-header">Tasks
+        <div align="right" class="input-group">
+            <button ng-click="changePicker()" class="btn btn-info">
+                See All or User
+            </button>
+        </div>
+    </h1>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="#/admin/projects">Projects</a></li>
+        <li role="presentation"><a href="#/admin/users">Users</a></li>
+        <li role="presentation" class="active" ><a href="#/admin/tasks">Tasks</a></li>
+    </ul>
+    <br>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>
+                <span class="caret"></span>
+                Task Name
+            </th>
+            <th>
+                <span class="caret"></span>
+                Task Id
+            </th>
+            <th>
+                <span class="caret"></span>
+                Date Created
+            </th>
+            <th>
+                <span class="caret"></span>
+                Date Due
+            </th>
+            <th>
+                <span class="caret"></span>
+                Users
+            </th>
+            <th>
+                <span class="caret"></span>
+                Project
+            </th>
+            <th>
+                <span class="caret"></span>
+                Action
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <input ng-model="task.name" type="text" class="form-control" placeholder="title">
+            </td>
+            <td>
+                <input ng-model="task._id" type="text" class="form-control" placeholder="id">
+            </td>
+            <td>
+                <input ng-model="task.createDate" type="date" class="form-control" placeholder="Date Created">
+            </td>
+            <td>
+                <input ng-model="task.dueDate" type="date" class="form-control" placeholder="Date Due">
+            </td>
+            <td>
+                <input ng-model="task.userIds" type="text" class="form-control" placeholder="Comma seperated UserIds">
+            </td>
+            <td>
+                <input ng-model="task.project" type="text" class="form-control" placeholder="Project Id">
+            </td>
+            <td>
+
+                <div class="input-group">
+                    <button ng-click="addTask(task)" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                    <button ng-click="updateTask(task)" class="btn btn-info">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr ng-repeat="task in tasks">
+            <td>{{task.name}}</td>
+            <td>{{task._id}}</td>
+            <td>{{task.createDate}}</td>
+            <td>{{task.dueDate}}</td>
+            <td>{{task.userIds.toString()}}</td>
+            <td>{{task.project}}</td>
+            <td>
+                <div class="input-group">
+                    <button ng-click="deleteTask(task)" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <button ng-click="selectTask($index)" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
