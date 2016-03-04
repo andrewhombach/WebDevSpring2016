@@ -1,0 +1,36 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="RegisterController">
+    <h1 class="page-header">Register</h1>
+
+
+    <form>
+        <div class="form-group row">
+            <label for="inputUsername" class="col-sm-2 form-control-label">Username:</label>
+            <div class="col-sm-6">
+                <input ng-model="user.username" type="text" class="form-control" id="inputUsername" placeholder="Username">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 form-control-label">Password:</label>
+            <div class="col-sm-6">
+                <input ng-model="user.password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="verifypassword" class="col-sm-2 form-control-label">Verify Password:</label>
+            <div class="col-sm-6">
+                <input type="password" class="form-control" id="verifypassword" placeholder="Verify Password">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Email" class="col-sm-2 form-control-label">Email:</label>
+            <div class="col-sm-6">
+                <input ng-model="user.email" type="Email" class="form-control" id="Email" placeholder="Email" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="button" class="btn btn-success btn-lg col-xs-12" ng-click="register(user)">Register</button>
+            </div>
+        </div>
+    </form>
+</div>

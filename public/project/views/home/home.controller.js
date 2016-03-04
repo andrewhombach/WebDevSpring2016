@@ -1,7 +1,6 @@
-"use strict";
 (function() {
     angular
-        .module("FormBuilderApp")
+        .module("CoLabApp")
         .controller("HomeController", HomeController);
 
     function HomeController() {

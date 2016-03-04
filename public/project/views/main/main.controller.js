@@ -1,7 +1,6 @@
-"use strict";
-(function() {
+(function(){
     angular
-        .module("FormBuilderApp")
+        .module("CoLabApp")
         .controller("MainController", mainController);
 
     function mainController($scope, $location) {

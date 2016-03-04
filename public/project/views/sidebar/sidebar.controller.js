@@ -1,12 +1,10 @@
-"use strict";
-
 (function () {
     angular
-        .module("FormBuilderApp")
+        .module("CoLabApp")
         .controller("SidebarController", SidebarController);
 
     function SidebarController($scope, $rootScope, $location) {
-        $scope.$location = $location.url;
+        $scope.$location = $location.url();
     }
 })();
 

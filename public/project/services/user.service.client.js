@@ -1,7 +1,6 @@
-"use strict";
 (function () {
     angular
-        .module("FormBuilderApp")
+        .module("CoLabApp")
         .factory("UserService", UserService);
 
     function UserService() {
@@ -9,23 +8,15 @@
             users: [
                 {
                     "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
-                    "username": "alice", "password": "alice", "roles": ["student"]
+                    "username": "alice", "password": "alice", "projects": ["Hombach Family"], "email": "alice@gmail.com"
                 },
                 {
                     "_id": 234, "firstName": "Bob", "lastName": "Hope",
-                    "username": "bob", "password": "bob", "roles": ["admin"]
+                    "username": "bob", "password": "bob", "projects": ["Hombach Family" , "Ski Trip"], "email": "bob@gmail.com"
                 },
                 {
                     "_id": 345, "firstName": "Charlie", "lastName": "Brown",
-                    "username": "charlie", "password": "charlie", "roles": ["faculty"]
-                },
-                {
-                    "_id": 456, "firstName": "Dan", "lastName": "Craig",
-                    "username": "dan", "password": "dan", "roles": ["faculty", "admin"]
-                },
-                {
-                    "_id": 567, "firstName": "Edward", "lastName": "Norton",
-                    "username": "ed", "password": "ed", "roles": ["student"]
+                    "username": "charlie", "password": "charlie", "projects": ["Computer Science Project"], "email": "charlie@gmail.com"
                 }
             ],
             createUser: createUser,
@@ -38,9 +29,9 @@
         return model;
 
         function findUserByCredentials (username, password, callback) {
-            var users = model.users;
+            users = model.users;
             for (var u in users) {
-                if (users[u].username === username && users[u].password === password) {
+                if (users[u].username == username && users[u].password == password) {
                     callback(model.users[u]);
                 }
             }
@@ -66,7 +57,8 @@
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                password: user.password
+                password: user.password,
+                projects: user.projects
             };
             model.users.push(newUser);
             callback(newUser);

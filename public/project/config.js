@@ -1,7 +1,6 @@
-"use strict";
-(function () {
+(function(){
     angular
-        .module("FormBuilderApp")
+        .module("CoLabApp")
         .config(Configure);
 
     function Configure($routeProvider) {
@@ -15,16 +14,20 @@
                 controller: "ProfileController"
             })
             .when("/admin", {
-                templateUrl: "views/admin/admin.view.html",
-                controller: "AdminController"
+                templateUrl: "views/admin/admin.user.view.html",
+                controller: "AdminUsersController"
             })
-            .when("/forms", {
-                templateUrl: "views/forms/forms.view.html",
-                controller: "FormsController"
+            .when("/admin/users", {
+                templateUrl: "views/admin/admin.user.view.html",
+                controller: "AdminUsersController"
             })
-            .when("/fields", {
-                templateUrl: "views/forms/fields.view.html",
-                controller: "FieldsController"
+            .when("/admin/tasks", {
+                templateUrl: "views/admin/admin.tasks.view.html",
+                controller: "AdminTasksController"
+            })
+            .when("/admin/projects", {
+                templateUrl: "views/admin/admin.projects.view.html",
+                controller: "AdminProjectsController"
             })
             .when("/register", {
                 templateUrl: "views/users/register.view.html",
@@ -33,6 +36,10 @@
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
                 controller: "LoginController"
+            })
+            .when("/taskdetails", {
+                templateUrl: "views/tasks/taskDetails.view.html",
+                controller: "TaskDetailsController"
             })
             .otherwise({
                 redirectTo: "/home"

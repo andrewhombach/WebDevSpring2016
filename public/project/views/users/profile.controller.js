@@ -1,7 +1,6 @@
-"use strict";
 (function () {
     angular
-        .module("FormBuilderApp")
+        .module("CoLabApp")
         .controller("ProfileController", ProfileController);
 
     function ProfileController ($scope, $rootScope, UserService) {
