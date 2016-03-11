@@ -9,7 +9,6 @@
         $scope.updateDM = updateDM;
         $scope.selectDM = selectDM;
         $scope.changePicker = changePicker;
-        $scope.all = all;
 
         var all = true;
 
@@ -22,6 +21,14 @@
         }
 
         init();
+
+        function seeAllDMs() {
+            var callback = function (response) {
+                $scope.dms = response;
+                console.log(response)
+            };
+            DMService.findAllDMs(callback);
+        }
 
         function retrieveDMs (){
             if (!all) {
@@ -43,13 +50,6 @@
             }
         }
 
-        function seeAllDMs() {
-            var callback = function (response) {
-                $scope.dms = response;
-                console.log(response)
-            };
-            DMService.findAllDMs(callback);
-        }
 
         function deleteDM(dm) {
             DMService.deleteDMById(dm._id, retrieveDMs);

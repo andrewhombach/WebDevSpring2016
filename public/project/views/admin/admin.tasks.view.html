@@ -44,8 +44,6 @@
                 Project
             </th>
             <th width="100px">
-                <span class="caret"></span>
-                Action
             </th>
         </tr>
         </thead>
@@ -82,12 +80,24 @@
             </td>
         </tr>
         <tr ng-repeat="task in tasks">
-            <td>{{task.name}}</td>
-            <td>{{task._id}}</td>
-            <td>{{task.createDate}}</td>
-            <td>{{task.dueDate}}</td>
-            <td>{{task.userIds.toString()}}</td>
-            <td>{{task.project}}</td>
+            <td>
+                {{task.name}}
+            </td>
+            <td>
+                <p class="text-right">{{task._id}}</p>
+            </td>
+            <td>
+                {{task.createDate}}
+            </td>
+            <td>
+                {{task.dueDate}}
+            </td>
+            <td>
+                <p class="text-right">{{task.userIds.toString()}}</p>
+            </td>
+            <td>
+                <p class="text-right">{{task.project}}</p>
+            </td>
             <td width="100px">
                 <div class="input-group">
                     <button ng-click="deleteTask(task)" class="btn btn-danger">

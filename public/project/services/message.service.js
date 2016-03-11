@@ -11,6 +11,9 @@
                 },
                 {
                     "_id": 323, "userId": 123, "text": "What what!"
+                },
+                {
+                    "_id": 444, "userId": 234, "text": "Lets make this call happen soon"
                 }
             ],
             createMessage: createMessage,

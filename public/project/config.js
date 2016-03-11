@@ -62,12 +62,20 @@
                 controller: "DirectMessageController"
             })
             .when("/taskbar", {
-                templateUrl: "views/sidebar/taskbar.view.html",
+                templateUrl: "views/taskbar/taskbar.view.html",
                 controller: "TaskBarController"
             })
             .when("/projectsbar", {
-                templateUrl: "views/sidebar/projectbar.view.html",
+                templateUrl: "views/projectbar/projectbar.view.html",
                 controller: "ProjectBarController"
+            })
+            .when("/newproject", {
+                templateUrl: "views/new_project/newproject.view.html",
+                controller: "NewProjectController"
+            })
+            .when("/taskedit", {
+                templateUrl: "views/taskedit/taskedit.view.html",
+                controller: "TaskEditController"
             })
             .when("/projectdetails", {
                 templateUrl: "views/project/project.view.html",

@@ -9,7 +9,6 @@
         $scope.updateTask = updateTask;
         $scope.selectTask = selectTask;
         $scope.changePicker = changePicker;
-        $scope.all = all;
 
         var all = true;
 
@@ -23,6 +22,15 @@
 
         init();
 
+        function seeAllTasks() {
+            var callback = function (response) {
+                $scope.tasks = response;
+                console.log(response)
+            };
+            TaskService.findAllTasks(callback);
+        }
+
+
         function retrieveTasks (){
             if (!all) {
                 seeAllTasks();
@@ -30,14 +38,6 @@
             else {
                 init();
             }
-        }
-
-        function seeAllTasks() {
-            var callback = function (response) {
-                $scope.tasks = response;
-                console.log(response)
-            };
-            TaskService.findAllTasks(callback);
         }
 
         function changePicker() {

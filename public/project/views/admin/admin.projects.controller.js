@@ -9,7 +9,6 @@
         $scope.updateProject = updateProject;
         $scope.selectProject = selectProject;
         $scope.changePicker = changePicker;
-        $scope.all = all;
 
         var all = true;
 
@@ -23,6 +22,14 @@
 
         init();
 
+        function seeAllProjects() {
+            var callback = function (response) {
+                $scope.projects = response;
+                console.log(response)
+            };
+            ProjectService.findAllProjects(callback);
+        }
+
         function retrieveProjects (){
             if (!all) {
                 seeAllProjects();
@@ -32,13 +39,6 @@
             }
         }
 
-        function seeAllProjects() {
-            var callback = function (response) {
-                $scope.projects = response;
-                console.log(response)
-            };
-            ProjectService.findAllProjects(callback);
-        }
 
         function changePicker() {
             if (all) {

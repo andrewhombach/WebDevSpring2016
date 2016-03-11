@@ -35,9 +35,7 @@
                 <span class="caret"></span>
                 Email
             </th>
-            <th>
-                <span class="caret"></span>
-                Action
+            <th width="100px">
             </th>
         </tr>
         </thead>
@@ -72,12 +70,24 @@
             </td>
         </tr>
         <tr ng-repeat="user in users">
-            <td>{{user._id}}</td>
-            <td>{{user.username}}</td>
-            <td>{{user.password}}</td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.email}}</td>
+            <td>
+                <p class="text-right">{{user._id}}</p>
+            </td>
+            <td>
+                {{user.username}}
+            </td>
+            <td>
+                {{user.password}}
+            </td>
+            <td>
+                {{user.firstName}}
+            </td>
+            <td>
+                {{user.lastName}}
+            </td>
+            <td>
+                {{user.email}}
+            </td>
             <td  width="100px">
                 <div class="input-group">
                     <button ng-click="deleteUser(user)" class="btn btn-danger">

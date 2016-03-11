@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskDetailsController">
+<div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskEditController">
     <div class="chat-body">
         <br>
         <h1 class="page-header text-center">Plan California Trip</h1>
@@ -9,20 +9,13 @@
                 </button>
             </a>
         </div>
-        <div class="col-xs-offset-4 col-xs-3">
-            <a href="#/taskedit">
-                <button class="btn btn-info">
-                    Edit Task
-                </button>
-            </a>
-        </div>
         <table class="table table-borderless text-center">
             <tr>
                 <td>
                     Due Date:
                 </td>
                 <td>
-                    03/04/2016 11:59pm
+                    <input type="date" placeholder="0/0/0" ng-model="task.dueDate" class="form-control">
                 </td>
             </tr>
             <tr>
@@ -30,7 +23,7 @@
                     Creation Date:
                 </td>
                 <td>
-                    12/02/2015 9:00am
+                    <input type="date" placeholder="0/0/0" ng-model="task.createDate" class="form-control">
                 </td>
             </tr>
         </table>
@@ -54,20 +47,27 @@
                 </td>
             </tr>
         </table>
+        <div class="row">
+            <div class="col-xs-offset-5 cos-xs-2">
+                <button class="btn btn-info">
+                    edit members
+                </button>
+            </div>
+        </div>
         <hr>
         <h2 class="text-center">Notes</h2>
-        <p>Call: (617) 924-9234</p>
-        <p>Made initial contact but will need to follow up with that number</p>
+        <input class="form-control" type="text" placeholder="Call: (617) 924-9234 Made initial contact but will need to follow up with that number">
         <hr>
         <h2 class="text-center">Location</h2>
+        <input class="form-control" type="text" placeholder="Big Sur, CA">
         <div align="middle">
-        <iframe
-                width="600"
-                height="400"
-                frameborder="0" style="border:0" align="middle"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCasNgXTgj-TVaIt6N5GizuoeF7KQMv9VU
+            <iframe
+                    width="600"
+                    height="400"
+                    frameborder="0" style="border:0" align="middle"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCasNgXTgj-TVaIt6N5GizuoeF7KQMv9VU
     &q=Big+Sur+CA" allowfullscreen>
-        </iframe>
+            </iframe>
         </div>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2  chat-footer">
@@ -75,5 +75,5 @@
     </div>
 </div>
 <div class="col-sm-offset-3 col-md-offset-0 col-sm-4 disapear">
-<div ng-include="'views/taskbar/taskbar.view.html'"></div>
+    <div ng-include="'views/taskbar/taskbar.view.html'"></div>
 </div>

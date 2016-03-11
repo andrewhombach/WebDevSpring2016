@@ -1,5 +1,5 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminDMController">
-    <h1 class="page-header">Projects
+    <h1 class="page-header">Direct Messages
         <div align="right" class="input-group">
             <button ng-click="changePicker()" class="btn btn-info">
                 See All or User
@@ -35,9 +35,7 @@
                 <span class="caret"></span>
                 Message IDs
             </th>
-            <th>
-                <span class="caret"></span>
-                Action
+            <th width="100px">
             </th>
         </tr>
         </thead>
@@ -67,15 +65,16 @@
             </td>
         </tr>
         <tr ng-repeat="dm in dms">
-            <td>{{dm._id}}</td>
             <td>
-                {{dm.user1.toString()}}
+                <p class="text-right">{{dm._id}}</td>
+            <td>
+                <p class="text-right">{{dm.user1.toString()}}</p>
             </td>
             <td>
-                {{dm.user2.toString()}}
+                <p class="text-right">{{dm.user2.toString()}}</p>
             </td>
             <td>
-                {{dm.messages.toString()}}
+                <p class="text-right">{{dm.messages.toString()}}</p>
             </td>
             <td width="100px">
                 <div class="input-group">

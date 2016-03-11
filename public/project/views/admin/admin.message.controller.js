@@ -9,7 +9,6 @@
         $scope.updateMessage = updateMessage;
         $scope.selectMessage = selectMessage;
         $scope.changePicker = changePicker;
-        $scope.all = all;
 
         var all = true;
 
@@ -22,6 +21,14 @@
         }
 
         init();
+
+        function seeAllMessages() {
+            var callback = function (response) {
+                $scope.messages = response;
+                console.log(response)
+            };
+            MessageService.findAllMessages(callback);
+        }
 
         function retrieveMessages (){
             if (!all) {
@@ -41,14 +48,6 @@
                 all = true;
                 init();
             }
-        }
-
-        function seeAllMessages() {
-            var callback = function (response) {
-                $scope.messages = response;
-                console.log(response)
-            };
-            MessageService.findAllMessages(callback);
         }
 
         function deleteMessage(message) {
