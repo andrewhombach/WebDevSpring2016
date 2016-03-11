@@ -62,7 +62,7 @@
                 controller: "DirectMessageController"
             })
             .when("/taskbar", {
-                templateUrl: "views/sidebar/taskbar.view.html",
+                templateUrl: "views/sidebar/taskabar.view.html",
                 controller: "TaskBarController"
             })
             .when("/projectsbar", {
