@@ -19,7 +19,7 @@
                     "location": "Boston, MA"
                 },
                 {
-                    "_id": 456, "name": "Buy flight home",
+                    "_id": 436, "name": "Buy flight home",
                     "createDate": "03/11/2016", "dueDate": "03/13/2016",
                     "userIds": [111], "project": 333, "notes": "United Airlines flight is the cheapest",
                     "location": "Los Angeles, CA"
@@ -37,9 +37,9 @@
 
         function findTaskById (id, callback) {
             var tasks = model.tasks;
-            for (var p in tasks) {
-                if (tasks[p]._id == id) {
-                    callback(model.tasks[p]);
+            for (var t in tasks) {
+                if (tasks[t]._id == id) {
+                    callback(model.tasks[t]);
                 }
             }
         }
@@ -47,10 +47,10 @@
         function findAllTasksByUserId (userId, callback) {
             var tasks = model.tasks;
             var userTasks = [];
-            for (var p in tasks) {
-                for (var u in tasks[p].userIds) {
-                    if (tasks[p].userIds[u] == userId) {
-                        userTasks.push(tasks[p]);
+            for (var t in tasks) {
+                for (var u in tasks[t].userIds) {
+                    if (tasks[t].userIds[u] == userId) {
+                        userTasks.push(tasks[t]);
                     }
                 }
             }
@@ -59,9 +59,9 @@
 
         function deleteTaskById (taskId, callback) {
             var tasks = model.tasks;
-            for (var p in tasks) {
-                if (tasks[p]._id === taskId) {
-                    tasks.splice(p, 1);
+            for (var t in tasks) {
+                if (tasks[t]._id === taskId) {
+                    tasks.splice(t, 1);
                     callback(model.tasks);
                 }
             }
@@ -89,10 +89,10 @@
 
         function updateTask (taskId, task, callback) {
             var tasks = model.tasks;
-            for (var p in tasks) {
-                if (tasks[p]._id === taskId) {
-                    tasks[p] = task;
-                    callback(model.tasks[p]);
+            for (var t in tasks) {
+                if (tasks[t]._id === taskId) {
+                    tasks[t] = task;
+                    callback(model.tasks[t]);
                 }
             }
         }

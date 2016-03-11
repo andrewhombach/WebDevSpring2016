@@ -53,6 +53,7 @@
 
         function createUser (user, callback) {
             var newUser = {
+                _id: user._id,
                 username: user.username,
                 email: user.email,
                 firstName: user.firstName,
