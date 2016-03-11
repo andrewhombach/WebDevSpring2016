@@ -53,20 +53,19 @@ body {
 }
 
 @media (min-width: 992px) {
-    .task-footer {
-        position: fixed;
-        bottom: 0;
-        padding: 20px;
-        background-color: #D8D8D8;
-        z-index: 900;
-        overflow-x: hidden;
-        margin-left: -15px;
-
-    }
     .disapear {
         display: inline;
-
     }
+}
+
+.task-footer {
+    position: fixed;
+    bottom: 0;
+    padding: 20px;
+    background-color: #D8D8D8;
+    z-index: 900;
+    overflow-x: hidden;
+    margin-left: -15px;
 }
 
 /* Sidebar navigation */
@@ -154,7 +153,6 @@ body {
     background-color: #B25AE5;
     color: #fff;
     text-align: center;
-
 }
 
 .chat-box-left {
@@ -341,7 +339,96 @@ NEW  CHAT  STYLES
     z-index: 20;
 }
 
+.profile-pricture {
+    height: 230px;
+    width: auto;
 
+    overflow-x: hidden;
+}
+
+
+
+
+.lead {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.intro-header {
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    background: url(https://photos-3.dropbox.com/t/2/AAADFV1pab1bveGsNd62QDp6KF9s0Aokb106C1n4pPzoAw/12/275235/jpeg/32x32/1/_/1/2/intro-bg.jpg/ENT6NBi__NHrAyACKAI/ZLhyTBaytfRfV1TXOldQHr-jdnxVjsS9s_qtfjN_n0A?size=1280x960&size_mode=3) no-repeat center center;
+    background-size: cover;
+}
+
+.intro-message {
+    position: relative;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 5em;
+}
+
+.intro-divider {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.intro-message > h3 {
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+@media(max-width:767px) {
+    .intro-message {
+        padding-bottom: 15%;
+    }
+
+    .intro-message > h1 {
+        font-size: 3em;
+    }
+
+    ul.intro-social-buttons > li {
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    ul.intro-social-buttons > li:last-child {
+        margin-bottom: 0;
+    }
+
+    .intro-divider {
+        width: 100%;
+    }
+
+    .content-section-a {
+        padding: 50px 0;
+        background-color: #f8f8f8;
+    }
+
+    .content-section-b {
+        padding: 50px 0;
+        border-top: 1px solid #e7e7e7;
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .section-heading {
+        margin-bottom: 30px;
+    }
+
+    .section-heading-spacer {
+        float: left;
+        width: 200px;
+        border-top: 3px solid #e7e7e7;
+    }
+}
 
 
 

@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminProjectsController">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminDMController">
     <h1 class="page-header">Projects
         <div align="right" class="input-group">
             <button ng-click="changePicker()" class="btn btn-info">
@@ -8,10 +8,10 @@
     </h1>
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#/admin/projects">Projects</a></li>
+        <li role="presentation"><a href="#/admin/projects">Projects</a></li>
         <li role="presentation"><a href="#/admin/users">Users</a></li>
         <li role="presentation"><a href="#/admin/tasks">Tasks</a></li>
-        <li role="presentation"><a href="#/admin/dm">Direct Messages</a></li>
+        <li role="presentation" class="active"><a href="#/admin/dm">Direct Messages</a></li>
         <li role="presentation"><a href="#/admin/message">Messages</a></li>
     </ul>
     <br>
@@ -21,19 +21,19 @@
         <tr>
             <th>
                 <span class="caret"></span>
-                Project Name
+                DM ID
             </th>
             <th>
-                Project ID
+                <span class="caret"></span>
+                User1 ID
             </th>
             <th>
-                Users
+                <span class="caret"></span>
+                User2 ID
             </th>
             <th>
-                Tasks
-            </th>
-            <th>
-                Messages
+                <span class="caret"></span>
+                Message IDs
             </th>
             <th>
                 <span class="caret"></span>
@@ -44,49 +44,45 @@
         <tbody>
         <tr>
             <td>
-                <input ng-model="project.name" type="text" class="form-control" placeholder="project name">
+                <input ng-model="dm._id" type="text" class="form-control" placeholder="dm id">
             </td>
             <td>
-                <input ng-model="project._id" type="text" class="form-control" placeholder="project id">
+                <input ng-model="dm.user1" type="text" class="form-control" placeholder="user1 ID">
             </td>
             <td>
-                <input ng-model="project.userIds" type="text" class="form-control" placeholder="comma separated user IDs">
+                <input ng-model="dm.user2" type="text" class="form-control" placeholder="user2 ID">
             </td>
             <td>
-                <input ng-model="project.tasks" type="text" class="form-control" placeholder="comma separated task IDs">
-            </td>
-            <td>
-                <input ng-model="project.messages" type="text" class="form-control" placeholder="comma separated message IDs">
+                <input ng-model="dm.messages" type="text" class="form-control" placeholder="comma separated message IDs">
             </td>
             <td>
                 <div class="input-group">
-                    <button ng-click="addProject(project)" class="btn btn-success">
+                    <button ng-click="addDM(dm)" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button ng-click="updateProject(project)" class="btn btn-info">
+                    <button ng-click="updateDM(dm)" class="btn btn-info">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="project in projects">
-            <td>{{project.name}}</td>
-            <td>{{project._id}}</td>
+        <tr ng-repeat="dm in dms">
+            <td>{{dm._id}}</td>
             <td>
-                {{project.userIds.toString()}}
+                {{dm.user1.toString()}}
             </td>
             <td>
-                {{project.tasks.toString()}}
+                {{dm.user2.toString()}}
             </td>
             <td>
-                {{project.messages.toString()}}
+                {{dm.messages.toString()}}
             </td>
             <td width="100px">
                 <div class="input-group">
-                    <button ng-click="deleteProject(project)" class="btn btn-danger">
+                    <button ng-click="deleteDM(dm)" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <button ng-click="selectProject($index)" class="btn btn-warning">
+                    <button ng-click="selectDM($index)" class="btn btn-warning">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </div>

@@ -18,7 +18,7 @@
                 $scope.projects = response;
                 console.log(response);
             };
-            ProjectService.findAllProjectsByUserId(123, callback)
+            ProjectService.findAllProjectsByUserId($rootScope.cUser._id, callback)
         }
 
         init();

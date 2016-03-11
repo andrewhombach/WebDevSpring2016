@@ -17,7 +17,6 @@
     <!-- Angular route CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
 
-
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="app.js"></script>
@@ -36,12 +35,22 @@
     <script src="services/project.service.client.js"></script>
     <script src="services/task.service.client.js"></script>
     <script src="views/admin/admin.tasks.controller.js"></script>
+    <script src="views/splash/splash.controller.js"></script>
+    <script src="views/project/project.controller.js"></script>
+    <script src="views/search/search.controller.js"></script>
+    <script src="views/directmessage/directmessage.controller.js"></script>
+    <script src="views/footer/footer.controller.js"></script>
+    <script src="services/dm.service.js"></script>
+    <script src="services/message.service.js"></script>
+    <script src="views/admin/admin.dm.controller.js"></script>
+    <script src="views/admin/admin.message.controller.js"></script>
+    <script src="views/sidebar/taskbar.controller.js"></script>
+    <script src="views/footer/taskFooter.controller.js"></script>
+    <script src="views/sidebar/projectbar.controller.js"></script>
     <script src="config.js"></script>
-
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
-
 
 </head>
 
@@ -51,17 +60,10 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div ng-include="'views/sidebar/sidebar.view.html'"></div>
+        <div ng-hide="!cUser || $location.url() === '/splash'" ng-include="'views/sidebar/sidebar.view.html'"></div>
         <div ng-view></div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

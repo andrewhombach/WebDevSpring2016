@@ -8,11 +8,11 @@
             projects: [
                 {
                     "_id": 456, "name": "Hombach Family Project",
-                    "userIds": [123, 234], "tasks": [567, 654]
+                    "userIds": [123, 234], "tasks": [567, 654], "messages": [133, 134, 135]
                 },
                 {
                     "_id": 323, "name": "Ski Trip",
-                    "userIds": [234], "tasks": [123, 142]
+                    "userIds": [234], "tasks": [123, 142], "messages": [136, 137, 138]
                 }
             ],
             createProject: createProject,
@@ -66,7 +66,8 @@
                 _id: project._id,
                 name: project.name,
                 userIds: project.userIds,
-                tasks: project.tasks
+                tasks: project.tasks,
+                messages: project.messages
             };
             model.projects.push(newProject);
             callback(model.projects);

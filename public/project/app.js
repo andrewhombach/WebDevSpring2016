@@ -1,4 +1,4 @@
-(function(){
+(function() {
     angular
         .module("CoLabApp", ["ngRoute"]);
 

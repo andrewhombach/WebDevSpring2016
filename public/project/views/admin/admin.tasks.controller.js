@@ -18,7 +18,7 @@
                 $scope.tasks = response;
                 console.log(response);
             };
-            TaskService.findAllTasksByUserId(123, callback)
+            TaskService.findAllTasksByUserId($rootScope.cUser._id, callback)
         }
 
         init();
