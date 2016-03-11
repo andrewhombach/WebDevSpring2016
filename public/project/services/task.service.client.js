@@ -8,18 +8,21 @@
             tasks: [
                 {
                     "_id": 456, "name": "Pack for California",
-                    "createDate": "03/01/2016", "dueDate": "03/04/2016",
-                    "userIds": [123, 234], "project": 456
+                    "createDate": "03/01/2016", "dueDate": "03/04/20'16",
+                    "userIds": [123, 234], "project": 456, "notes": "Call: (617) 924-9234 Made initial contact but will need to follow up with that number",
+                    "location": "Big Sur, CA"
                 },
                 {
                     "_id": 323, "name": "Finish Computer Science Homework",
                     "createDate": "03/01/2016", "dueDate": "03/04/2016",
-                    "userIds": [234], "project": 456
+                    "userIds": [234], "project": 456, "notes": "Need to finish wireframes",
+                    "location": "Boston, MA"
                 },
                 {
                     "_id": 456, "name": "Buy flight home",
                     "createDate": "03/11/2016", "dueDate": "03/13/2016",
-                    "userIds": [111], "project": 333
+                    "userIds": [111], "project": 333, "notes": "United Airlines flight is the cheapest",
+                    "location": "Los Angeles, CA"
                 }
             ],
             createTask: createTask,
@@ -75,7 +78,9 @@
                 createDate: task.createDate,
                 dueDate: task.dueDate,
                 userIds: task.userIds,
-                project: task.project
+                project: task.project,
+                notes: task.notes,
+                location: task.location
             };
             model.tasks.push(newTask);
             callback(model.tasks);

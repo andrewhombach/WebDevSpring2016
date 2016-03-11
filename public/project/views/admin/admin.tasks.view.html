@@ -43,6 +43,14 @@
                 <span class="caret"></span>
                 Project
             </th>
+            <th>
+                <span class="caret"></span>
+                Notes
+            </th>
+            <th>
+                <span class="caret"></span>
+                Location
+            </th>
             <th width="100px">
             </th>
         </tr>
@@ -66,6 +74,12 @@
             </td>
             <td>
                 <input ng-model="task.project" type="text" class="form-control" placeholder="Project Id">
+            </td>
+            <td>
+                <input ng-model="task.notes" type="text" class="form-control" placeholder="Notes">
+            </td>
+            <td>
+                <input ng-model="task.location" type="text" class="form-control" placeholder="Location">
             </td>
             <td>
 
@@ -97,6 +111,12 @@
             </td>
             <td>
                 <p class="text-right">{{task.project}}</p>
+            </td>
+            <td>
+                {{task.notes}}
+            </td>
+            <td>
+                {{task.location}}
             </td>
             <td width="100px">
                 <div class="input-group">

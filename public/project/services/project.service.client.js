@@ -8,15 +8,15 @@
             projects: [
                 {
                     "_id": 456, "name": "Hombach Family Project",
-                    "userIds": [123, 234], "tasks": [567, 654], "messages": [133, 134, 135], "description": "Chat among the Hombach Family"
+                    "userIds": [123, 234], "admin": 234, "tasks": [567, 654], "messages": [133, 134, 135], "description": "Chat among the Hombach Family"
                 },
                 {
                     "_id": 323, "name": "Ski Trip",
-                    "userIds": [234], "tasks": [123, 142], "messages": [136, 137, 138], description: "Trip to Aspen Colorado"
+                    "userIds": [234], "admin": 123, "tasks": [123, 142], "messages": [136, 137, 138], description: "Trip to Aspen Colorado"
                 },
                 {
                     "_id": 222, "name": "California Road Trip",
-                    "userIds": [123], "tasks": [123, 142], "messages": [136, 137, 144], "description": "California Road trip from San Francisco to LA"
+                    "userIds": [123], "admin": 123, "tasks": [123, 142], "messages": [136, 137, 144], "description": "California Road trip from San Francisco to LA"
                 }
             ],
             createProject: createProject,
@@ -70,6 +70,7 @@
                 _id: project._id,
                 name: project.name,
                 userIds: project.userIds,
+                admin: project.admin,
                 tasks: project.tasks,
                 messages: project.messages,
                 description: project.description

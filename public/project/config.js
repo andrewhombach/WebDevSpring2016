@@ -77,6 +77,10 @@
                 templateUrl: "views/taskedit/taskedit.view.html",
                 controller: "TaskEditController"
             })
+            .when("/editproject", {
+                templateUrl: "views/editproject/editproject.view.html",
+                controller: "EditProjectController"
+            })
             .when("/projectdetails", {
                 templateUrl: "views/project/project.view.html",
                 controller: "ProjectController"

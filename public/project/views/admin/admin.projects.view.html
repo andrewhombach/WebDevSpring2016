@@ -27,7 +27,10 @@
                 Project ID
             </th>
             <th>
-                Users
+                User IDs
+            </th>
+            <th>
+                Admin ID
             </th>
             <th>
                 Tasks
@@ -54,13 +57,16 @@
                 <input ng-model="project.userIds" type="text" class="form-control" placeholder="comma separated user IDs">
             </td>
             <td>
+                <input ng-model="project.admin" type="text" class="form-control" placeholder="User ID of Admin">
+            </td>
+            <td>
                 <input ng-model="project.tasks" type="text" class="form-control" placeholder="comma separated task IDs">
             </td>
             <td>
                 <input ng-model="project.messages" type="text" class="form-control" placeholder="comma separated message IDs">
             </td>
             <td>
-                <input ng-model="project.description" type="text" class="form-control" placeholder="Description"
+                <input ng-model="project.description" type="text" class="form-control" placeholder="Description">
             </td>
             <td>
                 <div class="input-group">
@@ -82,6 +88,9 @@
             </td>
             <td>
                 <p class="text-right">{{project.userIds.toString()}}</p>
+            </td>
+            <td>
+                <p class="text-right">{{project.admin}}</p>
             </td>
             <td>
                 <p class="text-right">{{project.tasks.toString()}}</p>
