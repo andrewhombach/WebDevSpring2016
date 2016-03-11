@@ -1,7 +1,10 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskEditController">
     <div class="chat-body">
         <br>
-        <h1 class="page-header text-center">Plan California Trip</h1>
+        <div class="row">
+            <h2 class="text-center">Name:</h2>
+            <input ng-model="task.name" placeholder="task name" type="text" id="title" class="form-control">
+        </div>
         <div class="visible-xs col-xs-offset-4 col-xs-3">
             <a href="#/taskbar">
                 <button class="btn btn-info">
@@ -9,6 +12,7 @@
                 </button>
             </a>
         </div>
+        <hr>
         <table class="table table-borderless text-center">
             <tr>
                 <td>
