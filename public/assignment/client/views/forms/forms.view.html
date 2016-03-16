@@ -23,27 +23,27 @@
         <tbody>
         <tr>
             <td>
-                <input ng-model="form.title" type="text" class="form-control" id="formname" placeholder="name">
+                <input ng-model="model.form.title" type="text" class="form-control" id="formname" placeholder="name">
             </td>
             <td>
                 <div class="input-group">
-                    <button ng-click="addForm(form)" class="btn btn-success">
+                    <button ng-click="model.addForm(model.form)" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button ng-click="updateForm(form)" class="btn btn-info">
+                    <button ng-click="model.updateForm(model.form)" class="btn btn-info">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="form in forms">
+        <tr ng-repeat="form in model.forms">
             <td>{{form.title}}</td>
         <td>
             <div class="input-group">
-                <button ng-click="deleteForm(form)" class="btn btn-danger">
+                <button ng-click="model.deleteForm(model.form)" class="btn btn-danger">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
-                <button ng-click="selectForm($index)" class="btn btn-warning">
+                <button ng-click="model.selectForm($index)" class="btn btn-warning">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
             </div>

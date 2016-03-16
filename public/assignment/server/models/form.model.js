@@ -23,13 +23,12 @@ module.exports = function (app) {
     function findFormsByUserId(userId) {
         var userForms = [];
         for (f in forms) {
-            if (forms[f].userId === userId) {
+            if (forms[f].userId == userId) {
                 userForms.push(forms[f]);
             }
         }
         return userForms;
     }
-
 
     function findFormById (id) {
         for (var f in forms) {

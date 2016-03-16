@@ -1,6 +1,6 @@
 module.exports = function(app, userModel) {
     app.post("/api/assignment/user", register);
-    app.get("/api/assignment/user?username&password", findUserByCredentials);
+    app.get("/api/assignment/userCred/:username/:password", findUserByCredentials);
     app.get("/api/assignment/user", getUsers);
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user?username=username", findUserByUsername);
@@ -9,9 +9,10 @@ module.exports = function(app, userModel) {
 
 
     function register(req, res) {
-        var user = req.body;
-        user = userModel.createUser(user);
-        res.send(200);
+        var newUser = req.body;
+        console.log(req.body);
+        var user = userModel.createUser(newUser);
+        res.json(user);
     }
 
     function getUsers(req, res) {
@@ -26,14 +27,19 @@ module.exports = function(app, userModel) {
     function updateUser(req, res) {
         var user = req.body.user;
         var userId = req.params.id;
-        userModel.updateUserById(userId, user);
+        userModel.updateUser(userId, user);
         res.send(200);
     }
 
     function findUserByCredentials(req, res) {
         console.log("Trying to log you in");
-        var cred = {"username": req.query.username, "password": req.query.password};
-        res.json(userModel.findUserByCredentials(cred));
+        var cred = {
+            username: req.params.username,
+            password: req.params.password
+        };
+        console.log(cred);
+        var user = userModel.findUserByCredentials(cred);
+        res.json(user);
     }
 
     function findUserByUsername(req, res) {
