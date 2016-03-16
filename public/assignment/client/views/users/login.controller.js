@@ -1,5 +1,5 @@
 "use strict";
-(function(){
+(function () {
     angular
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
@@ -8,17 +8,24 @@
 
         $scope.login = login;
 
-        function login (username, password) {
-
-            var callback = function (response) {
-                if (response) {
-                    $rootScope.cUser = response;
-                    console.log("successfully loged in the following user:" + $rootScope.cUser);
-                    $location.url("/profile");
+        function login(username, password) {
+            console.log(username + " " + password);
+            UserService.findUserByCredentials(username, password)
+                .then(function (response)
+                    {
+                        if (response.data) {
+                            $rootScope.cUser = response.data;
+                            console.log(response.data);
+                            console.log("successfully logged in the following user:" + $rootScope.cUser.firstName);
+                            //$location.url("/profile");
+                        }
+                    }, function (response)
+                {
+                    console.log("failed to login");
                 }
-            };
-            UserService.findUserByCredentials(username, password, callback);
+                )
         }
 
     }
 })();
+

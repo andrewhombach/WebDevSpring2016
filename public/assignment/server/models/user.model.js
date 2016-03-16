@@ -1,4 +1,4 @@
-var users = require("/user.mock.json");
+var users = require("./user.mock.json");
 module.exports = function (app) {
     var api = {
         createUser: createUser,

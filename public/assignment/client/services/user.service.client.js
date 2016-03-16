@@ -20,6 +20,7 @@
         }
 
         function findUserByCredentials (username, password) {
+            console.log("Trying to log in " + username + "with password: " + password);
             return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
         }
 
