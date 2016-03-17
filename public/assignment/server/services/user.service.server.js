@@ -24,8 +24,8 @@ module.exports = function(app, userModel) {
     function register(req, res) {
         var newUser = req.body;
         console.log(req.body);
-        var user = userModel.createUser(newUser);
-        res.json(user);
+        var users = userModel.createUser(newUser);
+        res.json(users);
     }
 
     function getUsers(req, res) {
@@ -34,14 +34,14 @@ module.exports = function(app, userModel) {
 
     function findUserById(req, res) {
         var userId = req.params.id;
-        res.json(userModel.findUserById(userId));
+        res.send(userModel.findUserById(userId));
+
     }
 
     function updateUser(req, res) {
         var user = req.body.user;
         var userId = req.params.id;
-        userModel.updateUser(userId, user);
-        res.send(200);
+        res.send(userModel.updateUser(userId, user));
     }
 
     function findUserByCredentials(req, res) {

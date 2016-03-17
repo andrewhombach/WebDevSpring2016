@@ -58,7 +58,7 @@ module.exports = function (app) {
             _id: "ID_" + (new Date).getTime(),
             title: newForm.title,
             userId: userId,
-            fields: newForm.fields
+            fields: []
         };
         forms.push(nForm);
         return forms;

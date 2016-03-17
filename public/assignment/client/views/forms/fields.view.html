@@ -1,5 +1,5 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="FieldsController">
-    <h1 class="page-header">Forms : Registration Form</h1>
+    <h1 class="page-header">{{model.form.title}}</h1>
 
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="#/forms">Forms</a></li>
@@ -189,16 +189,16 @@
         <hr>
         <label for="input5">Add New Field:</label>
         <div class="input-group">
-            <select class="form-control" id="input5">
-                <option>Single Line Text</option>
-                <option>Date</option>
-                <option>Dropdown</option>
-                <option>Checkboxes</option>
-                <option>Radio Buttons</option>
-                <option>Paragraph Text Field</option>
+            <select ng-model = "fieldType" class="form-control" id="input5">
+                <option>Single Line Text Field</option>
+                <option>Date Field</option>
+                <option>Dropdown Field</option>
+                <option>Checkboxes Field</option>
+                <option>Radio Buttons Field</option>
+                <option>Multi Line Text Field</option>
             </select>
             <div class="input-group-btn">
-                <button type="button" class="btn btn-success">
+                <button ng-click="model.addField(fieldType)" type="button" class="btn btn-success">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </div>

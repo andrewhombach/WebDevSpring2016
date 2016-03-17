@@ -53,13 +53,14 @@ module.exports = function () {
                 users.splice(u, 1);
             }
         }
+        return users;
     }
 
     function createUser(newUser) {
         newUser._id = "ID_" + (new Date()).getTime();
         console.log(newUser);
         users.push(newUser);
-        return newUser;
+        return users;
     }
 
     function updateUser(id, user) {
@@ -68,5 +69,6 @@ module.exports = function () {
                 users[u] = user;
             }
         }
+        return users;
     }
 };
