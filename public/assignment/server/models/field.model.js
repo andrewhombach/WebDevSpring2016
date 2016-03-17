@@ -43,6 +43,7 @@ module.exports = function (formModel) {
 
     function findFieldsByFormId(formId) {
         var form;
+        console.log(formId);
         form = formModel.findFormById(formId);
         return form.fields;
     }

@@ -7,7 +7,7 @@
     function FieldsController(FieldService, $routeParams) {
         var vm = this;
         vm.display = "";
-        var formId = $routeParams.formId;
+        var formId = "000";
         vm.options =
         [
             'Single Line Text Field',
