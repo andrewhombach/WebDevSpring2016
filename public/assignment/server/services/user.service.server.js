@@ -20,10 +20,8 @@ module.exports = function(app, userModel) {
         }
     }
 
-
     function register(req, res) {
         var newUser = req.body;
-        console.log(req.body);
         var users = userModel.createUser(newUser);
         res.json(users);
     }
@@ -34,23 +32,21 @@ module.exports = function(app, userModel) {
 
     function findUserById(req, res) {
         var userId = req.params.id;
-        res.send(userModel.findUserById(userId));
-
+        var user = userModel.findUserById(userId);
+        res.json(user);
     }
 
     function updateUser(req, res) {
-        var user = req.body.user;
+        var user = req.body;
         var userId = req.params.id;
-        res.send(userModel.updateUser(userId, user));
+        res.json(userModel.updateUser(userId, user));
     }
 
     function findUserByCredentials(req, res) {
-        console.log("Trying to log you in");
         var cred = {
             username: req.query.username,
             password: req.query.password
         };
-        console.log(cred);
         var user = userModel.findUserByCredentials(cred);
         res.json(user);
     }
@@ -62,7 +58,7 @@ module.exports = function(app, userModel) {
 
     function deleteUser(req, res) {
         var id = req.params.id;
-        userModel.deleteUserById(id);
-        res.send(200);
+        res.json(userModel.deleteUserById(id));
+
     }
 };

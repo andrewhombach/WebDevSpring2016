@@ -19,9 +19,7 @@
                 <div ng-switch-when="OPTIONS">
                     <div class="input-group">
                         <select class="form-control">
-                            <div ng-repeat="op in field.options">
-                                <option>{{op}}</option>
-                            </div>
+                            <option ng-repeat="op in field.options">{{op.label}}, {{op.value}}</option>
                         </select>
                         <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
                     </div>

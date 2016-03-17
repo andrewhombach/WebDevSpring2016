@@ -6,21 +6,24 @@
 
     function ProfileController ($rootScope, UserService) {
         var vm = this;
-
         vm.update = update;
-        vm.user = $rootScope.cUser;
 
         function init() {
-            UserService
-                .getProfile();
+            vm.user = UserService.getProfile();
+            console.log("-----------");
+            console.log(vm.user);
         }
 
-        return init();
+        init();
 
         function update (user) {
             UserService.updateUser(user._id, user)
                 .then(function (response) {
-                    $rootScope.cUser = response;
+                    UserService.findUserById(user._id)
+                    .then(function (response) {
+                        UserService.setCurrentUser(response.data);
+                        init();
+                    });
                 });
          }
     }

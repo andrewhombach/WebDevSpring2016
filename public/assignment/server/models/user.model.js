@@ -23,10 +23,8 @@ module.exports = function () {
 
     function findUserByCredentials(credentials) {
         for (var u in users) {
-            console.log(credentials);
             if (users[u].username == credentials.username &&
                 users[u].password == credentials.password) {
-                console.log(users[u]);
                 return users[u];
             }
         }
@@ -36,7 +34,8 @@ module.exports = function () {
 
     function findUserById(id) {
         for (var u in users) {
-            if (users[u]._id === id) {
+            if (users[u]._id == id) {
+                console.log("found user: " + users[u]._id)
                 return users[u];
             }
         }
@@ -58,14 +57,15 @@ module.exports = function () {
 
     function createUser(newUser) {
         newUser._id = "ID_" + (new Date()).getTime();
-        console.log(newUser);
         users.push(newUser);
         return users;
     }
 
     function updateUser(id, user) {
+        console.log("model user updateUser got " + id + "|||" + user);
+        console.log(user._id);
         for (var u in users) {
-            if (users[u]._id === id) {
+            if (users[u]._id == id) {
                 users[u] = user;
             }
         }

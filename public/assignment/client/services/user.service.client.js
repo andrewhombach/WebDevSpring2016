@@ -10,12 +10,18 @@
             deleteUserById: deleteUserById,
             findAllUsers: findAllUsers,
             findUserByCredentials: findUserByCredentials,
+            findUserById: findUserById,
             updateUser: updateUser,
             getProfile: getProfile,
             setCurrentUser: setCurrentUser
         };
 
         return api;
+
+        function findUserById (userId) {
+            console.log("user.service.client.js got:" + userId);
+            return $http.get("/api/assignment/user/" + userId);
+        }
 
         function findUserByUsername (username) {
             return $http.get("/api/assignment/user?username=" + username);
@@ -38,6 +44,7 @@
         }
 
         function updateUser (userId, user) {
+            console.log(user);
             return $http.put("/api/assignment/user/" + userId, user);
         }
 
