@@ -6,15 +6,10 @@
 
     function FieldsController(FieldService, $routeParams) {
         var vm = this;
-        vm.display = "";
-        var formId = "000";
-        if ($routeParams.formId) {
-            formId = $routeParams.formId;
-        }
+
         vm.cField = null;
         vm.editField = editField;
         vm.commitEdit = commitEdit;
-
         vm.options =
         [
             'Single Line Text Field',
@@ -24,8 +19,13 @@
             'Checkboxes Field',
             'Radio Buttons Field'
         ];
-        vm.routeP = $routeParams;
         vm.selection = vm.options[0];
+
+        var formId = "000";
+
+        if ($routeParams.formId) {
+            formId = $routeParams.formId;
+        }
 
         function render(response) {
             vm.display = response.data;
@@ -37,6 +37,7 @@
                 .findFieldsByForm(formId)
                 .then(render);
         }
+        init();
 
         function editField(field) {
             vm.cField = field;
@@ -48,8 +49,6 @@
                 .updateField(formId, field._id, field)
                 .then(init)
         }
-
-        init();
 
     }
 })();
