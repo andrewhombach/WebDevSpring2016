@@ -1,14 +1,8 @@
 "use strict";
-(function (app) {
+(function () {
     angular
         .module("FormBuilderApp")
         .factory("FormService", FormService);
-
-    app.get("/api/assignment/user/:userId/form", findAllFormsForUser);
-    app.get("/api/assignment/form/:formId", getFormById);
-    app.delete("/api/assignment/form/:formId", deleteFormById);
-    app.post("/api/assignment/user/:userId/form", createFormForUser);
-    app.put("/api/assignment/form/:formId", updateFormById);
 
     function FormService ($http) {
 
@@ -23,6 +17,7 @@
         return api;
 
         function createFormForUser (userId, form) {
+            console.log("creating form.... form.service.client.js");
             return $http.post("/api/assignment/user/" + userId + "/form", form);
         }
 

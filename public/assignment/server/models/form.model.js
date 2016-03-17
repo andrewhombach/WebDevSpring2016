@@ -1,7 +1,7 @@
 var forms = require("./form.mock.json");
 module.exports = function (app) {
     var api = {
-        createForm: createForm,
+        createFormForUser: createFormForUser,
         deleteFormById: deleteFormById,
         findAllForms: findAllForms,
         findFormById: findFormById,
@@ -49,13 +49,15 @@ module.exports = function (app) {
                 forms.splice(f, 1);
             }
         }
+        console.log("form.model.js");
+        console.log(forms);
     }
 
-    function createForm (newForm) {
+    function createFormForUser (userId, newForm) {
         var nForm = {
-            _id: newForm._id,
+            _id: "ID_" + (new Date).getTime(),
             title: newForm.title,
-            userId: newForm.userId,
+            userId: userId,
             fields: newForm.fields
         };
         forms.push(nForm);
@@ -69,4 +71,6 @@ module.exports = function (app) {
             }
         }
     }
+
+
 };

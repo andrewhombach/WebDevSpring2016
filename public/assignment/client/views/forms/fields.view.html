@@ -6,27 +6,59 @@
         <li role="presentation" class="active"><a href="#/fields">Fields</a></li>
     </ul>
     <br>
-
+    {{model.routeP}}
     <form>
-        <label for="input1">First Name:</label>
-        <div class="input-group">
-            <input type="text" class="form-control" id="input1" placeholder="First Name">
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-warning">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                <button type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-info">
-                    <span class="glyphicon glyphicon-align-justify"></span>
-                </button>
+        <div ng-repeat="field in model.fields">
+            <label>{{field.label}}</label>
+            <div ng-switch="field.type">
+                <div ng-switch-when="text">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="{{field.placeholder}}">
+                        <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                    </div>
+                </div>
+                <div ng-switch-when="options">
+                    {{model.buildOptions(field)}}
+                    <div class="input-group">
+                        <select class="form-control">
+                            <div ng-repeat="op in field.options">
+                                <option>{{op}}</option>
+                            </div>
+                        </select>
+                        <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                    </div>
+                </div>
+                <div ng-switch-default>
+                    <p>{{field.type}}</p>
+                    <input type="date" class="form-control">
+                </div>
+                <br>
             </div>
         </div>
-        <br>
+
+
+        <!--
+                <label>{{field.label}}</label>
+                <div class="input-group">
+                    <input type="{{field.type}}" class="form-control" placeholder="{{field.placeholder}}">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </button>
+                    </div>
+                </div>
+        -->
+
+        <!--
         <label for="input2">Last Name:</label>
         <div class="input-group">
             <input type="text" class="form-control" id="input2" placeholder="Last Name">
@@ -147,6 +179,7 @@
                 </button>
             </div>
         </div>
+        -->
         <hr>
         <label for="input5">Add New Field:</label>
         <div class="input-group">

@@ -31,6 +31,11 @@
                 controller: "FieldsController",
                 controllerAs: "model"
             })
+            .when("/form/:formId/fields", {
+                templateUrl: "views/forms/fields.view.html",
+                controller: "FieldsController",
+                controllerAs: "model"
+            })
             .when("/register", {
                 templateUrl: "views/users/register.view.html",
                 controller: "RegisterController",
@@ -43,6 +48,6 @@
             })
             .otherwise({
                 redirectTo: "/home"
-            });
+            })
     }
 })();

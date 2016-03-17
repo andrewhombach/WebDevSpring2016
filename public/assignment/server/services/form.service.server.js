@@ -26,6 +26,7 @@ module.exports = function(app, formModel, userModel) {
     }
 
     function createFormForUser(req, res) {
+        console.log("recieved request and building user");
         var userId = req.params.userId;
         var form = req.body;
         res.json(formModel.createFormForUser(userId, form));
@@ -34,6 +35,7 @@ module.exports = function(app, formModel, userModel) {
     function updateFormById(req, res) {
         var id = req.params.formId;
         var form = req.body;
-        res.json(formModel.updateFormById(id, form));
+        formModel.updateForm(id, form);
+        res.send(200);
     }
 };

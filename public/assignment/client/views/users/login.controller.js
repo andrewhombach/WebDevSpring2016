@@ -4,17 +4,14 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($rootScope, UserService, $scope, $location) {
+    function LoginController($rootScope, UserService, $location) {
         var vm = this;
 
         vm.login = login;
 
         function login(user) {
             console.log(user.username + " " + user.password);
-            UserService.findUserByCredentials({
-                    username: user.username,
-                    password: user.password
-                })
+            UserService.findUserByCredentials(user.username, user.password)
                 .then(function (response)
                     {
                         if (response.data) {

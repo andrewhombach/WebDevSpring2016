@@ -7,25 +7,25 @@
       {
         "_id": "111",
         "label": "First Name",
-        "type": "TEXT",
+        "type": "text",
         "placeholder": "First Name"
       },
       {
         "_id": "222",
         "label": "Last Name",
-        "type": "TEXT",
+        "type": "text",
         "placeholder": "Last Name"
       },
       {
         "_id": "333",
         "label": "Address",
-        "type": "TEXT",
+        "type": "text",
         "placeholder": "Address"
       },
       {
         "_id": "444",
         "label": "State",
-        "type": "OPTIONS",
+        "type": "options",
         "options": [
           {
             "label": "Massachussetts",
@@ -40,13 +40,13 @@
       {
         "_id": "555",
         "label": "ZIP",
-        "type": "TEXT",
+        "type": "text",
         "placeholder": "ZIP"
       },
       {
         "_id": "666",
         "label": "Email",
-        "type": "EMAIL",
+        "type": "text",
         "placeholder": "Email"
       }
     ]
@@ -59,22 +59,20 @@
       {
         "_id": "777",
         "label": "Title",
-        "type": "TEXT",
+        "type": "text",
         "placeholder": "Title"
       },
       {
         "_id": "888",
         "label": "Description",
-        "type": "TEXTAREA",
+        "type": "textarea",
         "placeholder": "Title"
       },
       {
         "_id": "999",
         "label": "Due Date",
-        "type": "DATE"
+        "type": "date"
       }
     ]
   }
 ]
-
-

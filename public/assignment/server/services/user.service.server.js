@@ -1,11 +1,24 @@
 module.exports = function(app, userModel) {
     app.post("/api/assignment/user", register);
     app.get("/api/assignment/userCred/:username/:password", findUserByCredentials);
-    app.get("/api/assignment/user", getUsers);
+    app.get("/api/assignment/user", userRouter);
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user?username=username", findUserByUsername);
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUser);
+
+
+    function userRouter(req, res) {
+        if (req.query.username && req.query.password) {
+            findUserByCredentials(req, res);
+        }
+        else if (req.query.username) {
+            findUserByUsername(req, res);
+        }
+        else {
+            getUsers(req, res);
+        }
+    }
 
 
     function register(req, res) {
@@ -34,8 +47,8 @@ module.exports = function(app, userModel) {
     function findUserByCredentials(req, res) {
         console.log("Trying to log you in");
         var cred = {
-            username: req.params.username,
-            password: req.params.password
+            username: req.query.username,
+            password: req.query.password
         };
         console.log(cred);
         var user = userModel.findUserByCredentials(cred);

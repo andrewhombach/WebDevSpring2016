@@ -13,7 +13,6 @@
             updateUser: updateUser,
             getProfile: getProfile,
             setCurrentUser: setCurrentUser
-
         };
 
         return api;
@@ -22,9 +21,8 @@
             return $http.get("/api/assignment/user?username=" + username);
         }
 
-        function findUserByCredentials (cred) {
-            console.log("Trying to log in " + cred.username + " with password: " + cred.password);
-            return $http.get("/api/assignment/userCred/" + cred.username + "/" + cred.password);
+        function findUserByCredentials (username, password) {
+            return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
         }
 
         function findAllUsers () {
