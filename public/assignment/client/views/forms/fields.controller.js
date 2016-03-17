@@ -12,6 +12,7 @@
         vm.commitEdit = commitEdit;
         vm.deleteField = deleteField;
         vm.addField = addField;
+        vm.displayFieldOptions = displayFieldOptions;
         vm.options =
         [
             'Single Line Text Field',
@@ -22,8 +23,10 @@
             'Radio Buttons Field'
         ];
         vm.selection = vm.options[0];
+        vm.fieldOptions = null;
 
         var formId = "000";
+
 
 
         if ($routeParams.formId) {
@@ -36,7 +39,7 @@
                 {key: "Multi Line Text Field", value: "TEXTAREA"},
                 {key: "Date Field", value: "DATE"},
                 {key: "Dropdown Field", value: "OPTIONS"},
-                {key: "Checkbox Field", value: "CHECKBOXES"},
+                {key: "Checkboxes Field", value: "CHECKBOXES"},
                 {key: "Radio Buttons Field", value: "RADIOS"}
             ];
 
@@ -58,9 +61,22 @@
         }
         init();
 
+        function displayFieldOptions(options){
+            var output = "";
+            for (var o in options) {
+                output = output + o.label + ": " + o.value + "/n";
+            }
+            return output;
+        }
+
         function editField(field) {
             vm.cField = field;
+            if (vm.fieldOptions) {
+
+            }
         }
+
+        function editOptions(field, options) {}
 
         function commitEdit(field) {
             vm.cField = null;
@@ -86,7 +102,7 @@
         }
 
         function addField(fieldType) {
-            var field = {"label": "", "type": translateFieldType(fieldType), "placeholder": ""};
+            var field = {"label": "", "type": translateFieldType(fieldType), "placeholder": "", "options": null};
             console.log(field);
             FieldService
                 .createField(formId, field)
