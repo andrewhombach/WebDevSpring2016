@@ -8,6 +8,13 @@
         var vm = this;
         vm.display = "";
         var formId = "000";
+        if ($routeParams.formId) {
+            formId = $routeParams.formId;
+        }
+        vm.cField = null;
+        vm.editField = editField;
+        vm.commitEdit = commitEdit;
+
         vm.options =
         [
             'Single Line Text Field',
@@ -29,6 +36,17 @@
             FieldService
                 .findFieldsByForm(formId)
                 .then(render);
+        }
+
+        function editField(field) {
+            vm.cField = field;
+        }
+
+        function commitEdit(field){
+            vm.cField = null;
+            FieldService
+                .updateField(formId, field._id, field)
+                .then(init)
         }
 
         init();

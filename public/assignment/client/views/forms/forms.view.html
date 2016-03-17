@@ -37,10 +37,11 @@
             </td>
         </tr>
         <tr ng-repeat="form in model.forms">
-            <div ng-click="model.goToFields(form._id)">
-                <td>{{form.title}}</td>
-            </div>
-
+            <td>
+            <a href="#/form/{{form._id}}/fields">
+                    {{form.title}}
+            </a>
+            </td>
         <td>
             <div class="input-group">
                 <button ng-click="model.deleteForm(form)" class="btn btn-danger">

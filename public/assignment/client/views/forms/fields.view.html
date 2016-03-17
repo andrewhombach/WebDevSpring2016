@@ -6,7 +6,6 @@
         <li role="presentation" class="active"><a href="#/fields">Fields</a></li>
     </ul>
     <br>
-    {{model.routeP}}
     <form>
         <div ng-repeat="field in model.fields">
             <label>{{field.label}}</label>
@@ -14,11 +13,23 @@
                 <div ng-switch-when="text">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="{{field.placeholder}}">
-                        <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                        <div class="input-group-btn">
+                            <button ng-click="model.editField(field)" type="button" class="btn btn-warning" data-toggle="modal" data-target="#editField">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button type="button" class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" class="btn btn-info">
+                                <span class="glyphicon glyphicon-align-justify"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div ng-switch-when="options">
-                    {{model.buildOptions(field)}}
                     <div class="input-group">
                         <select class="form-control">
                             <div ng-repeat="op in field.options">
@@ -29,8 +40,10 @@
                     </div>
                 </div>
                 <div ng-switch-default>
-                    <p>{{field.type}}</p>
-                    <input type="date" class="form-control">
+                    <div class="input-group">
+                        <input type="date" class="form-control">
+                        <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+                    </div>
                 </div>
                 <br>
             </div>
@@ -198,5 +211,32 @@
             </div>
         </div>
     </form>
+
+    <div id="editField" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>{{model.cField.label}}</h3>
+                    <form>
+                        <label>Label</label>
+                        <input ng-model="model.cField.label" class="form-control" type="text" placeholder="{{model.cField.label}}">
+                        <br>
+                        <label>Placeholder</label>
+                        <input ng-model="model.cField.placeholder" class="form-control" type="text" placeholder="{{model.cField.placeholder}}">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button ng-click="model.commitEdit(model.cField)" type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
