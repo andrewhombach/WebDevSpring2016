@@ -12,7 +12,6 @@
         vm.commitEdit = commitEdit;
         vm.deleteField = deleteField;
         vm.addField = addField;
-        vm.displayFieldOptions = displayFieldOptions;
         vm.options =
         [
             'Single Line Text Field',
@@ -26,7 +25,6 @@
         vm.fieldOptions = null;
 
         var formId = "000";
-
 
 
         if ($routeParams.formId) {
@@ -61,24 +59,9 @@
         }
         init();
 
-        function displayFieldOptions(options){
-            var output = "";
-            for (var o in options) {
-                output = output + o.label + ": " + o.value + "/n";
-            }
-            return output;
-        }
 
-        function editField(field) {
-            vm.cField = field;
-            if (vm.fieldOptions) {
 
-            }
-        }
-
-        function editOptions(field, options) {}
-
-        function commitEdit(field) {
+        function sendEdit(field) {
             vm.cField = null;
             FieldService
                 .updateField(formId, field._id, field)
@@ -108,6 +91,63 @@
                 .createField(formId, field)
                 .then(init);
         }
+
+
+        function editField(field) {
+            vm.cField = field;
+
+            function isOption(field) {
+                var textField = field.type === 'TEXT' || field.type === 'TEXTAREA';
+                return !textField;
+            }
+
+
+            if (isOption(vm.cField)) {
+                var optionList = [];
+                var ol = vm.cField.options;
+                for (var o in ol) {
+                    optionList.push(ol[o].label + ":" + ol[o].value)
+                }
+                vm.optionText = optionList.join("\n");
+            }
+            else {
+                vm.placeholder = vm.cField.placeholder;
+            }
+        }
+
+
+
+        function commitEdit(field) {
+            var eField = field;
+
+            eField.label = vm.label;
+
+            function isOption(field) {
+                var textField = field.type === 'TEXT' || field.type === 'TEXTAREA';
+                return !textField;
+            }
+
+            var optionArray = [];
+            if (isOption(eField)) {
+                var oa = vm.optionText.split("\n");
+                for (var o in oa) {
+                    var a = oa[o].split(":");
+                    optionArray.push({
+                        label: a[0],
+                        value: a[1]
+                    });
+                }
+                eField.options = optionArray;
+
+            }
+            else {
+                eField.placeholder = vm.placeholder;
+            }
+
+            $route.reload();
+        }
+
+
 
     }
 })();

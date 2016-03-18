@@ -1,6 +1,6 @@
 var users = require("./user.mock.json");
 
-module.exports = function () {
+module.exports = function (uuid) {
     var api = {
         createUser: createUser,
         deleteUserById: deleteUserById,
@@ -35,7 +35,6 @@ module.exports = function () {
     function findUserById(id) {
         for (var u in users) {
             if (users[u]._id == id) {
-                console.log("found user: " + users[u]._id)
                 return users[u];
             }
         }
@@ -56,14 +55,12 @@ module.exports = function () {
     }
 
     function createUser(newUser) {
-        newUser._id = "ID_" + (new Date()).getTime();
+        newUser._id = uuid.v1();
         users.push(newUser);
         return users;
     }
 
     function updateUser(id, user) {
-        console.log("model user updateUser got " + id + "|||" + user);
-        console.log(user._id);
         for (var u in users) {
             if (users[u]._id == id) {
                 users[u] = user;

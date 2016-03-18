@@ -64,150 +64,6 @@
             </div>
         </div>
 
-
-        <!--
-                <label>{{field.label}}</label>
-                <div class="input-group">
-                    <input type="{{field.type}}" class="form-control" placeholder="{{field.placeholder}}">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-warning">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                        <button type="button" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <button type="button" class="btn btn-info">
-                            <span class="glyphicon glyphicon-align-justify"></span>
-                        </button>
-                    </div>
-                </div>
-        -->
-
-        <!--
-        <label for="input2">Last Name:</label>
-        <div class="input-group">
-            <input type="text" class="form-control" id="input2" placeholder="Last Name">
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-warning">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                <button type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-info">
-                    <span class="glyphicon glyphicon-align-justify"></span>
-                </button>
-            </div>
-        </div>
-        <br>
-        <label for="input3">Date of Birth:</label>
-        <div class="input-group">
-            <input type="date" class="form-control" id="input3" placeholder="Select Date">
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-warning">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                <button type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-info">
-                    <span class="glyphicon glyphicon-align-justify"></span>
-                </button>
-            </div>
-        </div>
-        <br>
-        <label for="input4">Gender:</label>
-        <div class="input-group">
-            <select class="form-control" id="input4">
-                <option>Male</option>
-                <option>Female</option>
-            </select>
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-warning">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                <button type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-info">
-                    <span class="glyphicon glyphicon-align-justify"></span>
-                </button>
-            </div>
-        </div>
-        <br>
-        <label>Roles:</label>
-        <div class="input-group">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox">Admin
-                </label>
-                <br>
-                <label>
-                    <input type="checkbox">Student
-                </label>
-                <br>
-                <label>
-                    <input type="checkbox">User
-                </label>
-            </div>
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-warning">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                <button type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-info">
-                    <span class="glyphicon glyphicon-align-justify"></span>
-                </button>
-            </div>
-        </div>
-        <br>
-        <label>License Agreement:</label>
-        <div class="input-group">
-            <div class="radio">
-                <label>
-                    <input type="radio" name="option1" id="option1" value="Yes" checked>
-                    Yes
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="option2" id="option2" value="No">
-                    No
-                </label>
-            </div>
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-warning">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                <button type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-info">
-                    <span class="glyphicon glyphicon-align-justify"></span>
-                </button>
-            </div>
-        </div>
-        -->
         <hr>
         <label for="input5">Add New Field:</label>
         <div class="input-group">
@@ -227,7 +83,6 @@
         </div>
     </form>
 
-
     <div id="editField" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -242,8 +97,7 @@
                         <h3>Single Line Field</h3>
                         <form>
                             <label>Label</label>
-                            <input ng-model="model.cField.label" class="form-control" type="text"
-                                   placeholder="Edit Label">
+                            <input ng-model="model.cField.label" class="form-control" type="text" placeholder="Edit Label">
                             <br>
                             <label>Placeholder</label>
                             <input ng-model="model.cField.placeholder" class="form-control" type="text"
@@ -267,8 +121,7 @@
                             <input ng-model="model.cField.label" class="form-control" type="text" placeholder="Edit Dropdown Label">
                             <br>
                             <label>Options</label>
-                            <textarea ng-model="model.cField.options" class="form-control" placeholder="Edit Dropdown Options"></textarea>
-                        </form>
+                            <textarea ng-model="model.optionText" class="form-control" placeholder="Edit Dropdown Options" ng-list="&#10;" ng-trim="false"></textarea>                        </form>
                     </div>
                     <div ng-switch-when="DATE">
                         <h3>Date Field</h3>
@@ -285,7 +138,7 @@
                             <input ng-model="model.cField.label" class="form-control" type="text" placeholder="Edit Radio Label">
                             <br>
                             <label>Options</label>
-                            <textarea ng-model="model.cField.options" class="form-control" placeholder="Edit Radio Options"></textarea>
+                            <textarea ng-model="model.options" class="form-control" placeholder="Edit Radio Options"></textarea>
                         </form>
                     </div>
                     <div ng-switch-default>
@@ -307,5 +160,6 @@
             </div>
         </div>
     </div>
+
 </div>
 

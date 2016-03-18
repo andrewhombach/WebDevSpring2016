@@ -1,5 +1,6 @@
 var forms = require("./form.mock.json");
-module.exports = function (app) {
+
+module.exports = function (uuid) {
     var api = {
         createFormForUser: createFormForUser,
         deleteFormById: deleteFormById,
@@ -10,6 +11,8 @@ module.exports = function (app) {
         findFormsByUserId: findFormsByUserId
     };
     return api;
+
+
 
     function findFormByTitle(title) {
         for (var f in forms) {
@@ -55,7 +58,7 @@ module.exports = function (app) {
 
     function createFormForUser (userId, newForm) {
         var nForm = {
-            _id: "ID_" + (new Date).getTime(),
+            _id: uuid.v1(),
             title: newForm.title,
             userId: userId,
             fields: []
@@ -71,6 +74,4 @@ module.exports = function (app) {
             }
         }
     }
-
-
 };
