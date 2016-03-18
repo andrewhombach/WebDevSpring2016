@@ -19,7 +19,7 @@
                 <div ng-switch-when="OPTIONS">
                     <div class="input-group">
                         <select class="form-control">
-                            <option ng-repeat="op in field.options">{{op.label}}, {{op.value}}</option>
+                            <option ng-repeat="op in field.options">{{op.label}}</option>
                         </select>
                         <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
                     </div>
@@ -35,12 +35,13 @@
                         <div class="checkbox">
                             <div ng-repeat="op in field.options">
                                 <label>
-                                    <input type="checkbox">{{op.label}}, {{op.value}}
+                                    <input type="checkbox" value="{{op.value}}">{{op.label}}
                                 </label>
                                 <br>
                             </div>
-                            <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
                         </div>
+                            <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
+
                     </div>
                 </div>
                 <div ng-switch-when="RADIOS">
