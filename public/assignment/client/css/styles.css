@@ -104,3 +104,7 @@ body {
     border-radius: 50%;
 }
 
+.borderless td {
+    border: none;
+}
+
