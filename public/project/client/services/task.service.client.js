@@ -5,26 +5,7 @@
 
     function TaskService() {
         var model = {
-            tasks: [
-                {
-                    "_id": 456, "name": "Pack for California",
-                    "createDate": "03/01/2016", "dueDate": "03/04/20'16",
-                    "userIds": [123, 234], "project": 456, "notes": "Call: (617) 924-9234 Made initial contact but will need to follow up with that number",
-                    "location": "Big Sur, CA"
-                },
-                {
-                    "_id": 323, "name": "Finish Computer Science Homework",
-                    "createDate": "03/01/2016", "dueDate": "03/04/2016",
-                    "userIds": [234], "project": 456, "notes": "Need to finish wireframes",
-                    "location": "Boston, MA"
-                },
-                {
-                    "_id": 436, "name": "Buy flight home",
-                    "createDate": "03/11/2016", "dueDate": "03/13/2016",
-                    "userIds": [111], "project": 333, "notes": "United Airlines flight is the cheapest",
-                    "location": "Los Angeles, CA"
-                }
-            ],
+            tasks: ,
             createTask: createTask,
             deleteTaskById: deleteTaskById,
             findAllTasksByUserId: findAllTasksByUserId,

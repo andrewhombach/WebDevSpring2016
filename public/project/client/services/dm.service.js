@@ -5,14 +5,7 @@
 
     function DMService() {
         var model = {
-            dms: [
-                {
-                    "_id": 111, "user1": 123, "user2": 456, "messages": [123, 124, 125]
-                },
-                {
-                    "_id": 323, "user1": 234, "user2": 555, "messages": [126, 127, 128]
-                }
-            ],
+            dms: ,
             createDM: createDM,
             deleteDMById: deleteDMById,
             findAllDMsByUserId: findAllDMsByUserId,

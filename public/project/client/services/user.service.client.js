@@ -5,20 +5,6 @@
 
     function UserService() {
         var model = {
-            users: [
-                {
-                    "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
-                    "username": "alice", "password": "alice", "projects": ["Hombach Family"], "email": "alice@gmail.com"
-                },
-                {
-                    "_id": 234, "firstName": "Bob", "lastName": "Hope",
-                    "username": "bob", "password": "bob", "projects": ["Hombach Family" , "Ski Trip"], "email": "bob@gmail.com"
-                },
-                {
-                    "_id": 345, "firstName": "Charlie", "lastName": "Brown",
-                    "username": "charlie", "password": "charlie", "projects": ["Computer Science Project"], "email": "charlie@gmail.com"
-                }
-            ],
             createUser: createUser,
             deleteUserById: deleteUserById,
             findAllUsers: findAllUsers,

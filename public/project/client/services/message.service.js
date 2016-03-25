@@ -5,17 +5,7 @@
 
     function MessageService() {
         var model = {
-            messages: [
-                {
-                    "_id": 111, "userId": 123, "text": "hey! whats up!"
-                },
-                {
-                    "_id": 323, "userId": 123, "text": "What what!"
-                },
-                {
-                    "_id": 444, "userId": 234, "text": "Lets make this call happen soon"
-                }
-            ],
+            messages: ,
             createMessage: createMessage,
             deleteMessageById: deleteMessageById,
             findAllMessagesByUserId: findAllMessagesByUserId,
