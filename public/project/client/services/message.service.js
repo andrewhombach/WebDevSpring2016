@@ -11,17 +11,19 @@
             findAllMessagesByUserId: findAllMessagesByUserId,
             findMessageById: findMessageById,
             updateMessage: updateMessage,
-            findAllMessages: findAllMessages
+            findAllMessages: findAllMessages,
+            findMessagesByProjectId: findMessagesByProjectId
         };
 
         return api;
 
         function findMessageById(id) {
-            return $http.get("/api/message/" + id)
+            console.log(id);
+            return $http.get("/api/message/" + id);
         }
 
         function findAllMessagesByUserId(userId) {
-            return $http.get("/api/user/" + userId + "/message")
+            return $http.get("/api/user/" + userId + "/message");
         }
 
         function deleteMessageById(messageId) {
@@ -33,11 +35,16 @@
         }
 
         function createMessage(message) {
-            return $http.post("/api/message/", message)
+            return $http.post("/api/message/", message);
         }
 
         function updateMessage(messageId, message) {
             return $http.put("/api/message/" + messageId, message);
         }
+
+        function findMessagesByProjectId(id) {
+            return $http.get("/api/project/" + id + "/message");
+        }
+
     }
 })();

@@ -1,5 +1,5 @@
 var messages = require("./message.mock.json");
-module.exports = function(uuid) {
+module.exports = function(uuid, ProjectModel) {
     var api = {
         createMessage: createMessage,
         deleteMessage: deleteMessage,
@@ -7,7 +7,8 @@ module.exports = function(uuid) {
         updateMessage: updateMessage,
         findMessagesByUserId: findMessagesByUserId,
         findAllMessages: findAllMessages,
-        searchMessages: searchMessages
+        searchMessages: searchMessages,
+        findMessagesByProjectId: findMessagesByProjectId
     };
 
     return api;
@@ -43,6 +44,7 @@ module.exports = function(uuid) {
     function findMessage(messageId) {
         for (var d in messages) {
             if (messages[d]._id == messageId) {
+                console.log(messages[d]);
                 return messages[d];
             }
         }
@@ -77,6 +79,19 @@ module.exports = function(uuid) {
     function addResult(message, results) {
         results.push(message);
         return results;
+    }
+
+    function findMessagesByProjectId(id) {
+        var returnMessages = [];
+        var project = ProjectModel.findProject(id);
+        for (p in project.messages) {
+            for (m in messages){
+                if (messages[m]._id == project.messages[p]) {
+                    returnMessages.push(messages[m]);
+                }
+            }
+        }
+        return returnMessages;
     }
 
 };

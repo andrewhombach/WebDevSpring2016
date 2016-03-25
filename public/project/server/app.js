@@ -3,7 +3,7 @@ module.exports = function(app, uuid) {
     var UserModel = require("./models/users.model.js") (uuid);
     var ProjectModel = require("./models/project.model.js") (uuid);
     var TaskModel = require("./models/tasks.model.js") (uuid);
-    var MessageModel = require("./models/message.model.js") (uuid);
+    var MessageModel = require("./models/message.model.js") (uuid, ProjectModel);
 
     var userService = require("./services/user.service.server.js") (app, UserModel);
     var dmService = require("./services/dm.service.server.js") (app, DMModel);
