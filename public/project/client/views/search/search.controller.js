@@ -3,9 +3,30 @@
         .module("CoLabApp")
         .controller("SearchController", SearchController);
 
-    function SearchController($scope, $rootScope, $location) {
+    function SearchController($scope, $rootScope, $location, SearchService) {
         $scope.$location = $location.url();
         $scope.searchTerm = $rootScope.searchTerm;
+
+        function renderResults(results) {
+            $scope.projects = results.projects;
+            $scope.tasks = results.tasks;
+            $scope.messages = results.messages;
+
+        }
+
+        function search(searchTerm) {
+            SearchService.search(searchTerm)
+                .then(function (response) {
+                    $scope.results = response.data;
+                    renderResults($scope.results);
+                });
+        }
+
+
+
+        search($scope.searchTerm);
+
+
 
 
     }

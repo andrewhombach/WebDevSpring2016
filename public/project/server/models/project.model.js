@@ -5,7 +5,9 @@ module.exports = function(uuid) {
         deleteProject: deleteProject,
         findProject: findProject,
         updateProject: updateProject,
-        findProjectsByUserId: findProjectsByUserId
+        findProjectsByUserId: findProjectsByUserId,
+        findAllProjects: findAllProjects,
+        searchProjects: searchProjects
     };
 
     return api;
@@ -18,16 +20,20 @@ module.exports = function(uuid) {
 
     function deleteProject(projectId){
         for (var d in projects) {
-            if (projects[d]._id === projectId) {
+            if (projects[d]._id == projectId) {
                 projects.splice(d, 1);
             }
         }
         return projects;
     }
 
+    function findAllProjects() {
+        return projects;
+    }
+
     function updateProject(project, projectId) {
         for (var d in projects) {
-            if (projects[d]._id === projectId) {
+            if (projects[d]._id == projectId) {
                 projects[d] = project;
             }
         }
@@ -36,7 +42,7 @@ module.exports = function(uuid) {
 
     function findProject(projectId) {
         for (var d in projects) {
-            if (projects[d]._id === projectId) {
+            if (projects[d]._id == projectId) {
                 return projects[d];
             }
         }
@@ -45,10 +51,43 @@ module.exports = function(uuid) {
     function findProjectsByUserId(userId) {
         var returnProjects = [];
         for (var d in projects) {
-            if (projects[d].user1 === userId || projects[d].user2 === userId) {
-                returnProjects.push(projects[d]);
+            console.log(projects[d]);
+            var users = projects[d].userIds;
+            for (var u in users){
+                if (users[u] == userId) {
+                    returnProjects.push(projects[d]);
+                    console.log(projects[d]);
+                }
             }
         }
         return returnProjects;
+    }
+
+    function searchProjects(term) {
+        var results = [];
+        for (var t in projects) {
+            if (projects[t].name == term) {
+                results = addResult(projects[t], results);
+            }
+        }
+        return results;
+    }
+
+    function addResult(project, results) {
+        if (results.length == 0) {
+            results.push(project);
+            return results;
+        }
+        else {
+            for (var t in results) {
+                if (results[t]._id == project._id) {
+                    return results;
+                }
+                results.push(project);
+                return results;
+            }
+            return results;
+        }
+
     }
 };

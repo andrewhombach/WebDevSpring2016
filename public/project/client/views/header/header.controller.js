@@ -3,24 +3,26 @@
         .module("CoLabApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($rootScope, $location, $scope) {
+    function HeaderController($rootScope, $location, $scope, SearchService) {
         $scope.logout = logout;
         $scope.$location = $location;
         $scope.search = search;
         $scope.searchTerm = "";
         $rootScope.searchTerm = $scope.searchTerm;
-        $scope.searchKey = searchKey;
 
         function logout() {
             $rootScope.cUser = null;
         }
 
-        function search() {
+        function search(searchTerm){
+            $rootScope.searchTerm = searchTerm;
             $location.path("/search");
+            console.log(searchTerm);
         }
 
-        function searchKey(searchKey) {
-            $rootScope.searchTerm = searchKey;
-        }
+
+
+
+
     }
 })();

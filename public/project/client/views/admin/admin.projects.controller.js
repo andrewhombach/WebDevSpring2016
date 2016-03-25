@@ -13,21 +13,21 @@
         var all = true;
 
         function init() {
-            var callback = function (response) {
-                $scope.projects = response;
-                console.log(response);
-            };
-            ProjectService.findAllProjectsByUserId($rootScope.cUser._id, callback)
+
+            ProjectService.findAllProjectsByUserId($rootScope.cUser._id)
+                .then(function (response) {
+                    $scope.projects = response.data;
+                })
         }
 
         init();
 
         function seeAllProjects() {
-            var callback = function (response) {
-                $scope.projects = response;
-                console.log(response)
-            };
-            ProjectService.findAllProjects(callback);
+
+            ProjectService.findAllProjects()
+                .then(function (response) {
+                    $scope.projects = response.data;
+                });
         }
 
         function retrieveProjects (){
@@ -52,17 +52,20 @@
         }
 
         function deleteProject(project) {
-            ProjectService.deleteProjectById(project._id, retrieveProjects);
+            ProjectService.deleteProjectById(project._id)
+                .then(retrieveProjects);;
         }
 
         function addProject(project) {
             var userArray = project.userIds.split(",");
             project.userIds = userArray;
-            ProjectService.createProject(project, retrieveProjects);
+            ProjectService.createProject(project)
+                .then(retrieveProjects);;
         }
 
         function updateProject(project) {
-            ProjectService.updateProject(project._id, project, retrieveProjects);
+            ProjectService.updateProject(project._id, project)
+                .then(retrieveProjects);
             $scope.project = null;
         }
 

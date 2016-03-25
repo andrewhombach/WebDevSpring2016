@@ -17,7 +17,10 @@
                 $scope.messages = response;
                 console.log(response);
             };
-            MessageService.findAllMessagesByUserId($rootScope.cUser._id, callback)
+            MessageService.findAllMessagesByUserId($rootScope.cUser._id)
+                .then(function (response) {
+                    $scope.messages = response.data;
+                })
         }
 
         init();
@@ -27,7 +30,10 @@
                 $scope.messages = response;
                 console.log(response)
             };
-            MessageService.findAllMessages(callback);
+            MessageService.findAllMessages()
+                .then(function (response) {
+                    $scope.messages = response.data;
+                });
         }
 
         function retrieveMessages (){
@@ -51,15 +57,18 @@
         }
 
         function deleteMessage(message) {
-            MessageService.deleteMessageById(message._id, retrieveMessages);
+            MessageService.deleteMessageById(message._id)
+                .then(retrieveMessages);
         }
 
         function addMessage(message) {
-            MessageService.createMessage(message, retrieveMessages);
+            MessageService.createMessage(message)
+                .then(retrieveMessages);
         }
 
         function updateMessage(message) {
-            MessageService.updateMessage(message._id, message, retrieveMessages);
+            MessageService.updateMessage(message._id, message)
+                .then(retrieveMessages);
             $scope.message = null;
         }
 

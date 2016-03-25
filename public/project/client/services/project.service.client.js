@@ -3,8 +3,8 @@
         .module("CoLabApp")
         .factory("ProjectService", ProjectService);
 
-    function ProjectService() {
-        var model = {
+    function ProjectService($http) {
+        var api = {
             createProject: createProject,
             deleteProjectById: deleteProjectById,
             findAllProjectsByUserId: findAllProjectsByUserId,
@@ -13,67 +13,30 @@
             findAllProjects: findAllProjects
         };
 
-        return model;
+        return api;
 
-        function findProjectById (id, callback) {
-            var projects = model.projects;
-            for (var p in projects) {
-                if (projects[p]._id == id) {
-                    callback(model.projects[p]);
-                }
-            }
+        function findProjectById(id) {
+            return $http.get("/api/project/" + id)
         }
 
-        function findAllProjectsByUserId (userId, callback) {
-            var projects = model.projects;
-            var userProjects = [];
-            for (var p in projects) {
-                for (var u in projects[p].userIds) {
-                    if (projects[p].userIds[u] == userId) {
-                        userProjects.push(projects[p]);
-                    }
-                }
-            }
-            callback(userProjects)
+        function findAllProjectsByUserId(userId) {
+            return $http.get("/api/user/" + userId + "/project")
         }
 
-        function deleteProjectById (projectId, callback) {
-            var projects = model.projects;
-            for (var p in projects) {
-                if (projects[p]._id === projectId) {
-                    projects.splice(p, 1);
-                    callback(model.projects);
-                }
-            }
+        function deleteProjectById(projectId) {
+            return $http.delete("/api/project/" + projectId);
         }
 
-        function findAllProjects (callback) {
-            callback(model.projects);
+        function findAllProjects() {
+            return $http.get("/api/project");
         }
 
-        function createProject (project, callback) {
-            var newProject = {
-                _id: project._id,
-                name: project.name,
-                userIds: project.userIds,
-                admin: project.admin,
-                tasks: project.tasks,
-                messages: project.messages,
-                description: project.description
-            };
-            model.projects.push(newProject);
-            callback(model.projects);
-
+        function createProject(project) {
+            return $http.post("/api/project/", project)
         }
 
-        function updateProject (projectId, project, callback) {
-            var projects = model.projects;
-            for (var p in projects) {
-                if (projects[p]._id === projectId) {
-                    projects[p] = project;
-                    callback(model.projects[p]);
-                }
-            }
+        function updateProject(projectId, project) {
+            return $http.put("/api/project/" + projectId, project);
         }
     }
 })();

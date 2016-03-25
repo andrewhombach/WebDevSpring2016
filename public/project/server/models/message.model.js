@@ -5,10 +5,16 @@ module.exports = function(uuid) {
         deleteMessage: deleteMessage,
         findMessage: findMessage,
         updateMessage: updateMessage,
-        findMessagesByUserId: findMessagesByUserId
+        findMessagesByUserId: findMessagesByUserId,
+        findAllMessages: findAllMessages,
+        searchMessages: searchMessages
     };
 
     return api;
+
+    function findAllMessages() {
+        return messages;
+    }
 
     function createMessage(message) {
         message._id = uuid.v1();
@@ -18,7 +24,7 @@ module.exports = function(uuid) {
 
     function deleteMessage(messageId){
         for (var d in messages) {
-            if (messages[d]._id === messageId) {
+            if (messages[d]._id == messageId) {
                 messages.splice(d, 1);
             }
         }
@@ -27,7 +33,7 @@ module.exports = function(uuid) {
 
     function updateMessage(message, messageId) {
         for (var d in messages) {
-            if (messages[d]._id === messageId) {
+            if (messages[d]._id == messageId) {
                 messages[d] = message;
             }
         }
@@ -36,7 +42,7 @@ module.exports = function(uuid) {
 
     function findMessage(messageId) {
         for (var d in messages) {
-            if (messages[d]._id === messageId) {
+            if (messages[d]._id == messageId) {
                 return messages[d];
             }
         }
@@ -45,10 +51,32 @@ module.exports = function(uuid) {
     function findMessagesByUserId(userId) {
         var returnMessages = [];
         for (var d in messages) {
-            if (messages[d].user1 === userId || messages[d].user2 === userId) {
+            if (messages[d].userId == userId) {
                 returnMessages.push(messages[d]);
             }
         }
         return returnMessages;
     }
+
+    function searchMessages(term) {
+        if (term.length == 0) {
+            return null;
+        }
+        var results = [];
+        for (var t in messages) {
+            var searchLength = messages[t].text.length - term.length;
+            for (i = 0; i < searchLength; i++) {
+                if (messages[t].text.substring(0 + i, term.length + i) == term) {
+                    results = addResult(messages[t], results);
+                }
+            }
+        }
+        return results;
+    }
+
+    function addResult(message, results) {
+        results.push(message);
+        return results;
+    }
+
 };

@@ -1,11 +1,12 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="SearchController">
 
-    <h1>{{searchTerm}}<h1>
     <hr>
 
     <h3>Projects</h3>
     <hr>
-    <h5>California Road Trip</h5>
+    <div ng-repeat="p in projects">
+        <h5>{{p.name}}</h5>
+    </div>
 
     <h3>Users</h3>
     <hr>
@@ -15,9 +16,13 @@
 
     <h3>Tasks</h3>
     <hr>
-    <h5>plan big sur</h5>
+    <div ng-repeat="t in tasks">
+        <h5>{{t.name}}</h5>
+    </div>
 
     <h3>Messages</h3>
     <hr>
-    <h5>Hey Andrew Could you give me and hand with planning this?</h5>
+    <div ng-repeat="t in messages">
+        <h5>{{t.text}}</h5>
+    </div>
 </div>

@@ -30,8 +30,9 @@
                 </li>
                 <li ng-show="cUser"><a href="#/newproject">New Project</a></li>
             </ul>
-            <form ng-keypress="searchKey(searchTerm)" ng-click="search()" ng-hide="$location.url() == '/splash' || !cUser" class="navbar-form navbar-right">
-                <input ng-model="searchTerm" ng-click="search()" type="text" class="form-control" placeholder="Search...">
+            <form ng-hide="$location.url() == '/splash' || !cUser" class="navbar-form navbar-right">
+                <input ng-model="searchTerm" type="text" class="form-control" placeholder="Search...">
+                <button class="btn btn-info" ng-click="search(searchTerm)">Search</button>
             </form>
         </div>
     </div>

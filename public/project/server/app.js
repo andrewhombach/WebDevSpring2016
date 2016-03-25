@@ -9,6 +9,7 @@ module.exports = function(app, uuid) {
     var dmService = require("./services/dm.service.server.js") (app, DMModel);
 
     var taskService = require("./services/task.service.server.js") (app, TaskModel);
-//    var projectService = require("./services/project.service.server.js") (app, ProjectModel);
-//    var messageService = require("./services/message.service.server.js") (app, MessageModel);
+    var projectService = require("./services/project.service.server.js") (app, ProjectModel);
+    var messageService = require("./services/message.service.server.js") (app, MessageModel);
+    var searchService = require("./services/search.service.server.js") (app, TaskModel, ProjectModel, MessageModel, DMModel, UserModel)
 }

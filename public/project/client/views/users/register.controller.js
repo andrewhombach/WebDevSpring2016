@@ -7,12 +7,13 @@
         $scope.register = register;
 
         function register(user) {
-            var callback = function (response) {
-                $rootScope.cUser = response;
-            };
-            UserService.createUser(user, callback);
-            console.log($rootScope.cUser);
-            $location.url("/profile");
+            UserService.createUser(user)
+                .then(function (response) {
+                    console.log(response.data);
+                    $rootScope.cUser = response.data;
+                    $location.url("/profile");
+
+                });
         }
     }
 })();

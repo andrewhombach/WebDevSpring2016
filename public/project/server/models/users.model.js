@@ -36,7 +36,7 @@ module.exports = function(uuid) {
     function createUser(user) {
         user._id = uuid.v1();
         users.push(user);
-        return users;
+        return user;
     }
 
     function findAllUsers() {
