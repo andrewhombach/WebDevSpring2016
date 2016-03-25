@@ -8,15 +8,11 @@
         $scope.login = login;
 
         function login (username, password) {
-
-            var callback = function (response) {
-                if (response) {
-                    $rootScope.cUser = response;
-                    console.log("successfully loged in the following user:" + $rootScope.cUser);
+            UserService.findUserByCredentials(username, password)
+                .then(function (response) {
+                    $rootScope.cUser = response.data;
                     $location.url("/profile");
-                }
-            };
-            UserService.findUserByCredentials(username, password, callback);
+                });
         }
 
     }

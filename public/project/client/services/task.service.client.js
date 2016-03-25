@@ -1,11 +1,11 @@
+"use strict";
 (function () {
     angular
         .module("CoLabApp")
         .factory("TaskService", TaskService);
 
-    function TaskService() {
-        var model = {
-            tasks: ,
+    function TaskService($http) {
+        var api = {
             createTask: createTask,
             deleteTaskById: deleteTaskById,
             findAllTasksByUserId: findAllTasksByUserId,
@@ -14,68 +14,30 @@
             findAllTasks: findAllTasks
         };
 
-        return model;
+        return api;
 
-        function findTaskById (id, callback) {
-            var tasks = model.tasks;
-            for (var t in tasks) {
-                if (tasks[t]._id == id) {
-                    callback(model.tasks[t]);
-                }
-            }
+        function findTaskById (id) {
+            return $http.get("/api/task/" + id)
         }
 
-        function findAllTasksByUserId (userId, callback) {
-            var tasks = model.tasks;
-            var userTasks = [];
-            for (var t in tasks) {
-                for (var u in tasks[t].userIds) {
-                    if (tasks[t].userIds[u] == userId) {
-                        userTasks.push(tasks[t]);
-                    }
-                }
-            }
-            callback(userTasks)
+        function findAllTasksByUserId (userId) {
+            return $http.get("/api/user/" + userId + "/task")
         }
 
-        function deleteTaskById (taskId, callback) {
-            var tasks = model.tasks;
-            for (var t in tasks) {
-                if (tasks[t]._id === taskId) {
-                    tasks.splice(t, 1);
-                    callback(model.tasks);
-                }
-            }
+        function deleteTaskById (taskId) {
+            return $http.delete("/api/task/" + taskId);
         }
 
-        function findAllTasks (callback) {
-            callback(model.tasks);
+        function findAllTasks () {
+            return $http.get("/api/task");
         }
 
-        function createTask (task, callback) {
-            var newTask = {
-                _id: task._id,
-                name: task.name,
-                createDate: task.createDate,
-                dueDate: task.dueDate,
-                userIds: task.userIds,
-                project: task.project,
-                notes: task.notes,
-                location: task.location
-            };
-            model.tasks.push(newTask);
-            callback(model.tasks);
-
+        function createTask (task) {
+            return $http.post("/api/task/", task)
         }
 
-        function updateTask (taskId, task, callback) {
-            var tasks = model.tasks;
-            for (var t in tasks) {
-                if (tasks[t]._id === taskId) {
-                    tasks[t] = task;
-                    callback(model.tasks[t]);
-                }
-            }
+        function updateTask (taskId, task) {
+            return $http.put("/api/task/" + taskId, task);
         }
     }
 })();

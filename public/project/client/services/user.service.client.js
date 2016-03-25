@@ -3,62 +3,57 @@
         .module("CoLabApp")
         .factory("UserService", UserService);
 
-    function UserService() {
-        var model = {
+
+    function UserService($http) {
+        var api = {
             createUser: createUser,
             deleteUserById: deleteUserById,
             findAllUsers: findAllUsers,
             findUserByCredentials: findUserByCredentials,
-            updateUser: updateUser
+            findUserById: findUserById,
+            updateUser: updateUser,
+            getProfile: getProfile,
+            setCurrentUser: setCurrentUser
         };
 
-        return model;
+        return api;
 
-        function findUserByCredentials (username, password, callback) {
-            users = model.users;
-            for (var u in users) {
-                if (users[u].username == username && users[u].password == password) {
-                    callback(model.users[u]);
-                }
-            }
+        function findUserById (userId) {
+            console.log("user.service.client.js got:" + userId);
+            return $http.get("/api/user/" + userId);
         }
 
-        function findAllUsers (callback) {
-            callback(model.users)
+        function findUserByUsername (username) {
+            return $http.get("/api/user?username=" + username);
         }
 
-        function deleteUserById (userId, callback) {
-            var users = model.users;
-            for (var u in users) {
-                if (users[u]._id === userId) {
-                    users.splice(u, 1);
-                    callback(model.users);
-                }
-            }
+        function findUserByCredentials (username, password) {
+            return $http.get("/api/user?username=" + username + "&password=" + password);
         }
 
-        function createUser (user, callback) {
-            var newUser = {
-                _id: user._id,
-                username: user.username,
-                email: user.email,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                password: user.password,
-                projects: user.projects
-            };
-            model.users.push(newUser);
-            callback(newUser);
+        function findAllUsers () {
+            return $http.get("/api/user");
         }
 
-        function updateUser (userId, user, callback) {
-            var users = model.users;
-            for (var u in users) {
-                if (users[u]._id === userId) {
-                    users[u] = user;
-                    callback(model.users[u]);
-                }
-            }
+        function deleteUserById (userId) {
+            return $http.delete("/api/user/" + userId);
+        }
+
+        function createUser (user) {
+            return $http.post("/api/user", user);
+        }
+
+        function updateUser (userId, user) {
+            console.log(user);
+            return $http.put("/api/user/" + userId, user);
+        }
+
+        function getProfile() {
+            return $rootScope.cUser;
+        }
+
+        function setCurrentUser(user) {
+            $rootScope.cUser = user;
         }
     }
 })();

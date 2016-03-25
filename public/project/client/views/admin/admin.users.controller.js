@@ -9,27 +9,31 @@
         $scope.updateUser = updateUser;
         $scope.selectUser = selectUser;
 
+        function renderUsers(response) {
+            $scope.users = response.data;
+        }
 
         function init() {
-            var callback = function (response) {
-                $scope.users = response;
-                console.log(response);
-            };
-            UserService.findAllUsers(callback)
+            UserService.findAllUsers()
+                .then(renderUsers)
         }
 
         init();
 
         function deleteUser(user) {
-            UserService.deleteUserById(user._id, init);
+            UserService.deleteUserById(user._id)
+                .then(renderUsers);
         }
 
         function addUser(user) {
-            UserService.createUser(user, init);
+            UserService.createUser(user)
+                .then(renderUsers);
         }
 
         function updateUser(user) {
-            UserService.updateUser(user._id,user, init);
+            console.log(user);
+            UserService.updateUser(user._id,user)
+                .then(renderUsers);
             $scope.user = null;
         }
 

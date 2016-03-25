@@ -1,11 +1,11 @@
+"use strict";
 (function () {
     angular
         .module("CoLabApp")
         .factory("DMService", DMService);
 
-    function DMService() {
-        var model = {
-            dms: ,
+    function DMService($http) {
+        var api = {
             createDM: createDM,
             deleteDMById: deleteDMById,
             findAllDMsByUserId: findAllDMsByUserId,
@@ -14,64 +14,30 @@
             findAllDMs: findAllDMs
         };
 
-        return model;
+        return api;
 
-        function findDMById (id, callback) {
-            var dms = model.dms;
-            for (var d in dms) {
-                if (dms[d]._id == id) {
-                    callback(model.dms[d]);
-                }
-            }
+        function findDMById (id) {
+            return $http.get("/api/dm/" + id)
         }
 
-        function findAllDMsByUserId (userId, callback) {
-            var dms = model.dms;
-            var userDMs = [];
-            for (var d in dms) {
-                if (dms[d].user1 == userId || dms[d].user2 == userId){
-                    userDMs.push(dms[d]);
-                    console.log(dms[d].user1 + "," + dms[d].user2);
-                }
-            }
-            callback(userDMs);
+        function findAllDMsByUserId (userId) {
+            return $http.get("/api/user/" + userId + "/dm")
         }
 
-        function deleteDMById (dmId, callback) {
-            var dms = model.dms;
-            for (var d in dms) {
-                if (dms[d]._id === dmId) {
-                    dms.splice(d, 1);
-                    callback(model.dms);
-                }
-            }
+        function deleteDMById (dmId) {
+            return $http.delete("/api/dm/" + dmId);
         }
 
-        function findAllDMs (callback) {
-            callback(model.dms);
+        function findAllDMs () {
+            return $http.get("/api/dm");
         }
 
-        function createDM (dm, callback) {
-            var newDM = {
-                _id: dm._id,
-                user1: dm.user1,
-                user2: dm.user2,
-                messages: dm.messages
-
-            };
-            model.dms.push(newDM);
-            console.log(newDM);
-            callback(model.dms);
+        function createDM (dm) {
+            return $http.post("/api/dm/", dm)
         }
 
-        function updateDM (dmId, dm, callback) {
-            var dms = model.dms;
-            for (var d in dms) {
-                if (dms[d]._id === dmId) {
-                    dms[d] = dm;
-                    callback(model.dms[d]);
-                }
-            }
+        function updateDM (dmId, dm) {
+            return $http.put("/api/dm/" + dmId, dm);
         }
     }
 })();

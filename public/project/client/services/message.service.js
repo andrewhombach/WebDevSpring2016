@@ -5,7 +5,6 @@
 
     function MessageService() {
         var model = {
-            messages: ,
             createMessage: createMessage,
             deleteMessageById: deleteMessageById,
             findAllMessagesByUserId: findAllMessagesByUserId,

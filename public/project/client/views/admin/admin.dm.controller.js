@@ -12,22 +12,22 @@
 
         var all = true;
 
+        function renderDms(response) {
+            console.log(response.data);
+            $scope.dms = response.data;
+        }
+
         function init() {
-            var callback = function (response) {
-                $scope.dms = response;
-                console.log(response);
-            };
-            DMService.findAllDMsByUserId($rootScope.cUser._id, callback)
+            DMService.findAllDMsByUserId($rootScope.cUser._id)
+                .then(renderDms);
         }
 
         init();
 
         function seeAllDMs() {
-            var callback = function (response) {
-                $scope.dms = response;
-                console.log(response)
-            };
-            DMService.findAllDMs(callback);
+            DMService.findAllDMs()
+                .then(renderDms);
+
         }
 
         function retrieveDMs (){
@@ -52,15 +52,18 @@
 
 
         function deleteDM(dm) {
-            DMService.deleteDMById(dm._id, retrieveDMs);
+            DMService.deleteDMById(dm._id)
+                .then(retrieveDMs);
         }
 
         function addDM(dm) {
-            DMService.createDM(dm, retrieveDMs);
+            DMService.createDM(dm)
+                .then(retrieveDMs);
         }
 
         function updateDM(dm) {
-            DMService.updateDM(dm._id, dm, retrieveDMs);
+            DMService.updateDM(dm._id, dm)
+                .then(retrieveDMs);
             $scope.dm = null;
         }
 

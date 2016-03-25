@@ -8,11 +8,11 @@
         $scope.user = $rootScope.cUser;
 
         function update (user) {
-            var callback = function (response) {
-                $rootScope.cUser = response;
-            };
-            UserService.updateUser(user._id, user, callback);
-            console.log($rootScope.cUser);
+            UserService.updateUser(user._id, user)
+                .then(function (response) {
+                    $rootScope.cUser = response.data;
+                    console.log(response.data);
+                });
          }
     }
 })();

@@ -13,21 +13,19 @@
         var all = true;
 
         function init() {
-            var callback = function (response) {
-                $scope.tasks = response;
-                console.log(response);
-            };
-            TaskService.findAllTasksByUserId($rootScope.cUser._id, callback)
+            TaskService.findAllTasksByUserId($rootScope.cUser._id)
+                .then(function (response) {
+                    $scope.tasks = response.data;
+                });
         }
 
         init();
 
         function seeAllTasks() {
-            var callback = function (response) {
-                $scope.tasks = response;
-                console.log(response)
-            };
-            TaskService.findAllTasks(callback);
+            TaskService.findAllTasks()
+                .then(function (response) {
+                    $scope.tasks = response.data;
+                });
         }
 
 
@@ -52,17 +50,20 @@
         }
 
         function deleteTask(task) {
-            TaskService.deleteTaskById(task._id, retrieveTasks);
+            TaskService.deleteTaskById(task._id)
+                .then(retrieveTasks);
         }
 
         function addTask(task) {
             var userArray = task.userIds.split(",");
             task.userIds = userArray;
-            TaskService.createTask(task, retrieveTasks);
+            TaskService.createTask(task)
+                .then(retrieveTasks);
         }
 
         function updateTask(task) {
-            TaskService.updateTask(task._id, task, retrieveTasks);
+            TaskService.updateTask(task._id, task)
+                .then(retrieveTasks);
             $scope.task = null;
         }
 

@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("CoLab")
+        .module("CoLabApp")
         .controller("NewProjectController", NewProjectController);
 
     function NewProjectController() {
