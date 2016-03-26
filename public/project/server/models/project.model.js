@@ -15,7 +15,7 @@ module.exports = function(uuid) {
     function createProject(project) {
         project._id = uuid.v1();
         projects.push(project);
-        return projects;
+        return project;
     }
 
     function deleteProject(projectId){

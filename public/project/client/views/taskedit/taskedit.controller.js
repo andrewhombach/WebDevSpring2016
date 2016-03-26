@@ -29,7 +29,7 @@
         function updateTask(taskId, task) {
             TaskService.updateTask(taskId, task)
             .then(function (response) {
-                $location.path("#/taskdetails/" + vm.taskId);
+                $location.path("/taskdetails/" + vm.taskId);
             });
         }
 

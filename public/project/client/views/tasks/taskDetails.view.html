@@ -1,4 +1,13 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskDetailsController">
+    <div class="col-xs-offset-4 col-xs-6">
+        <a href="#/taskedit/{{model.task._id}}">
+            <button class="btn btn-info">
+                Edit Task
+            </button>
+        </a>
+    </div>
+    <br>
+    <br>
     <div class="chat-body">
         <br>
         <h1 class="page-header text-center">{{model.task.name}}</h1>
@@ -9,13 +18,7 @@
                 </button>
             </a>
         </div>
-        <div class="col-xs-offset-4 col-xs-3">
-            <a href="#/taskedit/{{model.task._id}}">
-                <button class="btn btn-info">
-                    Edit Task
-                </button>
-            </a>
-        </div>
+
         <table class="table table-borderless text-center">
             <tr>
                 <td>
