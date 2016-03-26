@@ -4,6 +4,9 @@ module.exports = function(app, userModel) {
     app.get("/api/user/:id", findUserById);
     app.put("/api/user/:id", updateUser);
     app.delete("/api/user/:id", deleteUser);
+    app.get("/api/project/:projectId/user", findUsersByProjectId);
+    app.get("/api/task/:taskId/user", findUsersByTaskId);
+
 
 
     function userRouter(req, res) {
@@ -18,6 +21,18 @@ module.exports = function(app, userModel) {
         }
     }
 
+    function findUsersByProjectId(req, res) {
+        var getUsers = userModel.findUsersByProjectId(req.params.projectId);
+        res.json(getUsers);
+    }
+
+    function findUsersByTaskId(req, res) {
+        var getUsers = userModel.findUsersByTaskId(req.params.taskId);
+        res.json(getUsers);
+    }
+
+
+
     function register(req, res) {
         var newUser = req.body;
         var users = userModel.createUser(newUser);
@@ -30,7 +45,7 @@ module.exports = function(app, userModel) {
 
     function findUserById(req, res) {
         var userId = req.params.id;
-        var user = userModel.findUserById(userId);
+        var user = userModel.findUser(userId);
         res.json(user);
     }
 

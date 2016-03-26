@@ -7,7 +7,8 @@ module.exports = function (uuid) {
         updateTask: updateTask,
         findTasksByUserId: findTasksByUserId,
         findAllTasks: findAllTasks,
-        searchTasks: searchTasks
+        searchTasks: searchTasks,
+        findTasksByProjectId: findTasksByProjectId
     };
 
     return api;
@@ -65,13 +66,16 @@ module.exports = function (uuid) {
         console.log(term);
         var results = [];
         for (var t in tasks) {
-            if (tasks[t].name == term) {
-                console.log("FOUND ONE");
-                results = addResult(tasks[t], results);
+            var searchLength = tasks[t].name.length - term.length;
+            for(i = 0; i <= searchLength; i++) {
+                if (tasks[t].name.substring(0 + i, term.length + i).toLowerCase() == term.toLowerCase()) {
+                    results.push(tasks[t]);
+                }
             }
         }
         return results;
     }
+
 
     function addResult(task, results) {
         console.log("Made it to add result");
@@ -94,5 +98,15 @@ module.exports = function (uuid) {
             return results;
         }
 
+    }
+
+    function findTasksByProjectId(id) {
+        var returnTasks = [];
+        for (t in tasks) {
+            if (tasks[t].project == id) {
+                returnTasks.push(tasks[t]);
+            }
+        }
+        return returnTasks;
     }
 };

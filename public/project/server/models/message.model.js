@@ -1,5 +1,5 @@
 var messages = require("./message.mock.json");
-module.exports = function(uuid, ProjectModel) {
+module.exports = function(uuid, ProjectModel, DMModel) {
     var api = {
         createMessage: createMessage,
         deleteMessage: deleteMessage,
@@ -8,7 +8,8 @@ module.exports = function(uuid, ProjectModel) {
         findMessagesByUserId: findMessagesByUserId,
         findAllMessages: findAllMessages,
         searchMessages: searchMessages,
-        findMessagesByProjectId: findMessagesByProjectId
+        findMessagesByProjectId: findMessagesByProjectId,
+        findMessagesByDMId: findMessagesByDMId
     };
 
     return api;
@@ -60,6 +61,20 @@ module.exports = function(uuid, ProjectModel) {
         return returnMessages;
     }
 
+    function findMessagesByDMId(id) {
+        var returnMessages = [];
+        var dmMessages = DMModel.findDM(id).messages;
+        for (var d in dmMessages) {
+            for (var m in messages) {
+                if (messages[m]._id == dmMessages[d]) {
+                    returnMessages.push(messages[m]);
+                }
+            }
+
+        }
+        return returnMessages;
+    }
+
     function searchMessages(term) {
         if (term.length == 0) {
             return null;
@@ -67,8 +82,8 @@ module.exports = function(uuid, ProjectModel) {
         var results = [];
         for (var t in messages) {
             var searchLength = messages[t].text.length - term.length;
-            for (i = 0; i < searchLength; i++) {
-                if (messages[t].text.substring(0 + i, term.length + i) == term) {
+            for (i = 0; i <= searchLength; i++) {
+                if (messages[t].text.substring(0 + i, term.length + i).toLowerCase() == term.toLowerCase()) {
                     results = addResult(messages[t], results);
                 }
             }

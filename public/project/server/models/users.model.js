@@ -1,5 +1,5 @@
 var users = require("./users.mock.json");
-module.exports = function(uuid) {
+module.exports = function(uuid, ProjectModel, TaskModel) {
     var api = {
         createUser: createUser,
         deleteUser: deleteUser,
@@ -8,8 +8,12 @@ module.exports = function(uuid) {
         findUsersByUserId: findUsersByUserId,
         findAllUsers: findAllUsers,
         findUserByUsername: findUserByUsername,
-        findUserByCredentials: findUserByCredentials
+        findUserByCredentials: findUserByCredentials,
+        findUsersByProjectId: findUsersByProjectId,
+        findUsersByTaskId: findUsersByTaskId
     };
+
+    return api;
 
     function findUserByUsername(username) {
         for (var u in users) {
@@ -31,7 +35,19 @@ module.exports = function(uuid) {
         return null;
     }
 
-    return api;
+    function findUsersByTaskId(taskId) {
+        var returnUsers = [];
+        var task = TaskModel.findTask(taskId);
+        for (var t in task.userIds) {
+            for (var u in users) {
+                if (task.userIds[t] == users[u]._id) {
+                    returnUsers.push(users[u]);
+                }
+            }
+        }
+        return returnUsers;
+    }
+
 
     function createUser(user) {
         user._id = uuid.v1();
@@ -79,5 +95,19 @@ module.exports = function(uuid) {
             }
         }
         return returnUsers;
+    }
+
+    function findUsersByProjectId(projectId) {
+        var returnUsers = [];
+        var project = ProjectModel.findProject(projectId);
+        for (var u in project.userIds) {
+            for (var user in users) {
+                if (project.userIds[u] == users[user]._id) {
+                    returnUsers.push(users[user]);
+                }
+            }
+        }
+        return returnUsers;
+
     }
 };

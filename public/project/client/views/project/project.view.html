@@ -1,35 +1,38 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <H3>Hombach Family</H3>
-    <a href="#/editproject">
+    <a href="#/editproject/{{model.project._id}}">
         <button class="btn btn-warning">
             Edit
         </button>
     </a>
     <br>
     <h5>Description:</h5>
-    <p>Lorem ipsum solar blargety blarg blarg</p>
+    <p>{{model.project.description}}</p>
     <table class="table table-responsive">
         <thead>
         <th>
-            Members
+            Usernames
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
         </th>
         </thead>
         <tbody>
-        <tr>
+        <tr ng-repeat="u in model.users">
             <td>
-                Andrew
+                {{u.username}}
+            </td>
+            <td>
+                {{u.firstName}}
+            </td>
+            <td>
+                {{u.lastName}}
             </td>
         </tr>
-        <tr>
-            <td>
-                Alice
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Bob
-            </td>
-        </tr>
+
         </tbody>
     </table>
     <table class="table table-responsive">
@@ -42,12 +45,14 @@
         </th>
         </thead>
         <tbody>
-        <tr>
+        <tr ng-repeat="t in model.tasks">
             <td>
-                Plan Big Sur Drive
+                <a href="#/taskdetails/{{t._id}}">
+                {{t.name}}
+                </a>
             </td>
             <td>
-                03/04/2016
+                {{t.dueDate}}
             </td>
         </tr>
         </tbody>

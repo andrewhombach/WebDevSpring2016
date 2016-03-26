@@ -22,61 +22,24 @@
         <th>
             <span></span>
         </th>
-        <tr>
+        <tr ng-repeat="t in model.tasks">
             <td>
-                Pack for california
+                {{t.name}}
             </td>
             <td>
-                March 4, 2016
+                {{t.dueDate}}
             </td>
             <td>
-                In Progress
+                {{t.status}}
             </td>
             <td>
-                <a href="#/taskdetails">
-                <button class="btn btn-info">
-                    <span>Details</span>
-                </button>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Finish Computer Science Homework
-            </td>
-            <td>
-                March 4, 2016
-            </td>
-            <td>
-                In progress
-            </td>
-            <td>
-                <a href="#/taskdetails">
+                <a href="#/taskdetails/{{t._id}}">
                     <button class="btn btn-info">
                         <span>Details</span>
                     </button>
                 </a>
             </td>
         </tr>
-        <tr>
-            <td>
-                Work out
-            </td>
-            <td>
-                March 8, 2016
-            </td>
-            <td>
-                Not Started
-            </td>
-            <td>
-                <a href="#/taskdetails">
-                    <button class="btn btn-info">
-                        <span>Details</span>
-                    </button>
-                </a>
-            </td>
-        </tr>
-
     </table>
         <div ng-include="'views/taskfooter/taskFooter.view.html'"></div>
 </div>

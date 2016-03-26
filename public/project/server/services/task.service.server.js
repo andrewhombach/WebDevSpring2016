@@ -5,6 +5,7 @@ module.exports = function(app, TaskModel) {
     app.delete("/api/task/:taskId", deleteTaskById);
     app.post("/api/task/", createTask);
     app.put("/api/task/:taskId", updateTaskById);
+    app.get("/api/project/:projectId/task", getTasksByProjectId);
 
     function getAllTask(req, res) {
         var getTasks = TaskModel.findAllTasks();
@@ -35,6 +36,11 @@ module.exports = function(app, TaskModel) {
 
     function updateTaskById(req, res) {
         var getTasks = TaskModel.updateTask(req.body, req.body._id);
+        res.json(getTasks);
+    }
+
+    function getTasksByProjectId(req, res) {
+        var getTasks = TaskModel.findTasksByProjectId(req.params.projectId);
         res.json(getTasks);
     }
 };

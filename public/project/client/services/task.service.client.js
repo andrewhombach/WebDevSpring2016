@@ -11,7 +11,8 @@
             findAllTasksByUserId: findAllTasksByUserId,
             findTaskById: findTaskById,
             updateTask: updateTask,
-            findAllTasks: findAllTasks
+            findAllTasks: findAllTasks,
+            findTasksByProjectId: findTasksByProjectId
         };
 
         return api;
@@ -38,6 +39,10 @@
 
         function updateTask (taskId, task) {
             return $http.put("/api/task/" + taskId, task);
+        }
+
+        function findTasksByProjectId(projectId) {
+            return $http.get("/api/project/" + projectId + "/task");
         }
     }
 })();

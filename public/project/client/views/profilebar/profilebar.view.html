@@ -1,0 +1,55 @@
+<div ng-controller="ProfileBarController as model">
+    <h1 class="page-header text-center">Projects</h1>
+    <div class="visible-xs">
+        <a href="#/profile">
+            <button class="btn btn-info">
+                See Profile
+            </button>
+        </a>
+    </div>
+    <br>
+    <table class="table table-responsive table-borderless text-center">
+        <tr ng-repeat="p in model.projects">
+            <td>
+                {{p.name}}
+            </td>
+            <td>
+                <a href="#/projectdetails/{{p._id}}">
+                    <button class="btn btn-info">
+                        <span>Details</span>
+                    </button>
+                </a>
+                <button class="btn btn-danger" ng-click="model.leaveProject(p._id)">
+                    <span>Leave</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <button class="btn btn-success btn-lg col-xs-12">Add Projects</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h1 class="page-header text-center">Tasks</h1>
+    <table class="table table-responsive table-borderless text-center">
+        <tr ng-repeat="t in model.tasks">
+            <td>
+                {{t.name}}
+            </td>
+            <td class="col-xs-4">
+                <a href="#/taskdetails/{{t._id}}">
+                    <button class="btn btn-info">
+                        <span>Details</span>
+                    </button>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <button class="btn btn-success btn-lg col-xs-12">Add Tasks</button>
+        </div>
+    </div>
+</div>

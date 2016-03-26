@@ -5,7 +5,7 @@
 
     function Configure($routeProvider) {
         $routeProvider
-            .when("/home",{
+            .when("/home/:projectId",{
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController",
                 controllerAs: "model"
@@ -55,7 +55,7 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
-            .when("/taskdetails", {
+            .when("/taskdetails/:taskId", {
                 templateUrl: "views/tasks/taskDetails.view.html",
                 controller: "TaskDetailsController",
                 controllerAs: "model"
@@ -70,7 +70,7 @@
                 controller: "SearchController",
                 controllerAs: "model"
             })
-            .when("/directmessage", {
+            .when("/directmessage/:dmId", {
                 templateUrl: "views/directmessage/directmessage.view.html",
                 controller: "DirectMessageController",
                 controllerAs: "model"
@@ -80,9 +80,9 @@
                 controller: "TaskBarController",
                 controllerAs: "model"
             })
-            .when("/projectsbar", {
-                templateUrl: "views/projectbar/projectbar.view.html",
-                controller: "ProjectBarController",
+            .when("/profilebar", {
+                templateUrl: "views/profilebar/profilebar.view.html",
+                controller: "ProfileBarController",
                 controllerAs: "model"
             })
             .when("/newproject", {
@@ -90,17 +90,17 @@
                 controller: "NewProjectController",
                 controllerAs: "model"
             })
-            .when("/taskedit", {
+            .when("/taskedit/:taskId", {
                 templateUrl: "views/taskedit/taskedit.view.html",
                 controller: "TaskEditController",
                 controllerAs: "model"
             })
-            .when("/editproject", {
+            .when("/editproject/:projectId", {
                 templateUrl: "views/editproject/editproject.view.html",
                 controller: "EditProjectController",
                 controllerAs: "model"
             })
-            .when("/projectdetails", {
+            .when("/projectdetails/:projectId", {
                 templateUrl: "views/project/project.view.html",
                 controller: "ProjectController",
                 controllerAs: "model"

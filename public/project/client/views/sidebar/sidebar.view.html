@@ -1,13 +1,9 @@
-<div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController">
-    <ul class="nav nav-sidebar">
-        <li><a href="#/home">Hombach Family</a></li>
-        <li><a href="#/home">Ski Trip</a></li>
-        <li><a href="#/home">Computer Science Project</a></li>
+<div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController as model">
+    <ul class="nav nav-sidebar" ng-repeat="p in model.projects">
+        <li><a href="#/home/{{p._id}}">{{p.name}}</a></li>
     </ul>
     <hr>
-    <ul class="nav nav-sidebar">
-        <li><a href="#/directmessage">Alice</a></li>
-        <li><a href="#/directmessage">Andrew</a></li>
-        <li><a href="#/directmessage">Bob</a></li>
+    <ul class="nav nav-sidebar" ng-repeat="d in model.dms">
+        <li><a href="#/directmessage/{{d._id}}">{{d.name}}</a></li>
     </ul>
 </div>

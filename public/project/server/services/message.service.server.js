@@ -6,6 +6,7 @@ module.exports = function(app, MessageModel) {
     app.post("/api/message/", createMessage);
     app.put("/api/message/:messageId", updateMessageById);
     app.get("/api/project/:projectId/message", findMessagesByProjectId);
+    app.get("/api/dm/:dmId/message", findMessagesByDMId);
 
     function getAllMessage(req, res) {
         console.log("you're in getAllMessages");
@@ -48,4 +49,10 @@ module.exports = function(app, MessageModel) {
         var getMessages = MessageModel.findMessagesByProjectId(req.params.projectId);
         res.json(getMessages);
     }
+
+    function findMessagesByDMId(req, res) {
+        var getMessages = MessageModel.findMessagesByDMId(req.params.dmId);
+        res.json(getMessages);
+    }
+
 };

@@ -17,12 +17,9 @@
         function search(searchTerm){
             $rootScope.searchTerm = searchTerm;
             $location.path("/search");
-            console.log(searchTerm);
+            $location.search("query", searchTerm);
+            console.log($location.search());
         }
-
-
-
-
 
     }
 })();

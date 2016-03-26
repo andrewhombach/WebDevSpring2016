@@ -3,48 +3,69 @@
         .module("CoLabApp")
         .controller("DirectMessageController", DirectMessageController);
 
-    function DirectMessageController (DMService) {
+    function DirectMessageController(DMService, MessageService, UserService, TaskService, $rootScope, $routeParams) {
         var vm = this;
-        
-        vm.deleteDM = deleteDM;
-        vm.addDM = addDM;
-        vm.updateDM = updateDM;
-        vm.selectDM = selectDM;
 
-
-        function renderDms(response) {
-            console.log(response.data);
-            vm.dms = response.data;
-            vm.messages = vm.dms.messages;
-        }
+        vm.me = $rootScope.cUser._id;
+        vm.getUsername = getUsername;
+        vm.notMe = notMe;
+        vm.dmId = $routeParams.dmId;
 
         function init() {
-            DMService.findAllDMsByUserId(234)
-                .then(renderDms);
+            DMService.findDMById(vm.dmId)
+                .then(renderDM);
         }
 
         init();
-        
 
-        function deleteDM(dm) {
-            DMService.deleteDMById(dm._id)
-                .then(renderDMs);
+        function renderDM(response) {
+            vm.dm = response.data;
+            console.log(vm.dm);
+            getMessages();
+            getUsers(vm.dm.user1, vm.dm.user2);
+
         }
 
-        function addDM(dm) {
-            DMService.createDM(dm)
-                .then(renderDMs);
+        function getMessages() {
+            MessageService.findMessagesByDMId(vm.dm._id)
+                .then(function (response) {
+                    vm.messages = response.data;
+                    console.log(response.data);
+                });
+
         }
 
-        function updateDM(dm) {
-            DMService.updateDM(dm._id, dm)
-                .then(renderDMs);
-            vm.dm = null;
+        function getUsers(user1, user2) {
+            UserService.findUserById(user1)
+                .then(function (response) {
+                    vm.user1 = response.data;
+                    console.log(response.data);
+                    UserService.findUserById(user2)
+                    .then(function (response) {
+                        vm.user2 = response.data;
+                        console.log(response.data);
+                    });
+                });
         }
 
-        function selectDM(pIndex) {
-            vm.dm = vm.dms[pIndex];
+
+        function notMe() {
+            if (vm.user1._id == $rootScope.cUser._id) {
+                return vm.user2;
+            }
+            else {
+                return vm.user1;
+            }
         }
+
+        function getUsername(id) {
+            if (id == vm.user1._id) {
+                return vm.user1.username;
+            }
+            else {
+                return vm.user2.username;
+            }
+        }
+
     }
-        
 })();

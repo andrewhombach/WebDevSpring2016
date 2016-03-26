@@ -13,7 +13,9 @@
             findUserById: findUserById,
             updateUser: updateUser,
             getProfile: getProfile,
-            setCurrentUser: setCurrentUser
+            setCurrentUser: setCurrentUser,
+            findUsersByProjectId: findUsersByProjectId,
+            findUsersByTaskId: findUsersByTaskId
         };
 
         return api;
@@ -47,6 +49,15 @@
             console.log(user);
             return $http.put("/api/user/" + userId, user);
         }
+
+        function findUsersByProjectId(projectId) {
+            return $http.get("/api/project/" + projectId + "/user");
+        }
+
+        function findUsersByTaskId(id) {
+            return $http.get("/api/task/" + id + "/user");
+        }
+
 
         function getProfile() {
             return $rootScope.cUser;

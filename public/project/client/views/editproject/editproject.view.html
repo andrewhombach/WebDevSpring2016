@@ -1,9 +1,9 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <H3>Name:</H3>
-    <input class="form-control" type="text" ng-model="project.name" placeholder="Project Name">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="EditProjectController">
+    <H3>Name: {{model.project.name}}</H3>
+    <input class="form-control" type="text" ng-model="model.project.name" placeholder="Project Name">
     <br>
     <h5>Description:</h5>
-    <input ng-model="project.description" type="text" class="form-control" placeholder="Lorem ipsum solar blargety blarg blarg" >
+    <input ng-model="model.project.description" type="text" class="form-control" placeholder="Describe Your Project" >
     <table class="table table-responsive">
         <thead>
         <th>
@@ -12,25 +12,9 @@
         <th></th>
         </thead>
         <tbody>
-        <tr>
+        <tr ng-repeat="u in model.users">
             <td>
-                Andrew
-            </td>
-            <td>
-                <button class="btn btn-danger">Remove</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Alice
-            </td>
-            <td>
-                <button class="btn btn-danger">Remove</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Bob
+                {{u.firstName + " " + u.lastName}}
             </td>
             <td>
                 <button class="btn btn-danger">Remove</button>
@@ -50,24 +34,24 @@
         <th></th>
         </thead>
         <tbody>
-        <tr>
+        <tr ng-repeat="t in model.tasks">
             <td>
-                Plan Big Sur Drive
+                {{t.name}}
             </td>
 
             <td>
-                03/04/2016
+                {{t.dueDate}}
             </td>
             <td>
                 <button class="btn btn-danger">Remove</button>
-                <a href="#/taskedit">
+                <a href="#/taskedit/{{t._id}}">
                     <button class="btn btn-warning">Edit</button>
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="#/projectdetails">
+    <a href="#/projectdetails/{{model.projectId}}">
         <button class="btn btn-success">
             Update
         </button>

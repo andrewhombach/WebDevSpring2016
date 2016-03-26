@@ -38,7 +38,7 @@ module.exports = function(uuid) {
 
     function findDM(dmId) {
         for (var d in dms) {
-            if (dms[d]._id === dmId) {
+            if (dms[d]._id == dmId) {
                 return dms[d];
             }
         }

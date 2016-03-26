@@ -5,19 +5,17 @@
     <h3>Projects</h3>
     <hr>
     <div ng-repeat="p in projects">
+        <a href="#/projectdetails/{{p._id}}">
         <h5>{{p.name}}</h5>
+        </a>
     </div>
-
-    <h3>Users</h3>
-    <hr>
-    <h5>Andrew</h5>
-    <h5>Bob</h5>
-    <h5>Alice</h5>
 
     <h3>Tasks</h3>
     <hr>
     <div ng-repeat="t in tasks">
+        <a href="#/taskdetails/{{t._id}}">
         <h5>{{t.name}}</h5>
+        </a>
     </div>
 
     <h3>Messages</h3>

@@ -66,8 +66,11 @@ module.exports = function(uuid) {
     function searchProjects(term) {
         var results = [];
         for (var t in projects) {
-            if (projects[t].name == term) {
-                results = addResult(projects[t], results);
+            var searchLength = projects[t].name.length - term.length;
+            for(i = 0; i <= searchLength; i++) {
+                if (projects[t].name.substring(0 + i, term.length + i).toLowerCase() == term.toLowerCase()) {
+                    results = addResult(projects[t], results)
+                }
             }
         }
         return results;

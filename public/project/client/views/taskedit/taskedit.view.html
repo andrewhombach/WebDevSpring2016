@@ -1,15 +1,21 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskEditController">
     <div class="chat-body">
         <br>
+        <button class="btn btn-success col-xs-offset-3 col-xs-6" ng-click="updateTask(model.taskId, model.task)">
+            <span>Update</span>
+        </button>
+        <br>
+        <br>
         <div class="row">
             <h2 class="text-center">Name:</h2>
-            <input ng-model="task.name" placeholder="task name" type="text" id="title" class="form-control">
+            <input ng-model="model.task.name" placeholder="task name" type="text" id="title" class="form-control">
         </div>
         <div class="visible-xs col-xs-offset-4 col-xs-3">
             <a href="#/taskbar">
                 <button class="btn btn-info">
                     Back to Tasks
                 </button>
+
             </a>
         </div>
         <hr>
@@ -19,7 +25,7 @@
                     Due Date:
                 </td>
                 <td>
-                    <input type="date" placeholder="0/0/0" ng-model="task.dueDate" class="form-control">
+                    <input type="date" placeholder="0/0/0" ng-model="model.task.dueDate" class="form-control">
                 </td>
             </tr>
             <tr>
@@ -27,27 +33,16 @@
                     Creation Date:
                 </td>
                 <td>
-                    <input type="date" placeholder="0/0/0" ng-model="task.createDate" class="form-control">
+                    <input type="date" placeholder="0/0/0" ng-model="model.task.createDate" class="form-control">
                 </td>
             </tr>
         </table>
         <hr>
         <h2 class="text-center">Assigned Members:</h2>
         <table class="table table-borderless text-center">
-            <tr>
+            <tr ng-repeat="u in model.users">
                 <td>
-                    Andrew Hombach
-                </td>
-                <td>
-                    Bryce Stocks
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Josh Elowe
-                </td>
-                <td>
-                    Sarah Hombach
+                    {{u.firstName + " " + u.lastName}}
                 </td>
             </tr>
         </table>
@@ -60,10 +55,10 @@
         </div>
         <hr>
         <h2 class="text-center">Notes</h2>
-        <input class="form-control" type="text" placeholder="Call: (617) 924-9234 Made initial contact but will need to follow up with that number">
+        <input class="form-control" type="text" ng-model="model.task.notes" placeholder="Add notes about the task here">
         <hr>
         <h2 class="text-center">Location</h2>
-        <input class="form-control" type="text" placeholder="Big Sur, CA">
+        <input class="form-control" ng-model="model.task.location" type="text" placeholder="City and State">
         <div align="middle">
             <iframe
                     width="600"

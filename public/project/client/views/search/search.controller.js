@@ -5,7 +5,7 @@
 
     function SearchController($scope, $rootScope, $location, SearchService) {
         $scope.$location = $location.url();
-        $scope.searchTerm = $rootScope.searchTerm;
+        $scope.searchTerm = $location.search().query.toString();
 
         function renderResults(results) {
             $scope.projects = results.projects;
@@ -22,12 +22,7 @@
                 });
         }
 
-
-
         search($scope.searchTerm);
-
-
-
 
     }
 })();

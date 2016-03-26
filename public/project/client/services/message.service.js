@@ -12,7 +12,8 @@
             findMessageById: findMessageById,
             updateMessage: updateMessage,
             findAllMessages: findAllMessages,
-            findMessagesByProjectId: findMessagesByProjectId
+            findMessagesByProjectId: findMessagesByProjectId,
+            findMessagesByDMId: findMessagesByDMId
         };
 
         return api;
@@ -44,6 +45,10 @@
 
         function findMessagesByProjectId(id) {
             return $http.get("/api/project/" + id + "/message");
+        }
+
+        function findMessagesByDMId(id) {
+            return $http.get("/api/dm/" + id + "/message");
         }
 
     }
