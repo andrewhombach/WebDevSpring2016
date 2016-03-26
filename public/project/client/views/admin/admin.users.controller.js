@@ -11,6 +11,7 @@
 
         function renderUsers(response) {
             $scope.users = response.data;
+            $scope.user = null;
         }
 
         function init() {
@@ -22,19 +23,18 @@
 
         function deleteUser(user) {
             UserService.deleteUserById(user._id)
-                .then(renderUsers);
+                .then(init);
         }
 
         function addUser(user) {
             UserService.createUser(user)
-                .then(renderUsers);
+                .then(init);
         }
 
         function updateUser(user) {
             console.log(user);
             UserService.updateUser(user._id,user)
-                .then(renderUsers);
-            $scope.user = null;
+                .then(init);
         }
 
         function selectUser(uIndex) {

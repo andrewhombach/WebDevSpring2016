@@ -17,6 +17,7 @@
             ProjectService.findAllProjectsByUserId($rootScope.cUser._id)
                 .then(function (response) {
                     $scope.projects = response.data;
+                    $scope.project = null;
                 })
         }
 
@@ -27,6 +28,7 @@
             ProjectService.findAllProjects()
                 .then(function (response) {
                     $scope.projects = response.data;
+                    $scope.project = null;
                 });
         }
 

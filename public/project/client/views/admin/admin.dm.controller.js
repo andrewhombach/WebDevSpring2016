@@ -15,6 +15,8 @@
         function renderDms(response) {
             console.log(response.data);
             $scope.dms = response.data;
+            $scope.dm = null;
+
         }
 
         function init() {

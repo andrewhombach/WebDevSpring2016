@@ -13,26 +13,21 @@
         var all = true;
 
         function init() {
-            var callback = function (response) {
-                $scope.messages = response;
-                console.log(response);
-            };
             MessageService.findAllMessagesByUserId($rootScope.cUser._id)
                 .then(function (response) {
                     $scope.messages = response.data;
+                    $scope.message = null
                 })
         }
 
         init();
 
         function seeAllMessages() {
-            var callback = function (response) {
-                $scope.messages = response;
-                console.log(response)
-            };
+
             MessageService.findAllMessages()
                 .then(function (response) {
                     $scope.messages = response.data;
+                    $scope.message = null;
                 });
         }
 

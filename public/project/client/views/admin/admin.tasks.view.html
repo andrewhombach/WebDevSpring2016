@@ -49,6 +49,10 @@
             </th>
             <th>
                 <span class="caret"></span>
+                Status
+            </th>
+            <th>
+                <span class="caret"></span>
                 Location
             </th>
             <th width="100px">
@@ -77,6 +81,9 @@
             </td>
             <td>
                 <input ng-model="task.notes" type="text" class="form-control" placeholder="Notes">
+            </td>
+            <td>
+                <input ng-model="task.status" type="text" class="form-control" placeholder="Status"
             </td>
             <td>
                 <input ng-model="task.location" type="text" class="form-control" placeholder="Location">
@@ -114,6 +121,9 @@
             </td>
             <td>
                 {{task.notes}}
+            </td>
+            <td>
+                {{task.status}}
             </td>
             <td>
                 {{task.location}}

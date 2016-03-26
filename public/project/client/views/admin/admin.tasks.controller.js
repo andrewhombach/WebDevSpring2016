@@ -16,6 +16,7 @@
             TaskService.findAllTasksByUserId($rootScope.cUser._id)
                 .then(function (response) {
                     $scope.tasks = response.data;
+                    $scope.task = null;
                 });
         }
 
@@ -25,6 +26,7 @@
             TaskService.findAllTasks()
                 .then(function (response) {
                     $scope.tasks = response.data;
+                    $scope.task = null;
                 });
         }
 

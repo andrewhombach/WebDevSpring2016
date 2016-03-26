@@ -1,4 +1,5 @@
 (function () {
+    "use strict";
     angular
         .module("CoLabApp")
         .controller("SidebarController", SidebarController);
@@ -19,7 +20,7 @@
             DMService.findAllDMsByUserId(234)
             .then(function (response) {
                 vm.dms = response.data;
-                for (d in vm.dms) {
+                for (var d in vm.dms) {
                     if (vm.dms[d].user1 == 234) {
                         UserService.findUserById(vm.dms[d].user2)
                         .then(function (response) {

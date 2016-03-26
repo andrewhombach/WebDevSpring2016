@@ -1,4 +1,5 @@
 (function () {
+    "use strict";
     angular
         .module("CoLabApp")
         .controller("NewProjectController", NewProjectController);
@@ -10,7 +11,7 @@
         function newProject(project) {
             var userArray = project.userIds.split(",");
             project.userIds = userArray;
-            project.admin = $rootScope.cUser;
+            project.admin = $rootScope.cUser._id;
             ProjectService.createProject(project)
             .then(function (response) {
                 var id = response.data._id;
@@ -18,8 +19,6 @@
                 $location.path("/projectdetails/" + id);
             });
         }
-
-
 
     }
 })();
