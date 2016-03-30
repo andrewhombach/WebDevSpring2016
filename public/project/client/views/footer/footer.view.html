@@ -1,7 +1,7 @@
-<div class="input-group" ng-controller="FooterController">
-    <input type="text" class="form-control" placeholder="">
+<div class="input-group" ng-controller="FooterController as model">
+    <input ng-model="model.message" type="text" class="form-control" placeholder="">
     <div class="input-group-btn">
-        <button type="button" class="btn btn-info">
+        <button ng-click="model.sendMessage(model.message)" type="button" class="btn btn-info">
             Send
         </button>
     </div>

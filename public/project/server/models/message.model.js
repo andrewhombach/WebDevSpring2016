@@ -18,10 +18,13 @@ module.exports = function(uuid, ProjectModel, DMModel) {
         return messages;
     }
 
-    function createMessage(message) {
-        message._id = uuid.v1();
-        messages.push(message);
-        return messages;
+    function createMessage(projectId, message) {
+        console.log(projectId);
+        var newMessage = message;
+        newMessage._id = uuid.v1();
+        messages.push(newMessage);
+        ProjectModel.addMessage(projectId, message);
+        return newMessage;
     }
 
     function deleteMessage(messageId){

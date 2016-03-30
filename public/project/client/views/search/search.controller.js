@@ -5,7 +5,6 @@
         .controller("SearchController", SearchController);
 
     function SearchController($scope, $rootScope, $location, SearchService) {
-        $scope.$location = $location.url();
         $scope.searchTerm = $location.search().query.toString();
 
         function renderResults(results) {

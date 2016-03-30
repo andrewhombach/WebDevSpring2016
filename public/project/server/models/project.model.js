@@ -7,10 +7,20 @@ module.exports = function(uuid) {
         updateProject: updateProject,
         findProjectsByUserId: findProjectsByUserId,
         findAllProjects: findAllProjects,
-        searchProjects: searchProjects
+        searchProjects: searchProjects,
+        addMessage: addMessage
     };
 
     return api;
+
+    function addMessage(projectId, message) {
+        var project = findProject(projectId);
+        if (project) {
+            project.messages.push(message._id);
+            console.log(project.messages);
+        }
+    }
+
 
     function createProject(project) {
         project._id = uuid.v1();
@@ -51,12 +61,10 @@ module.exports = function(uuid) {
     function findProjectsByUserId(userId) {
         var returnProjects = [];
         for (var d in projects) {
-            console.log(projects[d]);
             var users = projects[d].userIds;
             for (var u in users){
                 if (users[u] == userId) {
                     returnProjects.push(projects[d]);
-                    console.log(projects[d]);
                 }
             }
         }

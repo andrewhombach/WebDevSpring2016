@@ -9,34 +9,30 @@ module.exports = function(app, MessageModel) {
     app.get("/api/dm/:dmId/message", findMessagesByDMId);
 
     function getAllMessage(req, res) {
-        console.log("you're in getAllMessages");
         var getMessages = MessageModel.findAllMessages();
         res.json(getMessages);
     }
 
     function getMessageById(req, res) {
-        console.log("made it to the server service");
         var id = req.params.messageId;
         var getMessage = MessageModel.findMessage(id);
         res.json(getMessage);
     }
 
     function getMessagesByUserId(req, res) {
-        console.log("you're in userId message search");
         var uId = req.params.userId;
         var getMessages = MessageModel.findMessagesByUserId(uId);
         res.json(getMessages);
     }
 
     function deleteMessageById(req, res) {
-        console.log("you're in delet messages");
         var getMessages = MessageModel.deleteMessage(req.params.messageId);
         res.json(getMessages);
     }
 
     function createMessage(req, res) {
-
-        var getMessages = MessageModel.createMessage(req.body);
+        console.log(req.body.project);
+        var getMessages = MessageModel.createMessage(req.body.project, req.body.message);
         res.json(getMessages);
     }
 

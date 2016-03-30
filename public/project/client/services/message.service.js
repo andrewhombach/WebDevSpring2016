@@ -35,8 +35,10 @@
             return $http.get("/api/message");
         }
 
-        function createMessage(message) {
-            return $http.post("/api/message/", message);
+        function createMessage(message, userId, projectId) {
+            var parcel = {project: projectId, message: {_id: null, userId: userId, text: message}};
+            console.log(parcel);
+            return $http.post("/api/message/", parcel);
         }
 
         function updateMessage(messageId, message) {
