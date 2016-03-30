@@ -1,5 +1,5 @@
 <div class="input-group" ng-controller="FooterController as model">
-    <input ng-model="model.message" type="text" class="form-control" placeholder="">
+    <input ng-model="model.message" type="text" ng-keypress="($event.which === 13)?model.sendMessage(model.message):0" class="form-control" placeholder="" autofocus>
     <div class="input-group-btn">
         <button ng-click="model.sendMessage(model.message)" type="button" class="btn btn-info">
             Send

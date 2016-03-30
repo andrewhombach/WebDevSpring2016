@@ -9,6 +9,7 @@
         vm.getUserOfMessage = getUserOfMessage;
 
         vm.me = $rootScope.cUser._id;
+        console.log(vm.me);
 
         vm.projectId = $routeParams.projectId;
 
