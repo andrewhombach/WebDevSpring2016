@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($rootScope, UserService, $location) {
+    function LoginController(UserService, $location) {
         var vm = this;
 
         vm.login = login;
@@ -14,6 +14,7 @@
                 .then(function (response)
                     {
                         if (response.data) {
+                            console.log(response.data);
                             UserService.setCurrentUser(response.data);
                             $location.path("/profile");
                         }

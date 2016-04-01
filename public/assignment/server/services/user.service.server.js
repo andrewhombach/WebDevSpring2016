@@ -72,9 +72,17 @@ module.exports = function(app, userModel) {
 
         userModel.updateUser(userId, user)
             .then(
-                function (doc) {
-                    req.session.cUser = doc;
-                    res.json(doc);
+                function (na) {
+                    userModel.findUserById(req.session.cUser._id)
+                        .then(
+                            function (doc) {
+                                req.session.cUser = doc;
+                                res.json(doc);
+                            }
+                        ),
+                        function (err) {
+                            res.status(400).send(err);
+                        }
                 },
                 function (err) {
                     res.status(400).send(err);

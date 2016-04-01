@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("FieldsController", FieldsController);
 
-    function FieldsController(FieldService, FormService, $routeParams) {
+    function FieldsController(FieldService, FormService, $routeParams, $scope) {
         var vm = this;
         vm.cField = null;
         vm.eField = null;
@@ -22,12 +22,17 @@
             'Checkboxes Field',
             'Radio Buttons Field'
         ];
-        vm.selection = vm.options[0];
         vm.fieldOptions = null;
+
         var formId = "000";
         if ($routeParams.formId) {
             formId = $routeParams.formId;
         }
+
+        $scope.sortableOptions = {
+            handle: '> .myHandle',
+            items: '> td'
+        };
 
         var optionMap =
             [
@@ -39,16 +44,15 @@
                 {key: "Radio Buttons Field", value: "RADIOS"}
             ];
 
-        function render(response) {
-            console.log(response.data);
-            vm.display = response.data;
-            vm.fields = response.data;
-        }
+
 
         function init() {
             FieldService
                 .findFieldsByForm(formId)
-                .then(render);
+                .then(function (response) {
+                    vm.fields = response.data;
+                    vm.eField = null;
+                });
             FormService
                 .getFormById(formId)
                 .then(function (response)
@@ -70,7 +74,6 @@
             FormService
                 .updateFormById(formId, vm.form)
                 .then(init);
-
         }
 
         function deleteField(field) {
@@ -109,21 +112,20 @@
                 for (var o in ol) {
                     optionList.push(ol[o].label + ":" + ol[o].value)
                 }
-                console.log(optionList);
                 vm.optionText = optionList.join("\n");
-                console.log(vm.optionText);
             }
         }
 
         function commitEdit(field) {
+
             vm.eField = field;
 
             var isOption = !(field.type == 'TEXT' || field.type == 'TEXTAREA');
 
             var optionArray = [];
+
             if (isOption) {
-                console.log(vm.optionText);
-                var oa = vm.optionText;
+                var oa = vm.optionText.split("\n");
                 for (var o in oa) {
                     var a = oa[o].split(":");
                     optionArray.push({
@@ -132,16 +134,12 @@
                     });
                 }
                 vm.eField.options = optionArray;
-
             }
             else {
             }
-            console.log(vm.eField._id);
             FieldService
             .updateField(formId, vm.eField._id, vm.eField)
                 .then(init);
-            vm.eField = null;
         }
-
     }
 })();

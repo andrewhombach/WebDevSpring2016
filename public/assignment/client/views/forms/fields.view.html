@@ -7,7 +7,7 @@
     </ul>
     <br>
     <table class="table table-responsive">
-        <tbody ng-model="model.fields"  ui-sortable="model.fields">
+        <tbody ng-model="model.fields"  ui-sortable=>
         <tr ng-switch="field.type" ng-repeat="field in model.fields">
             <td ng-switch-when="TEXT">
                 <label>{{field.label}}</label>
@@ -20,7 +20,7 @@
                 <label>{{field.label}}</label>
                 <div class="input-group">
                     <select class="form-control">
-                        <option ng-repeat="op in field.options">{{op.label}}</option>
+                        <option ng-repeat="op in field.options track by $index">{{op.label}}</option>
                     </select>
                     <div class="input-group-btn" ng-include="'views/forms/buttons.html'"></div>
                 </div>
@@ -36,7 +36,7 @@
                 <label>{{field.label}}</label>
                 <div class="input-group">
                     <div class="checkbox">
-                        <div ng-repeat="op in field.options">
+                        <div ng-repeat="op in field.options track by $index">
                             <label>
                                 <input type="checkbox" value="{{op.value}}">{{op.label}}
                             </label>
@@ -49,7 +49,7 @@
             <td ng-switch-when="RADIOS">
                 <label>{{field.label}}</label>
                 <div class="input-group">
-                    <div ng-repeat="op in field.options" class="radio">
+                    <div ng-repeat="op in field.options track by $index" class="radio">
                         <label>
                             <input type="radio" name="{{op.label}}" value="{{op.value}}" checked>
                             {{op.label}}
@@ -96,7 +96,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">{{model.cField.label}}</h4>
+                    <h4 class="modal-title">{{model.eField.label}}</h4>
                 </div>
                 <div class="modal-body" ng-switch on="model.eField.type">
                     <div ng-switch-when="TEXT">
@@ -132,7 +132,7 @@
                             <br>
                             <label>Options</label>
                             <textarea ng-model="model.optionText" class="form-control"
-                                      placeholder="Edit Dropdown Options" ng-list="&#10;" ng-trim="false"></textarea>
+                                      placeholder="Edit Dropdown Options"></textarea>
                         </form>
                     </div>
                     <div ng-switch-when="DATE">
@@ -151,8 +151,7 @@
                                    placeholder="Edit Radio Label">
                             <br>
                             <label>Options</label>
-                            <textarea ng-model="model.optionText" class="form-control" placeholder="Edit Radio Options"
-                                      ng-list="&#10;" ng-trim="false"></textarea>
+                            <textarea ng-model="model.optionText" class="form-control" placeholder="Edit Radio Options"></textarea>
                         </form>
                     </div>
                     <div ng-switch-default>
@@ -164,7 +163,7 @@
                             <br>
                             <label>Options</label>
                             <textarea ng-model="model.optionText" class="form-control"
-                                      placeholder="Edit Checkbox options" ng-list="&#10;" ng-trim="false"></textarea>
+                                      placeholder="Edit Checkbox options"></textarea>
                         </form>
                     </div>
                 </div>

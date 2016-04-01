@@ -98,7 +98,8 @@ module.exports = function (uuid, mongoose, db) {
             }
         });
 
-        return deferred.promise;
+        return deferred;
+
     }
 
     function createUser(newUser) {
@@ -106,6 +107,7 @@ module.exports = function (uuid, mongoose, db) {
         var deferred = q.defer();
 
         UserModel.create(newUser, function(err, doc) {
+
             if (err) {
                 deferred.reject(err);
             }
@@ -119,9 +121,18 @@ module.exports = function (uuid, mongoose, db) {
 
     function updateUser(userId, user) {
 
+        var newUser = {
+            username: user.username,
+            password: user.password,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            emails: user.emails,
+            phones: user.phones
+        };
+
         var deferred = q.defer();
 
-        UserModel.findOneAndUpdate({_id: userId}, user, {new: true}, function(err, doc) {
+        UserModel.findByIdAndUpdate(userId, {$set:newUser}, {new: true, upsert: true}, function(err, doc) {
             if (err) {
                 deferred.reject(err);
             }

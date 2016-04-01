@@ -108,3 +108,7 @@ body {
     border: none;
 }
 
+.myHandle {
+     cursor: move;
+ }
+
