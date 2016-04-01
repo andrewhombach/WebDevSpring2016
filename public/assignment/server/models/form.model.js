@@ -129,11 +129,19 @@ module.exports = function (uuid, mongoose, db) {
 
     function updateForm (id, form) {
 
+        var newForm = {
+            userId: form.userId,
+            title: form.title,
+            fields: form.fields,
+            created: form.created,
+            updated: (new Date).getTime()
+        }
+
         var deferred = q.defer();
 
         form.updated = (new Date).getTime();
 
-        FormModel.findByIdAndUpdate(id, form, {new: true}, function (err, doc) {
+        FormModel.findByIdAndUpdate(id, {$set:newForm}, {new: true, upsert: true}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }
