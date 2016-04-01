@@ -133,7 +133,7 @@ module.exports = function (uuid, mongoose, db) {
 
         form.updated = (new Date).getTime();
 
-        FormModel.update({_id: id}, form, {new: true}, function (err, doc) {
+        FormModel.findByIdAndUpdate(id, form, {new: true}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }
