@@ -7,8 +7,8 @@
     </ul>
     <br>
     <table class="table table-responsive">
-        <tbody ng-model="model.fields"  ui-sortable=>
-        <tr ng-switch="field.type" ng-repeat="field in model.fields">
+        <tbody ng-model="model.fields"  as-sortable="model.sortableOptions">
+        <tr ng-switch="field.type" ng-repeat="field in model.fields" as-sortable-item>
             <td ng-switch-when="TEXT">
                 <label>{{field.label}}</label>
                 <div class="input-group">

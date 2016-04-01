@@ -108,7 +108,7 @@ body {
     border: none;
 }
 
-.myHandle {
+#myhandle {
      cursor: move;
  }
 

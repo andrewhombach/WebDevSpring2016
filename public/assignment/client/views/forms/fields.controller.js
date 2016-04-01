@@ -22,16 +22,19 @@
             'Checkboxes Field',
             'Radio Buttons Field'
         ];
-        vm.fieldOptions = null;
 
         var formId = "000";
         if ($routeParams.formId) {
             formId = $routeParams.formId;
         }
 
-        $scope.sortableOptions = {
-            handle: '> .myHandle',
-            items: '> td'
+        vm.sortableOptions = {
+            orderChanged: function(e) {
+                vm.form.fields = vm.fields;
+                FormService
+                    .updateFormById(formId, vm.form)
+                    .then(init);
+            }
         };
 
         var optionMap =
@@ -43,8 +46,6 @@
                 {key: "Checkboxes Field", value: "CHECKBOXES"},
                 {key: "Radio Buttons Field", value: "RADIOS"}
             ];
-
-
 
         function init() {
             FieldService
@@ -60,6 +61,7 @@
                     vm.form = response.data;
                 })
         }
+
         init();
 
         function sendEdit(field) {
