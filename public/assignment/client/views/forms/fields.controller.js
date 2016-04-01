@@ -1,10 +1,10 @@
 "use strict";
-(function(){
+(function() {
     angular
         .module("FormBuilderApp")
         .controller("FieldsController", FieldsController);
 
-    function FieldsController(FieldService, FormService, $routeParams, $route) {
+    function FieldsController(FieldService, FormService, $routeParams) {
         var vm = this;
         vm.cField = null;
         vm.eField = null;
@@ -40,6 +40,7 @@
             ];
 
         function render(response) {
+            console.log(response.data);
             vm.display = response.data;
             vm.fields = response.data;
         }

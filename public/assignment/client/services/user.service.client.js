@@ -12,11 +12,16 @@
             findUserByCredentials: findUserByCredentials,
             findUserById: findUserById,
             updateUser: updateUser,
+            getCurrentUser: getCurrentUser,
             getProfile: getProfile,
             setCurrentUser: setCurrentUser
         };
 
         return api;
+
+        function getCurrentUser() {
+            return $http.get("/api/assignment/loggedin");
+        }
 
         function findUserById (userId) {
             console.log("user.service.client.js got:" + userId);
@@ -55,5 +60,6 @@
         function setCurrentUser(user) {
             $rootScope.cUser = user;
         }
+
     }
 })();

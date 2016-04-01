@@ -9,25 +9,15 @@
 
         vm.register = register;
 
-        function login(user) {
-            UserService.findUserByCredentials(user.username, user.password)
-            .then(function (response) {
-                console.log(response.data);
-                $rootScope.cUser = response.data;
-                $location.url("/profile");
-            });
-        }
 
         function register(user) {
             UserService.createUser(user)
                 .then(function (response) {
-                    console.log(response.data);
-                    login(user);
+                    UserService.setCurrentUser(response.data);
+                    $location.path("/profile");
                 }
                 , function (response) {
-                    console.log("Failed Registration.")
                 });
-
         }
     }
 })();
