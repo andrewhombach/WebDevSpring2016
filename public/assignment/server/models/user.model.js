@@ -98,7 +98,7 @@ module.exports = function (uuid, mongoose, db) {
             }
         });
 
-        return deferred;
+        return deferred.promise;
 
     }
 

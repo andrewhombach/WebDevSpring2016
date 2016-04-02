@@ -4,9 +4,10 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController (UserService) {
+    function ProfileController (UserService, $location) {
         var vm = this;
         vm.update = update;
+        vm.deleteUser = deleteUser;
 
         function init() {
             UserService.getCurrentUser()
@@ -39,5 +40,15 @@
                         init();
                 });
          }
+
+        function deleteUser(user) {
+            UserService.deleteUserById(user._id)
+                .then(function (response) {
+                    UserService.setCurrentUser(null);
+                    $location.path('/home');
+                }
+                );
+
+        }
     }
 })();
