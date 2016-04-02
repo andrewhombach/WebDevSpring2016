@@ -1,4 +1,3 @@
-var users = require("./user.mock.json");
 
 var q = require('q');
 
