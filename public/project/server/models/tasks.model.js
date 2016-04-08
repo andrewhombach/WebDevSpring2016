@@ -1,65 +1,130 @@
-var tasks = require("./tasks.mock.json");
-module.exports = function (uuid) {
+var q = require('q');
+module.exports = function (uuid, mongoose, db) {
+
+    var TaskSchema = require("./task.schema.server.js")(mongoose);
+    var TaskModel = mongoose.model('Task', TaskSchema);
+
     var api = {
-        createTask: createTask,
         deleteTask: deleteTask,
         findTask: findTask,
         updateTask: updateTask,
         findTasksByUserId: findTasksByUserId,
         findAllTasks: findAllTasks,
         searchTasks: searchTasks,
-        findTasksByProjectId: findTasksByProjectId
+        findTasksByProjectId: findTasksByProjectId,
+        createTask: createTask
     };
 
     return api;
 
     function createTask(task) {
-        task._id = uuid.v1();
-        tasks.push(task);
-        return tasks;
+        var deferred = q.defer();
+        
+        var newTask = {
+            name: task.name,
+            createDate: (new Date).getTime(),
+            dueDate: task.dueDate,
+            status: task.name,
+            userIds: task.userIds,
+            projectId: task.projectId,
+            notes: task.notes,
+            location: task.location
+        };
+
+        TaskModel.create(newTask, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function deleteTask(taskId) {
-        for (var d in tasks) {
-            if (tasks[d]._id == taskId) {
-                tasks.splice(d, 1);
+
+        var deferred = q.defer();
+
+        TaskModel.remove({_id: taskId}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return tasks;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
-    function updateTask(task, taskId) {
-        for (var d in tasks) {
-            if (tasks[d]._id == taskId) {
-                tasks[d] = task;
+    function updateTask(task) {
+
+        var newTask = {
+            name: task.name,
+            createDate: task.createDate,
+            status: task.status,
+            userIds: task.userIds,
+            notes: task.notes,
+            location: task.location
+        };
+
+        var deferred = q.defer();
+
+        TaskModel.findByIdAndUpdate(task._id, {$set:newTask}, {new: true, upsert: true}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return tasks;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findTask(taskId) {
-        for (var d in tasks) {
-            if (tasks[d]._id == taskId) {
-                return tasks[d];
+
+        var deferred = q.defer();
+
+        TaskModel.findById(taskId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findTasksByUserId(userId) {
-        var returnTasks = [];
-        for (var d in tasks) {
-            var users = tasks[d].userIds;
-            for (var u in users) {
-                if (users[u] == userId) {
-                    returnTasks.push(tasks[d]);
-                }
+
+        var deferred = q.defer();
+
+        TaskModel.find({userIds: {$in : [userId]}}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return returnTasks;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findAllTasks() {
-        return tasks;
+
+        var deferred = q.defer();
+
+        TaskModel.find({}, function(err,doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function searchTasks(term) {
@@ -101,12 +166,16 @@ module.exports = function (uuid) {
     }
 
     function findTasksByProjectId(id) {
-        var returnTasks = [];
-        for (t in tasks) {
-            if (tasks[t].project == id) {
-                returnTasks.push(tasks[t]);
+        var deferred = q.defer();
+
+        TaskModel.find({projectId: id}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return returnTasks;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 };

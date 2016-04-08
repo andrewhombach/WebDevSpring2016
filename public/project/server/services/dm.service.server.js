@@ -7,34 +7,77 @@ module.exports = function(app, DMModel) {
     app.put("/api/dm/:dmId", updateDMById);
 
     function getAllDM(req, res) {
-        var getDMs = DMModel.findAllDms();
-        res.json(getDMs);
+        DMModel.findAllDms()
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getDMById(req, res) {
-        var id = req.params.dmId;
-        var getDM = DMModel.findDM(id);
-        res.json(getDM);
+        DMModel.findDM(req.params.dmId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
+
 
     function getDMsByUserId(req, res) {
-        var uId = req.params.userId;
-        var getDMs = DMModel.findDMsByUserId(uId);
-        res.json(getDMs);
+        DMModel.findDMsByUserId(req.params.userId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
+
     function deleteDMById(req, res) {
-        var getDMs = DMModel.deleteDM(req.params.dmId);
-        res.json(getDMs);
+        DMModel.deleteDM(req.params.dmId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function createDM(req, res) {
-        var getDMs = DMModel.createDM(req.body);
-        res.json(getDMs);
+        DMModel.createDM(req.body)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
+
     function updateDMById(req, res) {
-        var getDMs = DMModel.updateDM(req.body, req.body._id);
-        res.json(getDMs);
+        DMModel.updateDM(req.body, req.body._id)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 };

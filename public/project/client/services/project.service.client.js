@@ -35,8 +35,8 @@
             return $http.post("/api/project/", project)
         }
 
-        function updateProject(projectId, project) {
-            return $http.put("/api/project/" + projectId, project);
+        function updateProject(project) {
+            return $http.put("/api/project/", project);
         }
     }
 })();

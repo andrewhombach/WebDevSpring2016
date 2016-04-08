@@ -4,7 +4,7 @@
         .factory("UserService", UserService);
 
 
-    function UserService($http) {
+    function UserService($http, $rootScope) {
         var api = {
             createUser: createUser,
             deleteUserById: deleteUserById,
@@ -15,7 +15,8 @@
             getProfile: getProfile,
             setCurrentUser: setCurrentUser,
             findUsersByProjectId: findUsersByProjectId,
-            findUsersByTaskId: findUsersByTaskId
+            findUsersByTaskId: findUsersByTaskId,
+            getCurrentUser: getCurrentUser
         };
 
         return api;
@@ -45,9 +46,9 @@
             return $http.post("/api/user", user);
         }
 
-        function updateUser (userId, user) {
+        function updateUser (user) {
             console.log(user);
-            return $http.put("/api/user/" + userId, user);
+            return $http.put("/api/user/", user);
         }
 
         function findUsersByProjectId(projectId) {
@@ -58,6 +59,9 @@
             return $http.get("/api/task/" + id + "/user");
         }
 
+        function getCurrentUser() {
+            return $http.get("/api/loggedin");
+        }
 
         function getProfile() {
             return $rootScope.cUser;

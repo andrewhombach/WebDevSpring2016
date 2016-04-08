@@ -1,11 +1,12 @@
-module.exports = function(app, userModel) {
+module.exports = function(app, UserModel) {
     app.post("/api/user", register);
     app.get("/api/user", userRouter);
     app.get("/api/user/:id", findUserById);
-    app.put("/api/user/:id", updateUser);
+    app.put("/api/user/", updateUser);
     app.delete("/api/user/:id", deleteUser);
     app.get("/api/project/:projectId/user", findUsersByProjectId);
     app.get("/api/task/:taskId/user", findUsersByTaskId);
+    app.get("/api/loggedin", loggedIn);
 
 
 
@@ -22,37 +23,83 @@ module.exports = function(app, userModel) {
     }
 
     function findUsersByProjectId(req, res) {
-        var getUsers = userModel.findUsersByProjectId(req.params.projectId);
+        var getUsers = UserModel.findUsersByProjectId(req.params.projectId);
         res.json(getUsers);
     }
 
     function findUsersByTaskId(req, res) {
-        var getUsers = userModel.findUsersByTaskId(req.params.taskId);
+        var getUsers = UserModel.findUsersByTaskId(req.params.taskId);
         res.json(getUsers);
     }
 
 
+    function loggedIn(req, res) {
+        res.json(req.session.cUser);
+    }
+
 
     function register(req, res) {
-        var newUser = req.body;
-        var users = userModel.createUser(newUser);
-        res.json(users);
+        var user = req.body;
+
+        UserModel.createUser(user)
+            .then(
+                function (doc) {
+                    req.session.cUser = doc;
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getUsers(req, res) {
-        res.json(userModel.findAllUsers());
+        UserModel.findAllUsers()
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function findUserById(req, res) {
         var userId = req.params.id;
-        var user = userModel.findUser(userId);
-        res.json(user);
+        UserModel.findUser(userId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function updateUser(req, res) {
         var user = req.body;
-        var userId = req.params.id;
-        res.json(userModel.updateUser(user, userId));
+
+        UserModel.updateUser(user)
+            .then(
+                function (na) {
+                    UserModel.findUserById(req.session.cUser._id)
+                        .then(
+                            function (doc) {
+                                req.session.cUser = doc;
+                                res.json(doc);
+                            }
+                        ),
+                        function (err) {
+                            res.status(400).send(err);
+                        }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+
     }
 
     function findUserByCredentials(req, res) {
@@ -60,18 +107,29 @@ module.exports = function(app, userModel) {
             username: req.query.username,
             password: req.query.password
         };
-        var user = userModel.findUserByCredentials(cred);
-        res.json(user);
+        UserModel.findUserByCredentials(cred)
+            .then(
+                function (doc) {
+                    req.session.cUser = doc;
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
-    function findUserByUsername(req, res) {
-        var uName = req.query.username;
-        res.json(userModel.findUserByUsername(uName));
-    }
 
     function deleteUser(req, res) {
         var id = req.params.id;
-        res.json(userModel.deleteUser(id));
 
+        UserModel.deleteUser(id)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 };

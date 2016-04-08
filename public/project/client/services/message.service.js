@@ -35,14 +35,13 @@
             return $http.get("/api/message");
         }
 
-        function createMessage(message, userId, projectId) {
-            var parcel = {project: projectId, message: {_id: null, userId: userId, text: message}};
-            console.log(parcel);
+        function createMessage(message, userId) {
+            var parcel = {userId: userId, text: message.text};
             return $http.post("/api/message/", parcel);
         }
 
-        function updateMessage(messageId, message) {
-            return $http.put("/api/message/" + messageId, message);
+        function updateMessage(message) {
+            return $http.put("/api/message/", message);
         }
 
         function findMessagesByProjectId(id) {

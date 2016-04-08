@@ -4,37 +4,78 @@ module.exports = function(app, ProjectModel) {
     app.get("/api/user/:userId/project", getProjectsByUserId);
     app.delete("/api/project/:projectId", deleteProjectById);
     app.post("/api/project/", createProject);
-    app.put("/api/project/:projectId", updateProjectById);
+    app.put("/api/project/", updateProject);
 
     function getAllProject(req, res) {
-        var getProjects = ProjectModel.findAllProjects();
-        res.json(getProjects);
+        ProjectModel.findAllProjects()
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getProjectById(req, res) {
-        var id = req.params.projectId;
-        var getProject = ProjectModel.findProject(id);
-        res.json(getProject);
+        ProjectModel.findProject(req.params.projectId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getProjectsByUserId(req, res) {
-        var uId = req.params.userId;
-        var getProjects = ProjectModel.findProjectsByUserId(uId);
-        res.json(getProjects);
+        var getProjects = ProjectModel.findProjectsByUserId(req.params.userId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteProjectById(req, res) {
-        var getProjects = ProjectModel.deleteProject(req.params.projectId);
-        res.json(getProjects);
+        ProjectModel.deleteProject(req.params.projectId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function createProject(req, res) {
-        var getProjects = ProjectModel.createProject(req.body);
-        res.json(getProjects);
+        ProjectModel.createProject(req.body)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+
     }
 
-    function updateProjectById(req, res) {
-        var getProjects = ProjectModel.updateProject(req.body, req.body._id);
-        res.json(getProjects);
+    function updateProject(req, res) {
+        ProjectModel.updateProject(req.body)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 };

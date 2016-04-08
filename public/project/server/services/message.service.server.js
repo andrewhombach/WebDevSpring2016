@@ -4,51 +4,107 @@ module.exports = function(app, MessageModel) {
     app.get("/api/user/:userId/message", getMessagesByUserId);
     app.delete("/api/message/:messageId", deleteMessageById);
     app.post("/api/message/", createMessage);
-    app.put("/api/message/:messageId", updateMessageById);
+    app.put("/api/message/", updateMessage);
     app.get("/api/project/:projectId/message", findMessagesByProjectId);
     app.get("/api/dm/:dmId/message", findMessagesByDMId);
 
     function getAllMessage(req, res) {
-        var getMessages = MessageModel.findAllMessages();
-        res.json(getMessages);
+        MessageModel.findAllMessages()
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getMessageById(req, res) {
-        var id = req.params.messageId;
-        var getMessage = MessageModel.findMessage(id);
-        res.json(getMessage);
+        MessageModel.findMessage(req.params.messageId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getMessagesByUserId(req, res) {
-        var uId = req.params.userId;
-        var getMessages = MessageModel.findMessagesByUserId(uId);
-        res.json(getMessages);
+        MessageModel.findMessagesByUserId(req.params.userId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteMessageById(req, res) {
-        var getMessages = MessageModel.deleteMessage(req.params.messageId);
-        res.json(getMessages);
+        MessageModel.deleteMessage(req.params.messageId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function createMessage(req, res) {
-        console.log(req.body.project);
-        var getMessages = MessageModel.createMessage(req.body.project, req.body.message);
-        res.json(getMessages);
+        MessageModel.createMessage(req.body)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+
     }
 
-    function updateMessageById(req, res) {
-        var getMessages = MessageModel.updateMessage(req.body, req.body._id);
-        res.json(getMessages);
+    function updateMessage(req, res) {
+        MessageModel.updateMessage(req.body)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findMessagesByProjectId(req, res) {
-        var getMessages = MessageModel.findMessagesByProjectId(req.params.projectId);
-        res.json(getMessages);
+        MessageModel.findMessagesByProjectId(req.params.projectId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+
     }
 
     function findMessagesByDMId(req, res) {
-        var getMessages = MessageModel.findMessagesByDMId(req.params.dmId);
-        res.json(getMessages);
+        MessageModel.findMessagesByDMId(req.params.dmId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+
     }
 
 };

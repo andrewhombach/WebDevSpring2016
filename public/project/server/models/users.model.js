@@ -1,11 +1,15 @@
-var users = require("./users.mock.json");
-module.exports = function(uuid, ProjectModel, TaskModel) {
+var q = require('q');
+
+module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
+
+    var UserSchema = require("./user.schema.server.js")(mongoose);
+    var UserModel = mongoose.model('pUser', UserSchema);
+
     var api = {
         createUser: createUser,
         deleteUser: deleteUser,
         findUser: findUser,
         updateUser: updateUser,
-        findUsersByUserId: findUsersByUserId,
         findAllUsers: findAllUsers,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
@@ -16,23 +20,38 @@ module.exports = function(uuid, ProjectModel, TaskModel) {
     return api;
 
     function findUserByUsername(username) {
-        for (var u in users) {
-            if (users[u].username == username) {
-                return users[u];
+
+        var deferred = q.defer();
+
+        UserModel.findOne({username: username}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return null;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
     }
 
+
     function findUserByCredentials(credentials) {
-        for (var u in users) {
-            if (users[u].username == credentials.username &&
-                users[u].password == credentials.password) {
-                return users[u];
-            }
-        }
-        console.log("no match");
-        return null;
+
+        var deferred = q.defer();
+
+        UserModel.findOne(
+            {username: credentials.username,
+                password: credentials.password},
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+            });
+        return deferred.promise;
     }
 
     function findUsersByTaskId(taskId) {
@@ -50,51 +69,88 @@ module.exports = function(uuid, ProjectModel, TaskModel) {
 
 
     function createUser(user) {
-        user._id = uuid.v1();
-        users.push(user);
-        return user;
+        var deferred = q.defer();
+
+        UserModel.create(user, function(err, doc) {
+
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findAllUsers() {
-        return users;
+        var deferred = q.defer();
+
+        UserModel.find({}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function deleteUser(userId){
-        for (var d in users) {
-            if (users[d]._id == userId) {
-                users.splice(d, 1);
+        var deferred = q.defer();
+
+        UserModel.remove({_id: userId}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return users;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
+
     }
 
-    function updateUser(user, userId) {
+    function updateUser(user) {
 
-        for (var d in users) {
-            if (users[d]._id == userId) {
-                users[d] = user;
-                return users[d];
+        var newUser = {
+            username: user.username,
+            password: user.password,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email
+        };
+
+        var deferred = q.defer();
+
+        UserModel.findByIdAndUpdate(user._id, {$set:newUser}, {new: true, upsert: true}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
+
 
     function findUser(userId) {
-        for (var d in users) {
-            if (users[d]._id == userId) {
-                return users[d];
-            }
-        }
-    }
 
-    function findUsersByUserId(userId) {
-        var returnUsers = [];
-        for (var d in users) {
-            if (users[d].user1 == userId || users[d].user2 == userId) {
-                returnUsers.push(users[d]);
+        var deferred = q.defer();
+
+        UserModel.findById(userId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return returnUsers;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findUsersByProjectId(projectId) {

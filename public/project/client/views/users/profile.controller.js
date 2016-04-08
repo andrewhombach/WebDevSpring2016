@@ -8,7 +8,7 @@
         $scope.user = $rootScope.cUser;
 
         function update (user) {
-            UserService.updateUser(user._id, user)
+            UserService.updateUser(user)
                 .then(function (response) {
                     $rootScope.cUser = response.data;
                     console.log(response.data);

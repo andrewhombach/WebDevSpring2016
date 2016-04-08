@@ -1,5 +1,10 @@
-var messages = require("./message.mock.json");
-module.exports = function(uuid, ProjectModel, DMModel) {
+var q = require('q');
+module.exports = function(uuid, ProjectModel, DMModel, mongoose, db) {
+
+    var MessageSchema = require("./message.schema.server.js")(mongoose);
+    var MessageModel = mongoose.model('Message', MessageSchema);
+
+
     var api = {
         createMessage: createMessage,
         deleteMessage: deleteMessage,
@@ -15,53 +20,95 @@ module.exports = function(uuid, ProjectModel, DMModel) {
     return api;
 
     function findAllMessages() {
-        return messages;
+
+        var deferred = q.defer();
+
+        MessageModel.find({}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
-    function createMessage(projectId, message) {
-        console.log(projectId);
-        var newMessage = message;
-        newMessage._id = uuid.v1();
-        messages.push(newMessage);
-        ProjectModel.addMessage(projectId, message);
-        return newMessage;
+    function createMessage(message) {
+        console.log(message);
+        var newMessage = {
+            userId: message.userId,
+            text: message.text,
+            createDate: (new Date).getTime()
+        };
+
+        var deferred = q.defer();
+
+        MessageModel.create(newMessage, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function deleteMessage(messageId){
-        for (var d in messages) {
-            if (messages[d]._id == messageId) {
-                messages.splice(d, 1);
+        var deferred = q.defer();
+
+        MessageModel.remove({_id : messageId}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return messages;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
-    function updateMessage(message, messageId) {
-        for (var d in messages) {
-            if (messages[d]._id == messageId) {
-                messages[d] = message;
+    function updateMessage(message) {
+        var deferred = q.defer();
+
+        MessageModel.findByIdAndUpdate(message._id, {$set:message}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return messages;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findMessage(messageId) {
-        for (var d in messages) {
-            if (messages[d]._id == messageId) {
-                console.log(messages[d]);
-                return messages[d];
+        var deferred = q.defer();
+
+        MessageModel.findById(messageId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findMessagesByUserId(userId) {
-        var returnMessages = [];
-        for (var d in messages) {
-            if (messages[d].userId == userId) {
-                returnMessages.push(messages[d]);
+        var deferred = q.defer();
+
+        MessageModel.find({userId: {$in: [userId]}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return returnMessages;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findMessagesByDMId(id) {
@@ -111,5 +158,4 @@ module.exports = function(uuid, ProjectModel, DMModel) {
         }
         return returnMessages;
     }
-
 };

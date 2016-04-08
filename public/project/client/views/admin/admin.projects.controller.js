@@ -66,7 +66,7 @@
         }
 
         function updateProject(project) {
-            ProjectService.updateProject(project._id, project)
+            ProjectService.updateProject(project)
                 .then(retrieveProjects);
             $scope.project = null;
         }

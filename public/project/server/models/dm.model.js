@@ -1,5 +1,11 @@
-var dms = require("./dm.mock.json");
-module.exports = function(uuid) {
+var q = require('q');
+
+module.exports = function(uuid, mongoose, db) {
+
+    var DMSchema = require("./DM.schema.server.js")(mongoose);
+    var DMSModel = mongoose.model('DM', DMSchema);
+
+
     var api = {
         createDM: createDM,
         deleteDM: deleteDM,
@@ -12,49 +18,99 @@ module.exports = function(uuid) {
     return api;
 
     function createDM(dm) {
-        dm._id = uuid.v1();
-        dms.push(dm);
-        return dms;
+
+        var newDM = {
+            user1: dm.user1,
+            user2: dm.user2,
+            createDate: (new Date).getTime(),
+            messages: dm.messages
+        };
+
+        var deferred = q.defer();
+
+        DMSModel.create(newDM, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function deleteDM(dmId){
-        console.log(dmId);
-        for (var d in dms) {
-            if (dms[d]._id == dmId) {
-                dms.splice(d, 1);
+
+        var deferred = q.defer();
+
+        DMSModel.remove({_id : dmId}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return dms;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function updateDM(dm, dmId) {
-        for (var d in dms) {
-            if (dms[d]._id === dmId) {
-                dms[d] = dm;
+
+        var deferred = q.defer();
+
+        DMSModel.findByIdAndUpdate(dm._id, {$set:dm}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return dms;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findDM(dmId) {
-        for (var d in dms) {
-            if (dms[d]._id == dmId) {
-                return dms[d];
+
+        var deferred = q.defer();
+
+        DMSModel.findById(dmId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findDMsByUserId(userId) {
-        var returnDms = [];
-        for (var d in dms) {
-            if (dms[d].user1 == userId || dms[d].user2 == userId) {
-                returnDms.push(dms[d]);
+
+        var deferred = q.defer();
+
+        DMSModel.find({$or : [{user1: userId}, {user2: userId}]}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return returnDms;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findAllDms() {
-        return dms;
+
+        var deferred = q.defer();
+
+        DMSModel.find({}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 };

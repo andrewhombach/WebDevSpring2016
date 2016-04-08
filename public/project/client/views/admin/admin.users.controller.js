@@ -33,7 +33,7 @@
 
         function updateUser(user) {
             console.log(user);
-            UserService.updateUser(user._id,user)
+            UserService.updateUser(user)
                 .then(init);
         }
 

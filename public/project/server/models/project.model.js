@@ -1,5 +1,9 @@
-var projects = require("./project.mock.json");
-module.exports = function(uuid) {
+var q = require('q');
+module.exports = function(uuid, mongoose, db) {
+
+    var ProjectSchema = require("./project.schema.server.js")(mongoose);
+    var ProjectModel = mongoose.model('Project', ProjectSchema);
+
     var api = {
         createProject: createProject,
         deleteProject: deleteProject,
@@ -13,62 +17,130 @@ module.exports = function(uuid) {
 
     return api;
 
-    function addMessage(projectId, message) {
-        var project = findProject(projectId);
-        if (project) {
-            project.messages.push(message._id);
-            console.log(project.messages);
-        }
+    function addMessage(projectId, messageId) {
+        var deferred = q.defer();
+
+        ProjectModel.findByIdAndUpdate(projectId, {$push: {"messages": messageId}}, {new: true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
 
     function createProject(project) {
-        project._id = uuid.v1();
-        projects.push(project);
-        return project;
+
+        console.log(project);
+
+        var newProject = {
+            name: project.name,
+            userIds: project.Ids,
+            admin: project.admin,
+            createDate: (new Date).getTime(),
+            tasks: project.tasks,
+            messages: project.messages,
+            description: project.description
+        }
+
+        var deferred = q.defer();
+
+        ProjectModel.create(newProject, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function deleteProject(projectId){
-        for (var d in projects) {
-            if (projects[d]._id == projectId) {
-                projects.splice(d, 1);
+
+        var deferred = q.defer();
+
+        ProjectModel.remove({_id: projectId}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return projects;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findAllProjects() {
-        return projects;
+        var deferred = q.defer();
+
+        ProjectModel.find({}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
-    function updateProject(project, projectId) {
-        for (var d in projects) {
-            if (projects[d]._id == projectId) {
-                projects[d] = project;
+    function updateProject(project) {
+
+        var newProject = {
+            name: project.name,
+            userIds: project.userIds,
+            admin: project.admin,
+            tasks: project.tasks,
+            messages: project.messages,
+            description: project.description
+        };
+
+        var deferred = q.defer();
+
+        ProjectModel.findByIdAndUpdate(project._id, {$set:newProject}, {new: true, upsert: true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return projects;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findProject(projectId) {
-        for (var d in projects) {
-            if (projects[d]._id == projectId) {
-                return projects[d];
+
+        var deferred = q.defer();
+
+        ProjectModel.findById(projectId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findProjectsByUserId(userId) {
-        var returnProjects = [];
-        for (var d in projects) {
-            var users = projects[d].userIds;
-            for (var u in users){
-                if (users[u] == userId) {
-                    returnProjects.push(projects[d]);
-                }
+
+        var deferred = q.defer();
+
+        ProjectModel.find({userIds: {$in : [userId]}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return returnProjects;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function searchProjects(term) {

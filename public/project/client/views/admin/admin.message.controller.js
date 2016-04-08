@@ -62,7 +62,7 @@
         }
 
         function updateMessage(message) {
-            MessageService.updateMessage(message._id, message)
+            MessageService.updateMessage(message)
                 .then(retrieveMessages);
             $scope.message = null;
         }

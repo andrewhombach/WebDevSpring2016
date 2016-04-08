@@ -134,7 +134,7 @@ module.exports = function (uuid, mongoose, db) {
             fields: form.fields,
             created: form.created,
             updated: (new Date).getTime()
-        }
+        };
 
         var deferred = q.defer();
 

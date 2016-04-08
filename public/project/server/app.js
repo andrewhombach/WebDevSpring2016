@@ -1,9 +1,9 @@
-module.exports = function(app, uuid) {
-    var DMModel = require("./models/dm.model.js")(uuid);
-    var ProjectModel = require("./models/project.model.js") (uuid);
-    var TaskModel = require("./models/tasks.model.js") (uuid);
-    var MessageModel = require("./models/message.model.js") (uuid, ProjectModel, DMModel);
-    var UserModel = require("./models/users.model.js") (uuid, ProjectModel, TaskModel);
+module.exports = function(app, uuid, mongoose, db) {
+    var TaskModel = require("./models/tasks.model.js") (uuid, mongoose, db);
+    var DMModel = require("./models/dm.model.js")(uuid, mongoose, db);
+    var ProjectModel = require("./models/project.model.js") (uuid, mongoose, db);
+    var MessageModel = require("./models/message.model.js") (uuid, ProjectModel, DMModel, mongoose, db);
+    var UserModel = require("./models/users.model.js") (uuid, ProjectModel, TaskModel, mongoose, db);
 
     var userService = require("./services/user.service.server.js") (app, UserModel);
     var dmService = require("./services/dm.service.server.js") (app, DMModel);
