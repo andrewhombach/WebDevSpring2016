@@ -6,7 +6,8 @@
 
     function MessageService($http) {
         var api = {
-            createMessage: createMessage,
+            createMessageForProject: createMessageForProject,
+            createMessageForDM: createMessageForDM,
             deleteMessageById: deleteMessageById,
             findAllMessagesByUserId: findAllMessagesByUserId,
             findMessageById: findMessageById,
@@ -27,21 +28,26 @@
             return $http.get("/api/user/" + userId + "/message");
         }
 
-        function deleteMessageById(messageId) {
-            return $http.delete("/api/message/" + messageId);
+        function deleteMessageById(projectId, messageId) {
+            return $http.delete("/api/project/" + projectId + "/message/" + messageId);
         }
 
         function findAllMessages() {
             return $http.get("/api/message");
         }
 
-        function createMessage(message, userId) {
-            var parcel = {userId: userId, text: message.text};
-            return $http.post("/api/message/", parcel);
+        function createMessageForProject(projectId, message) {
+            var parcel = {userId: message.userId, text: message.text};
+            return $http.post("/api/project/"+ projectId + "/message/", parcel);
         }
 
-        function updateMessage(message) {
-            return $http.put("/api/message/", message);
+        function createMessageForDM(message, userId, DMId) {
+            var parcel = {userId: userId, text: message};
+            return $http.post("/api/DM/" + DMId + "/message", parcel)
+        }
+
+        function updateMessage(projectId, message) {
+            return $http.put("/api/project/" + projectId + "/message/", message);
         }
 
         function findMessagesByProjectId(id) {

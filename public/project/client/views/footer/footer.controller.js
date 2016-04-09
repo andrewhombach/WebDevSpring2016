@@ -3,17 +3,16 @@
         .module("CoLabApp")
         .controller("FooterController", FooterController);
 
-    function FooterController ($rootScope, $location, MessageService, $route) {
+    function FooterController ($routeParams, $location, UserService, MessageService, $route) {
         var vm = this;
         vm.message = null;
         vm.sendMessage = sendMessage;
 
         function sendMessage(message) {
-            console.log("sendMessageCalled");
-            MessageService.createMessage(message, $rootScope.cUser._id, $rootScope.projectId)
+            var m = {userId : UserService.getProfile()._id, text: message};
+            MessageService.createMessageForProject($routeParams.projectId, m)
             .then(function (response) {
-                console.log(response.data);
-                $location.path('/home/' + $rootScope.projectId);
+                $location.path('/home/' + $routeParams.projectId);
                 $route.reload();
             });
         }

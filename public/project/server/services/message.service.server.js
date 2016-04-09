@@ -1,15 +1,16 @@
-module.exports = function(app, MessageModel) {
+module.exports = function(app, MessageModel, ProjectModel) {
     app.get("/api/message/:messageId", getMessageById);
-    app.get("/api/message", getAllMessage);
+    app.get("/api/message", getAllMessages);
     app.get("/api/user/:userId/message", getMessagesByUserId);
-    app.delete("/api/message/:messageId", deleteMessageById);
-    app.post("/api/message/", createMessage);
-    app.put("/api/message/", updateMessage);
+    app.delete("/api/project/:projectId/message/:messageId", deleteMessageById);
+    app.post("/api/project/:projectId/message/", createMessageForProject);
+    app.post("/api/dm/:DMId/message", createMessageForDM);
+    app.put("/api/project/:projectId/message/", updateMessage);
     app.get("/api/project/:projectId/message", findMessagesByProjectId);
     app.get("/api/dm/:dmId/message", findMessagesByDMId);
 
-    function getAllMessage(req, res) {
-        MessageModel.findAllMessages()
+    function getAllMessages(req, res) {
+        ProjectModel.findAllMessages()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -33,7 +34,7 @@ module.exports = function(app, MessageModel) {
     }
 
     function getMessagesByUserId(req, res) {
-        MessageModel.findMessagesByUserId(req.params.userId)
+        ProjectModel.findMessagesByUserId(req.params.userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -45,7 +46,7 @@ module.exports = function(app, MessageModel) {
     }
 
     function deleteMessageById(req, res) {
-        MessageModel.deleteMessage(req.params.messageId)
+        ProjectModel.deleteMessage(req.params.projectId, req.params.messageId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -56,8 +57,8 @@ module.exports = function(app, MessageModel) {
             );
     }
 
-    function createMessage(req, res) {
-        MessageModel.createMessage(req.body)
+    function createMessageForProject(req, res) {
+        ProjectModel.addMessage(req.params.projectId, req.body)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -66,11 +67,30 @@ module.exports = function(app, MessageModel) {
                     res.status(400).send(err);
                 }
             );
+    }
 
+    function createMessageForDM(req, res) {
+        MessageModel.createMessage(req.body)
+            .then(
+                function (message) {
+                    DMModel.addMessage(req.params.DMId, message._id)
+                        .then(
+                            function (doc) {
+                                res.json(doc);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        );
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function updateMessage(req, res) {
-        MessageModel.updateMessage(req.body)
+        ProjectModel.updateMessage(req.params.projectId, req.body)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -82,16 +102,23 @@ module.exports = function(app, MessageModel) {
     }
 
     function findMessagesByProjectId(req, res) {
-        MessageModel.findMessagesByProjectId(req.params.projectId)
+        ProjectModel.findProject(req.params.projectId)
             .then(
-                function (doc) {
-                    res.json(doc);
+                function (project) {
+                    MessageModel.findMessagesByIds(project.messages)
+                        .then(
+                            function (doc) {
+                                res.json(doc);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        );
                 },
                 function (err) {
                     res.status(400).send(err);
                 }
             );
-
     }
 
     function findMessagesByDMId(req, res) {
@@ -104,7 +131,6 @@ module.exports = function(app, MessageModel) {
                     res.status(400).send(err);
                 }
             );
-
     }
 
 };

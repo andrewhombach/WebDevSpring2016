@@ -6,7 +6,6 @@ module.exports = function(mongoose) {
         dueDate: Date,
         status: String,
         userIds: [String],
-        projectId: String,
         notes: String,
         location: String
     }, {collection: 'CoLab.tasks'});

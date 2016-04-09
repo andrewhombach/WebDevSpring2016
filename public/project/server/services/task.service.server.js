@@ -1,16 +1,17 @@
-module.exports = function(app, TaskModel) {
+module.exports = function(app, TaskModel, ProjectModel, UserModel) {
     app.get("/api/task/:taskId", findTaskById);
     app.get("/api/task", findAllTasks);
     app.get("/api/user/:userId/task", findTasksByUserId);
-    app.delete("/api/task/:taskId", deleteTaskById);
-    app.post("/api/task/", newTask);
-    app.put("/api/task/:taskId", updateTaskById);
+    app.delete("/api/project/:projectId/task/:taskId", deleteTaskById);
+    app.post("/api/project/:projectId/task/", newTask);
+    app.put("/api/project/:projectId/task/", updateTaskById);
     app.get("/api/project/:projectId/task", findTasksByProjectId);
 
     function findAllTasks(req, res) {
-        TaskModel.findAllTasks()
+        ProjectModel.findAllTasks()
             .then(
                 function (doc) {
+                    console.log(doc);
                     res.json(doc);
                 },
                 function (err) {
@@ -21,7 +22,7 @@ module.exports = function(app, TaskModel) {
 
     function findTaskById(req, res) {
         var taskId = req.params.taskId;
-        TaskModel.findTask(taskId)
+        ProjectModel.findTask(taskId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -33,12 +34,18 @@ module.exports = function(app, TaskModel) {
     }
 
     function findTasksByUserId(req, res) {
-        console.log(req.params.userId);
-        var uId = req.params.userId;
-        TaskModel.findTasksByUserId(uId)
+        UserModel.findUser(req.params.userId)
             .then(
-                function (doc) {
-                    res.json(doc);
+                function (user) {
+                    TaskModel.findTasksByUserId(uId)
+                        .then(
+                            function (doc) {
+                                res.json(doc);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        );
                 },
                 function (err) {
                     res.status(400).send(err);
@@ -47,7 +54,7 @@ module.exports = function(app, TaskModel) {
     }
 
     function deleteTaskById(req, res) {
-        TaskModel.deleteTask(req.params.taskId)
+        ProjectModel.deleteTask(req.params.projectId, req.params.taskId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -59,12 +66,10 @@ module.exports = function(app, TaskModel) {
     }
 
     function newTask(req, res) {
-        console.log(req.body);
-        var task = req.body;
-        TaskModel.createTask(task)
+        ProjectModel.addTask(req.params.projectId, req.body)
             .then(
-                function (doc) {
-                    res.json(doc);
+                function (task) {
+                    res.json(task);
                 },
                 function (err) {
                     res.status(400).send(err);
@@ -73,7 +78,7 @@ module.exports = function(app, TaskModel) {
     }
 
     function updateTaskById(req, res) {
-        TaskModel.updateTask(req.body)
+        ProjectModel.updateTask(req.params.projectId, req.body)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -85,7 +90,7 @@ module.exports = function(app, TaskModel) {
     }
 
     function findTasksByProjectId(req, res) {
-        TaskModel.findTasksByProjectId(req.params.projectId)
+        ProjectModel.findTasksByProjectId(req.params.projectId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -95,4 +100,5 @@ module.exports = function(app, TaskModel) {
                 }
             );
     }
+
 };

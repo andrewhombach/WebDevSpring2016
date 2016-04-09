@@ -1,7 +1,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminTasksController">
     <h1 class="page-header">Tasks
         <div align="right" class="input-group">
-            <button ng-click="changePicker()" class="btn btn-info">
+            <button ng-click="model.changePicker()" class="btn btn-info">
                 See All or User
             </button>
         </div>
@@ -62,45 +62,45 @@
         <tbody>
         <tr>
             <td>
-                <input ng-model="task.name" type="text" class="form-control" placeholder="title">
+                <input ng-model="model.task.name" type="text" class="form-control" placeholder="title">
             </td>
             <td>
-                <input ng-model="task._id" type="text" class="form-control" placeholder="id">
+                <input ng-model="model.task._id" type="text" class="form-control" placeholder="id">
             </td>
             <td>
-                <input ng-model="task.createDate" type="date" class="form-control" placeholder="Date Created">
+                <input ng-model="model.task.createDate" type="date" class="form-control" placeholder="Date Created">
             </td>
             <td>
-                <input ng-model="task.dueDate" type="date" class="form-control" placeholder="Date Due">
+                <input ng-model="model.task.dueDate" type="date" class="form-control" placeholder="Date Due">
             </td>
             <td>
-                <input ng-model="task.userIds" type="text" class="form-control" placeholder="Comma seperated UserIds">
+                <input ng-model="model.task.userIds" type="text" class="form-control" placeholder="Comma seperated UserIds">
             </td>
             <td>
-                <input ng-model="task.projectId" type="text" class="form-control" placeholder="Project Id">
+                <input ng-model="model.task.projectId" type="text" class="form-control" placeholder="Project Id">
             </td>
             <td>
-                <input ng-model="task.notes" type="text" class="form-control" placeholder="Notes">
+                <input ng-model="model.task.notes" type="text" class="form-control" placeholder="Notes">
             </td>
             <td>
-                <input ng-model="task.status" type="text" class="form-control" placeholder="Status"
+                <input ng-model="model.task.status" type="text" class="form-control" placeholder="Status">
             </td>
             <td>
-                <input ng-model="task.location" type="text" class="form-control" placeholder="Location">
+                <input ng-model="model.task.location" type="text" class="form-control" placeholder="Location">
             </td>
             <td>
 
                 <div class="input-group">
-                    <button ng-click="addTask(task)" class="btn btn-success">
+                    <button ng-click="model.addTask(model.task)" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button ng-click="updateTask(task)" class="btn btn-info">
+                    <button ng-click="model.updateTask(model.task)" class="btn btn-info">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="task in tasks">
+        <tr ng-repeat="task in model.tasks track by $index">
             <td>
                 {{task.name}}
             </td>
@@ -117,7 +117,7 @@
                 <p class="text-right">{{task.userIds.toString()}}</p>
             </td>
             <td>
-                <p class="text-right">{{task.project}}</p>
+                <p class="text-right">{{task.projectId}}</p>
             </td>
             <td>
                 {{task.notes}}
@@ -130,10 +130,10 @@
             </td>
             <td width="100px">
                 <div class="input-group">
-                    <button ng-click="deleteTask(task)" class="btn btn-danger">
+                    <button ng-click="model.deleteTask(task)" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <button ng-click="selectTask($index)" class="btn btn-warning">
+                    <button ng-click="model.selectTask($index)" class="btn btn-warning">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </div>

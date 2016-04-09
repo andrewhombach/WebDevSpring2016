@@ -1,7 +1,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminMessageController">
     <h1 class="page-header">Messages
         <div align="right" class="input-group">
-            <button ng-click="changePicker()" class="btn btn-info">
+            <button ng-click="model.changePicker()" class="btn btn-info">
                 See All or User
             </button>
         </div>
@@ -25,6 +25,10 @@
             </th>
             <th>
                 <span class="caret"></span>
+                ProjectId
+            </th>
+            <th>
+                <span class="caret"></span>
                 User ID
             </th>
             <th>
@@ -38,28 +42,34 @@
         <tbody>
         <tr>
             <td>
-                <input ng-model="message._id" type="text" class="form-control" placeholder="Message ID">
+                <input ng-model="model.message._id" type="text" class="form-control" placeholder="Message ID">
             </td>
             <td>
-                <input ng-model="message.userId" type="text" class="form-control" placeholder="user ID">
+                <input ng-model="model.message.projectId" type="text" class="form-control" placeholder="Message ID">
             </td>
             <td>
-                <input ng-model="message.text" type="text" class="form-control" placeholder="text">
+                <input ng-model="model.message.userId" type="text" class="form-control" placeholder="user ID">
+            </td>
+            <td>
+                <input ng-model="model.message.text" type="text" class="form-control" placeholder="text">
             </td>
             <td>
                 <div class="input-group">
-                    <button ng-click="addMessage(message)" class="btn btn-success">
+                    <button ng-click="model.addMessage(model.message)" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button ng-click="updateMessage(message)" class="btn btn-info">
+                    <button ng-click="model.updateMessage(model.message)" class="btn btn-info">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="message in messages">
+        <tr ng-repeat="message in model.messages">
             <td>
                 <p class="text-right">{{message._id}}</p>
+            </td>
+            <td>
+                <p class="text-right"></p>
             </td>
             <td>
                 <p class="text-right">{{message.userId}}</p>
@@ -69,10 +79,10 @@
             </td>
             <td width="100px">
                 <div class="input-group">
-                    <button ng-click="deleteMessage(message)" class="btn btn-danger">
+                    <button ng-click="model.deleteMessage(message)" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <button ng-click="selectMessage($index)" class="btn btn-warning">
+                    <button ng-click="model.selectMessage($index)" class="btn btn-warning">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </div>

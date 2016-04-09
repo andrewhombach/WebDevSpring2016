@@ -3,36 +3,53 @@
         .module("CoLabApp")
         .controller("AdminMessageController", AdminMessageController);
 
-    function AdminMessageController(MessageService, $rootScope, $scope) {
-        $scope.deleteMessage = deleteMessage;
-        $scope.addMessage = addMessage;
-        $scope.updateMessage = updateMessage;
-        $scope.selectMessage = selectMessage;
-        $scope.changePicker = changePicker;
+    function AdminMessageController(MessageService, $rootScope) {
+        var vm = this;
+        
+        vm.messageDictionary = null;
+        vm.messages = null;
+        vm.message = null;
+
+        vm.deleteMessage = deleteMessage;
+        vm.addMessage = addMessage;
+        vm.updateMessage = updateMessage;
+        vm.selectMessage = selectMessage;
+        vm.changePicker = changePicker;
 
         var all = true;
 
         function init() {
             MessageService.findAllMessagesByUserId($rootScope.cUser._id)
                 .then(function (response) {
-                    $scope.messages = response.data;
-                    $scope.message = null
-                })
+                    vm.messages = [];
+                    for (x in response.data) {
+                        vm.messages = vm.messages.concat(response.data[x].messages);
+                    }
+                    console.log(vm.messages);
+                    vm.messageDictionary = response.data;
+                    vm.message = null
+                });
         }
-
-        init();
 
         function seeAllMessages() {
 
             MessageService.findAllMessages()
                 .then(function (response) {
-                    $scope.messages = response.data;
-                    $scope.message = null;
+                    console.log(response.data);
+                    vm.messages = [];
+                    for (x in response.data) {
+                        vm.messages = vm.messages.concat(response.data[x].messages);
+                    }
+                    console.log(vm.messages);
+                    vm.messageDictionary = response.data;
+                    vm.message = null
                 });
         }
 
+        seeAllMessages();
+
         function retrieveMessages (){
-            if (!all) {
+            if (all) {
                 seeAllMessages();
             }
             else {
@@ -41,7 +58,7 @@
         }
 
         function changePicker() {
-            if (all) {
+            if (!all) {
                 all = false;
                 seeAllMessages();
             }
@@ -52,23 +69,36 @@
         }
 
         function deleteMessage(message) {
-            MessageService.deleteMessageById(message._id)
+            MessageService.deleteMessageById(messageProjectLookup(message), message._id)
                 .then(retrieveMessages);
         }
 
         function addMessage(message) {
-            MessageService.createMessage(message)
+            console.log(message);
+            MessageService.createMessageForProject(message.projectId, message)
                 .then(retrieveMessages);
         }
 
         function updateMessage(message) {
-            MessageService.updateMessage(message)
+            console.log(messageProjectLookup(message));
+            MessageService.updateMessage(messageProjectLookup(message), message)
                 .then(retrieveMessages);
-            $scope.message = null;
+            vm.message = null;
         }
 
         function selectMessage(pIndex) {
-            $scope.message = $scope.messages[pIndex];
+            vm.message = vm.messages[pIndex];
+        }
+
+        function messageProjectLookup(message) {
+            for (d in vm.messageDictionary) {
+                console.log(vm.messageDictionary[d]);
+                for (t in vm.messageDictionary[d].messages) {
+                    if (vm.messageDictionary[d].messages[t]._id == message._id) {
+                        return vm.messageDictionary[d]._id;
+                    }
+                }
+            }
         }
     }
 })();

@@ -11,13 +11,15 @@
         //one is logged in. It can load dynamically.
 
         function init() {
-            ProjectService.findAllProjectsByUserId(234)
+
+            ProjectService.findAllProjectsByUserId("570723779a6cf3c5105af9b9")
             .then(function (response) {
                 vm.projects = response.data;
                 console.log(vm.projects);
 
             });
-            DMService.findAllDMsByUserId(234)
+
+            DMService.findAllDMsByUserId("570723779a6cf3c5105af9b9")
             .then(function (response) {
                 vm.dms = response.data;
                 for (var d in vm.dms) {

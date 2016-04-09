@@ -12,10 +12,26 @@ module.exports = function(uuid, mongoose, db) {
         findDM: findDM,
         updateDM: updateDM,
         findDMsByUserId: findDMsByUserId,
-        findAllDms: findAllDms
+        findAllDms: findAllDms,
+        addMessage: addMessage
     };
 
     return api;
+
+    function addMessage(DMId, messageId) {
+        console.log(messageId);
+        var deferred = q.defer();
+
+        ProjectModel.findByIdAndUpdate(DMId, {$push: {"messages": messageId}}, {new: true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
 
     function createDM(dm) {
 

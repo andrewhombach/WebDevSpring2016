@@ -16,7 +16,7 @@
             setCurrentUser: setCurrentUser,
             findUsersByProjectId: findUsersByProjectId,
             findUsersByTaskId: findUsersByTaskId,
-            getCurrentUser: getCurrentUser
+            getCurrentUser: getCurrentUser,
         };
 
         return api;
@@ -70,5 +70,6 @@
         function setCurrentUser(user) {
             $rootScope.cUser = user;
         }
+
     }
 })();

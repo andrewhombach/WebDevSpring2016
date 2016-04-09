@@ -1,4 +1,5 @@
 var q = require('q');
+
 module.exports = function(uuid, ProjectModel, DMModel, mongoose, db) {
 
     var MessageSchema = require("./message.schema.server.js")(mongoose);
@@ -13,8 +14,7 @@ module.exports = function(uuid, ProjectModel, DMModel, mongoose, db) {
         findMessagesByUserId: findMessagesByUserId,
         findAllMessages: findAllMessages,
         searchMessages: searchMessages,
-        findMessagesByProjectId: findMessagesByProjectId,
-        findMessagesByDMId: findMessagesByDMId
+        findMessagesByIds: findMessagesByIds
     };
 
     return api;
@@ -111,20 +111,6 @@ module.exports = function(uuid, ProjectModel, DMModel, mongoose, db) {
         return deferred.promise;
     }
 
-    function findMessagesByDMId(id) {
-        var returnMessages = [];
-        var dmMessages = DMModel.findDM(id).messages;
-        for (var d in dmMessages) {
-            for (var m in messages) {
-                if (messages[m]._id == dmMessages[d]) {
-                    returnMessages.push(messages[m]);
-                }
-            }
-
-        }
-        return returnMessages;
-    }
-
     function searchMessages(term) {
         if (term.length == 0) {
             return null;
@@ -146,16 +132,19 @@ module.exports = function(uuid, ProjectModel, DMModel, mongoose, db) {
         return results;
     }
 
-    function findMessagesByProjectId(id) {
-        var returnMessages = [];
-        var project = ProjectModel.findProject(id);
-        for (p in project.messages) {
-            for (m in messages){
-                if (messages[m]._id == project.messages[p]) {
-                    returnMessages.push(messages[m]);
-                }
+
+    function findMessagesByIds(messageIds) {
+
+        var deferred = q.defer();
+
+        MessageModel.find({_id : {$in : messageIds}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
             }
-        }
-        return returnMessages;
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 };

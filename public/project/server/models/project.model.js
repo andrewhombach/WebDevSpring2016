@@ -12,15 +12,153 @@ module.exports = function(uuid, mongoose, db) {
         findProjectsByUserId: findProjectsByUserId,
         findAllProjects: findAllProjects,
         searchProjects: searchProjects,
-        addMessage: addMessage
+        addMessage: addMessage,
+        deleteMessage: deleteMessage,
+        updateMessage: updateMessage,
+        findAllMessages: findAllMessages,
+        addTask: addTask,
+        deleteTask: deleteTask,
+        updateTask: updateTask,
+        findAllTasks: findAllTasks,
+        findTasksByProjectId: findTasksByProjectId
     };
 
     return api;
 
-    function addMessage(projectId, messageId) {
+    function findAllMessages() {
+
         var deferred = q.defer();
 
-        ProjectModel.findByIdAndUpdate(projectId, {$push: {"messages": messageId}}, {new: true}, function (err, doc) {
+        ProjectModel.find({}, {'messages':true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function addMessage(projectId, message) {
+
+        var newMessage = {
+            userId: message.userId,
+            text: message.text,
+            createDate: (new Date).getTime()
+        };
+
+        console.log (newMessage);
+
+        var deferred = q.defer();
+
+        ProjectModel.findByIdAndUpdate(projectId, {$push: {"messages": newMessage}}, {new: true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function deleteMessage(projectId, messageId) {
+
+        var deferred = q.defer();
+
+        ProjectModel.findByIdAndUpdate(projectId, {$pull: {messages: {_id : messageId}}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function updateMessage(projectId, message) {
+        console.log(message._id);
+        console.log(projectId);
+
+        var deferred = q.defer();
+
+        ProjectModel.update({_id: projectId, "messages._id" : message._id}, {$set: {"messages.$": message}}, {new: true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc)
+            }
+        });
+        return deferred.promise;
+    }
+
+    function addTask(projectId, task) {
+        var deferred = q.defer();
+
+        ProjectModel.findByIdAndUpdate(projectId, {$push: {"tasks": task}}, {new: true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function deleteTask(projectId, taskId) {
+
+        var deferred = q.defer();
+
+        ProjectModel.findByIdAndUpdate(projectId, {$pull: {tasks: {_id: taskId}}}, function (err, doc) {
+            if (err) {
+                    deferred.reject(err);
+                }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function updateTask(projectId, task) {
+
+        var deferred = q.defer();
+
+        ProjectModel.update({_id: projectId, "tasks._id" : task._id}, {$set: {"tasks.$": task}}, {new: true}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function findAllTasks() {
+
+        var deferred = q.defer();
+
+        ProjectModel.find({}, {'tasks':true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function findTasksByProjectId(projectId) {
+
+        var deferred = q.defer();
+
+        ProjectModel.find({_id : projectId}, {'tasks':true,'_id':false}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }
@@ -34,8 +172,6 @@ module.exports = function(uuid, mongoose, db) {
 
     function createProject(project) {
 
-        console.log(project);
-
         var newProject = {
             name: project.name,
             userIds: project.Ids,
@@ -44,7 +180,7 @@ module.exports = function(uuid, mongoose, db) {
             tasks: project.tasks,
             messages: project.messages,
             description: project.description
-        }
+        };
 
         var deferred = q.defer();
 

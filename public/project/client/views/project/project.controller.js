@@ -23,30 +23,29 @@
         function renderProject(response) {
             $rootScope.projectId = vm.projectId;
             vm.project = response.data;
-            console.log(vm.project);
-            getMessages();
-            getTasks();
-            getUsers();
+            getMessages(project.messages);
+            getTasks(project.tasks);
+            getUsers(project.userIds);
         }
 
-        function getMessages() {
-            MessageService.findMessagesByProjectId(vm.project._id)
+        function getMessages(messages) {
+            MessageService.findMessagesByIds(messages)
                 .then(function (response) {
                     vm.messages = response.data;
                     console.log(response.data);
                 });
         }
 
-        function getUsers() {
-            UserService.findUsersByProjectId(vm.project._id)
+        function getUsers(users) {
+            UserService.findUsersByIds(users)
                 .then(function (response) {
                     vm.users = response.data;
                     console.log(response.data);
                 });
         }
 
-        function getTasks() {
-            TaskService.findTasksByProjectId(vm.project._id)
+        function getTasks(tasks) {
+            TaskService.findTasksByProjectId(tasks)
                 .then(function (response) {
                     vm.tasks = response.data;
                     console.log(response.data);

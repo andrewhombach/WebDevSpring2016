@@ -1,4 +1,4 @@
-module.exports = function(app, UserModel) {
+module.exports = function(app, UserModel, ProjectModel, TaskModel) {
     app.post("/api/user", register);
     app.get("/api/user", userRouter);
     app.get("/api/user/:id", findUserById);
@@ -8,14 +8,9 @@ module.exports = function(app, UserModel) {
     app.get("/api/task/:taskId/user", findUsersByTaskId);
     app.get("/api/loggedin", loggedIn);
 
-
-
     function userRouter(req, res) {
         if (req.query.username && req.query.password) {
             findUserByCredentials(req, res);
-        }
-        else if (req.query.username) {
-            findUserByUsername(req, res);
         }
         else {
             getUsers(req, res);
@@ -23,13 +18,45 @@ module.exports = function(app, UserModel) {
     }
 
     function findUsersByProjectId(req, res) {
-        var getUsers = UserModel.findUsersByProjectId(req.params.projectId);
-        res.json(getUsers);
+
+        ProjectModel.findProject(req.params.projectId)
+            .then(
+                function (project) {
+                    UserModel.findUsersByIds(project.userIds)
+                        .then(
+                            function (doc) {
+                                res.json(doc);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        );
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findUsersByTaskId(req, res) {
-        var getUsers = UserModel.findUsersByTaskId(req.params.taskId);
-        res.json(getUsers);
+
+        TaskModel.findTask(req.params.taskId)
+            .then(
+                function(task) {
+                    UserModel.findUsersByIds(task.userIds)
+                        .then(
+                            function (doc) {
+                                res.json(doc);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        );
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
 

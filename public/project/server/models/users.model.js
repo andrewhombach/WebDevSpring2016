@@ -13,8 +13,7 @@ module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
         findAllUsers: findAllUsers,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
-        findUsersByProjectId: findUsersByProjectId,
-        findUsersByTaskId: findUsersByTaskId
+        findUsersByIds: findUsersByIds
     };
 
     return api;
@@ -35,7 +34,6 @@ module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
         return deferred.promise;
     }
 
-
     function findUserByCredentials(credentials) {
 
         var deferred = q.defer();
@@ -53,20 +51,6 @@ module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
             });
         return deferred.promise;
     }
-
-    function findUsersByTaskId(taskId) {
-        var returnUsers = [];
-        var task = TaskModel.findTask(taskId);
-        for (var t in task.userIds) {
-            for (var u in users) {
-                if (task.userIds[t] == users[u]._id) {
-                    returnUsers.push(users[u]);
-                }
-            }
-        }
-        return returnUsers;
-    }
-
 
     function createUser(user) {
         var deferred = q.defer();
@@ -153,17 +137,19 @@ module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
         return deferred.promise;
     }
 
-    function findUsersByProjectId(projectId) {
-        var returnUsers = [];
-        var project = ProjectModel.findProject(projectId);
-        for (var u in project.userIds) {
-            for (var user in users) {
-                if (project.userIds[u] == users[user]._id) {
-                    returnUsers.push(users[user]);
-                }
-            }
-        }
-        return returnUsers;
+    function findUsersByIds(userIds) {
+        console.log(userIds);
 
+        var deferred = q.defer();
+
+        UserModel.find({_id : {$in: userIds}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 };

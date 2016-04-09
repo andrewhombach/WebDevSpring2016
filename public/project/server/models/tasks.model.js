@@ -12,14 +12,15 @@ module.exports = function (uuid, mongoose, db) {
         findAllTasks: findAllTasks,
         searchTasks: searchTasks,
         findTasksByProjectId: findTasksByProjectId,
-        createTask: createTask
+        createTask: createTask,
+        findTasksByIds: findTasksByIds
     };
 
     return api;
 
     function createTask(task) {
         var deferred = q.defer();
-        
+
         var newTask = {
             name: task.name,
             createDate: (new Date).getTime(),
@@ -62,8 +63,10 @@ module.exports = function (uuid, mongoose, db) {
         var newTask = {
             name: task.name,
             createDate: task.createDate,
+            dueDate: task.dueDate,
             status: task.status,
             userIds: task.userIds,
+            projectId: task.projectId,
             notes: task.notes,
             location: task.location
         };
@@ -169,6 +172,21 @@ module.exports = function (uuid, mongoose, db) {
         var deferred = q.defer();
 
         TaskModel.find({projectId: id}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function findTasksByIds(TaskIds) {
+
+        var deferred = q.defer();
+
+        TaskModel.find({_id : {$in: TaskIds}}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }

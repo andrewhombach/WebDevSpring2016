@@ -3,17 +3,16 @@
         .module("CoLabApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($rootScope, UserService, $scope, $location) {
-
-        $scope.login = login;
+    function LoginController($window, UserService, $scope, $location) {
+        var vm = this;
+        vm.login = login;
 
         function login (username, password) {
             UserService.findUserByCredentials(username, password)
                 .then(function (response) {
-                    $rootScope.cUser = response.data;
+                    UserService.setCurrentUser(response.data);
                     $location.url("/profile");
                 });
         }
-
     }
 })();

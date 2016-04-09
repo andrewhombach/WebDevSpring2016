@@ -25,24 +25,26 @@
             return $http.get("/api/user/" + userId + "/task")
         }
 
-        function deleteTaskById (taskId) {
-            return $http.delete("/api/task/" + taskId);
+        function deleteTaskById (taskId, projectId) {
+            return $http.delete("/api/project/" + projectId + "/task/" + taskId);
         }
 
         function findAllTasks () {
             return $http.get("/api/task");
         }
 
-        function createTask (task) {
-            return $http.post("/api/task/", task)
+        function createTask (task, projectId) {
+            return $http.post("/api/project/" + projectId + "/task/", task)
         }
 
-        function updateTask (taskId, task) {
-            return $http.put("/api/task/" + taskId, task);
+        function updateTask (task, projectId) {
+            return $http.put("/api/project/" + projectId + "/task/", task);
         }
 
         function findTasksByProjectId(projectId) {
             return $http.get("/api/project/" + projectId + "/task");
         }
+
+
     }
 })();
