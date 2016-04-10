@@ -80,7 +80,7 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
-            .when("/taskdetails/:taskId", {
+            .when("/project/:projectId/taskdetails/:taskId", {
                 templateUrl: "views/tasks/taskDetails.view.html",
                 controller: "TaskDetailsController",
                 controllerAs: "model",
@@ -133,7 +133,7 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/taskedit/:taskId", {
+            .when("/project/:projectId/taskedit/:taskId", {
                 templateUrl: "views/taskedit/taskedit.view.html",
                 controller: "TaskEditController",
                 controllerAs: "model",

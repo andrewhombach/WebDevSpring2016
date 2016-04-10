@@ -1,5 +1,5 @@
 module.exports = function(app, TaskModel, ProjectModel, UserModel) {
-    app.get("/api/task/:taskId", findTaskById);
+    app.get("/api/project/:projectId/task/:taskId", findTaskById);
     app.get("/api/task", findAllTasks);
     app.get("/api/user/:userId/task", findTasksByUserId);
     app.delete("/api/project/:projectId/task/:taskId", deleteTaskById);
@@ -11,7 +11,6 @@ module.exports = function(app, TaskModel, ProjectModel, UserModel) {
         ProjectModel.findAllTasks()
             .then(
                 function (doc) {
-                    console.log(doc);
                     res.json(doc);
                 },
                 function (err) {
@@ -21,8 +20,7 @@ module.exports = function(app, TaskModel, ProjectModel, UserModel) {
     }
 
     function findTaskById(req, res) {
-        var taskId = req.params.taskId;
-        ProjectModel.findTask(taskId)
+        ProjectModel.findTask(req.params.projectId, req.params.taskId)
             .then(
                 function (doc) {
                     res.json(doc);

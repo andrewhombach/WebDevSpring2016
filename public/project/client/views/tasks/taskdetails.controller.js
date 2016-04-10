@@ -5,15 +5,17 @@
         .module("CoLabApp")
         .controller("TaskDetailsController", TaskDetailsController);
 
-    function TaskDetailsController(TaskService, UserService, ProjectService, $rootScope, $routeParams) {
+    function TaskDetailsController(TaskService, UserService, $routeParams, $location) {
         var vm = this;
         vm.taskId = $routeParams.taskId;
+        vm.projectId = $routeParams.projectId;
+        vm.editTask = editTask;
 
         function init() {
-            TaskService.findTaskById(vm.taskId)
+            TaskService.findTaskById(vm.projectId, vm.taskId)
             .then(function (response) {
+                console.log(response.data);
                 vm.task = response.data;
-
             });
             getUsers();
         }
@@ -27,6 +29,11 @@
             });
         }
 
+        function editTask() {
+            console.log("/project/" + vm.projectId + "/taskedit/" + vm.taskId);
+            $location.path("/project/" + vm.projectId + "/taskedit/" + vm.taskId);
+
+        }
 
     }
 })();

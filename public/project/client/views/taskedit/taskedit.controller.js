@@ -10,9 +10,10 @@
         vm.updateTask = updateTask;
 
         vm.taskId = $routeParams.taskId;
+        vm.projectId = $routeParams.projectId;
 
         function init() {
-            TaskService.findTaskById(vm.taskId)
+            TaskService.findTaskById(vm.projectId, vm.taskId)
             .then(function (response) {
                 vm.task = response.data;
             });
@@ -31,7 +32,7 @@
         function updateTask(taskId, task) {
             TaskService.updateTask(taskId, task)
             .then(function (response) {
-                $location.path("/taskdetails/" + vm.taskId);
+                $location.path("/project/" + vm.projectId + "/taskdetails/" + vm.taskId);
             });
         }
 

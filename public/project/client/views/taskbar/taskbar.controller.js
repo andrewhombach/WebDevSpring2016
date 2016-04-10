@@ -5,12 +5,15 @@
         .module("CoLabApp")
         .controller("TaskBarController", TaskBarController);
 
-    function TaskBarController($rootScope, TaskService) {
+    function TaskBarController($routeParams, TaskService) {
         var vm = this;
+        vm.projectId = $routeParams.projectId;
+        console.log(vm.projectId);
 
         function init() {
-            TaskService.findTasksByProjectId($rootScope.projectId)
+            TaskService.findTasksByProjectId($routeParams.projectId)
             .then(function (response) {
+                console.log(response.data);
                 vm.tasks = response.data;
             });
         }

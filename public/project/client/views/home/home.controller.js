@@ -3,13 +3,12 @@
         .module("CoLabApp")
         .controller("HomeController", HomeController);
 
-    function HomeController(ProjectService, MessageService, UserService, TaskService, $rootScope, $routeParams) {
+    function HomeController(ProjectService, UserService, $rootScope, $routeParams) {
         var vm = this;
 
         vm.getUserOfMessage = getUserOfMessage;
 
         vm.me = $rootScope.cUser._id;
-        console.log(vm.me);
 
         vm.projectId = $routeParams.projectId;
 
@@ -21,9 +20,7 @@
         init();
 
         function renderProject(response) {
-            $rootScope.projectId = vm.projectId;
             vm.project = response.data;
-            console.log(vm.project);
             vm.messages = vm.project.messages;
             vm.tasks = vm.project.tasks;
             getUsers();
@@ -34,7 +31,6 @@
             UserService.findUsersByProjectId(vm.project._id)
             .then(function (response) {
                 vm.users = response.data;
-                console.log(response.data);
             });
         }
 

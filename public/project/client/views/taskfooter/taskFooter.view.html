@@ -1,8 +1,8 @@
-<div class="task-footer" ng-controller="TaskFooterController">
+<div class="task-footer" ng-controller="TaskFooterController as model">
     <div class="input-group">
-        <input type="text" class="form-control" placeholder="New Task">
+        <input ng-model="model.name" type="text" class="form-control" placeholder="New Task">
         <div class="input-group-btn">
-            <button class="btn btn-info" type="button">
+            <button class="btn btn-info" ng-click="model.createTask(model.name)" type="button">
                 Create
             </button>
         </div>

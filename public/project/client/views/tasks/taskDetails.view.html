@@ -13,11 +13,9 @@
         <br>
         <h1 class="page-header text-center">{{model.task.name}}</h1>
         <div class="col-xs-offset-5 col-xs-6">
-            <a href="#/taskedit/{{model.task._id}}">
-                <button class="btn btn-info">
+            <button class="btn btn-info" ng-click="model.editTask()">
                     Edit Task
                 </button>
-            </a>
         </div>
 
 

@@ -19,6 +19,7 @@ module.exports = function(uuid, mongoose, db) {
         addTask: addTask,
         deleteTask: deleteTask,
         updateTask: updateTask,
+        findTask: findTask,
         findAllTasks: findAllTasks,
         findTasksByProjectId: findTasksByProjectId
     };
@@ -47,8 +48,6 @@ module.exports = function(uuid, mongoose, db) {
             text: message.text,
             createDate: (new Date).getTime()
         };
-
-        console.log (newMessage);
 
         var deferred = q.defer();
 
@@ -79,9 +78,6 @@ module.exports = function(uuid, mongoose, db) {
     }
 
     function updateMessage(projectId, message) {
-        console.log(message._id);
-        console.log(projectId);
-
         var deferred = q.defer();
 
         ProjectModel.update({_id: projectId, "messages._id" : message._id}, {$set: {"messages.$": message}}, {new: true}, function (err, doc) {
@@ -103,7 +99,9 @@ module.exports = function(uuid, mongoose, db) {
                 deferred.reject(err);
             }
             else {
-                deferred.resolve(doc);
+                console.log("add task output");
+                console.log(doc.tasks[doc.tasks.length-1]);
+                deferred.resolve(doc.tasks[doc.tasks.length-1]);
             }
         });
         return deferred.promise;
@@ -163,7 +161,22 @@ module.exports = function(uuid, mongoose, db) {
                 deferred.reject(err);
             }
             else {
-                deferred.resolve(doc);
+                deferred.resolve(doc[0].tasks);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function findTask(projectId, taskId) {
+        var deferred = q.defer();
+
+        ProjectModel.find({_id : projectId, "tasks._id" : taskId}, {'tasks':true, '_id':false}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                var task = doc[0].tasks.filter(function (task){return taskId == task._id;})[0];
+                deferred.resolve(task);
             }
         });
         return deferred.promise;
@@ -174,7 +187,7 @@ module.exports = function(uuid, mongoose, db) {
 
         var newProject = {
             name: project.name,
-            userIds: project.Ids,
+            userIds: project.userIds,
             admin: project.admin,
             createDate: (new Date).getTime(),
             tasks: project.tasks,

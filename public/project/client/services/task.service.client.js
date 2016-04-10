@@ -17,12 +17,12 @@
 
         return api;
 
-        function findTaskById (id) {
-            return $http.get("/api/task/" + id)
+        function findTaskById (projectId, taskId) {
+            return $http.get("/api/project/" + projectId + "/task/" + taskId);
         }
 
         function findAllTasksByUserId (userId) {
-            return $http.get("/api/user/" + userId + "/task")
+            return $http.get("/api/user/" + userId + "/task");
         }
 
         function deleteTaskById (taskId, projectId) {
