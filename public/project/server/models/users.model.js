@@ -138,7 +138,6 @@ module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
     }
 
     function findUsersByIds(userIds) {
-        console.log(userIds);
 
         var deferred = q.defer();
 
@@ -147,6 +146,7 @@ module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
                 deferred.reject(err);
             }
             else {
+                console.log(doc);
                 deferred.resolve(doc);
             }
         });

@@ -17,8 +17,8 @@
 
         return api;
 
-        function findTaskById (projectId, taskId) {
-            return $http.get("/api/project/" + projectId + "/task/" + taskId);
+        function findTaskById (taskId) {
+            return $http.get("/api/task/" + taskId);
         }
 
         function findAllTasksByUserId (userId) {

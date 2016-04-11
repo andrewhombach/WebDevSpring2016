@@ -109,7 +109,7 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/taskbar", {
+            .when("/project/:projectId/taskbar", {
                 templateUrl: "views/taskbar/taskbar.view.html",
                 controller: "TaskBarController",
                 controllerAs: "model",

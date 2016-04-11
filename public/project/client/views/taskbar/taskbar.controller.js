@@ -8,7 +8,7 @@
     function TaskBarController($routeParams, TaskService) {
         var vm = this;
         vm.projectId = $routeParams.projectId;
-        console.log(vm.projectId);
+        vm.tasks = null;
 
         function init() {
             TaskService.findTasksByProjectId($routeParams.projectId)

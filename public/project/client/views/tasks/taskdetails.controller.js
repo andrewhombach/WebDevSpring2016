@@ -12,7 +12,7 @@
         vm.editTask = editTask;
 
         function init() {
-            TaskService.findTaskById(vm.projectId, vm.taskId)
+            TaskService.findTaskById(vm.taskId)
             .then(function (response) {
                 console.log(response.data);
                 vm.task = response.data;
@@ -32,8 +32,9 @@
         function editTask() {
             console.log("/project/" + vm.projectId + "/taskedit/" + vm.taskId);
             $location.path("/project/" + vm.projectId + "/taskedit/" + vm.taskId);
-
         }
+
+
 
     }
 })();

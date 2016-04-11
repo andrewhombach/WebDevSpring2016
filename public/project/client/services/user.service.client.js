@@ -17,6 +17,7 @@
             findUsersByProjectId: findUsersByProjectId,
             findUsersByTaskId: findUsersByTaskId,
             getCurrentUser: getCurrentUser,
+            findUserByUsername: findUserByUsername
         };
 
         return api;
@@ -47,7 +48,6 @@
         }
 
         function updateUser (user) {
-            console.log(user);
             return $http.put("/api/user/", user);
         }
 
@@ -55,8 +55,8 @@
             return $http.get("/api/project/" + projectId + "/user");
         }
 
-        function findUsersByTaskId(id) {
-            return $http.get("/api/task/" + id + "/user");
+        function findUsersByTaskId(taskId) {
+            return $http.get("/api/task/" + taskId + "/user");
         }
 
         function getCurrentUser() {

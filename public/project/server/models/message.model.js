@@ -35,7 +35,6 @@ module.exports = function(uuid, ProjectModel, DMModel, mongoose, db) {
     }
 
     function createMessage(message) {
-        console.log(message);
         var newMessage = {
             userId: message.userId,
             text: message.text,

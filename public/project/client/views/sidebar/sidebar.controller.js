@@ -4,7 +4,7 @@
         .module("CoLabApp")
         .controller("SidebarController", SidebarController);
 
-    function SidebarController($rootScope, $location, ProjectService, DMService, UserService) {
+    function SidebarController(ProjectService, DMService, UserService) {
         var vm = this;
 
         //had to hardcode the user because I haven't implemented sessions for this assignment yet. The sidebar fails on load because no

@@ -12,9 +12,24 @@ module.exports = function(app, UserModel, ProjectModel, TaskModel) {
         if (req.query.username && req.query.password) {
             findUserByCredentials(req, res);
         }
+       else if (req.query.username) {
+            findUserByUsername(req, res);
+        }
         else {
             getUsers(req, res);
         }
+    }
+
+    function findUserByUsername(req, res) {
+        UserModel.findUserByUsername(req.query.username)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findUsersByProjectId(req, res) {
@@ -40,7 +55,7 @@ module.exports = function(app, UserModel, ProjectModel, TaskModel) {
 
     function findUsersByTaskId(req, res) {
 
-        TaskModel.findTask(req.params.taskId)
+        ProjectModel.findTask(req.params.taskId)
             .then(
                 function(task) {
                     UserModel.findUsersByIds(task.userIds)

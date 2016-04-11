@@ -115,7 +115,6 @@ body {
 .main .page-footer {
     margin-bottom: 0;
     position: absolute;
-
 }
 
 
@@ -153,7 +152,7 @@ body {
 
 .chat-box-main {
     height: 100%;
-    overflow:auto;
+    overflow:scroll;
 }
 
 .chat-box-head {
@@ -437,6 +436,12 @@ NEW  CHAT  STYLES
         width: 200px;
         border-top: 3px solid #e7e7e7;
     }
+}
+
+.header {
+    margin-top: 0;
+    position: fixed;
+    width: auto;
 }
 
 

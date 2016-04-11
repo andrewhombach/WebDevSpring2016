@@ -99,8 +99,6 @@ module.exports = function(uuid, mongoose, db) {
                 deferred.reject(err);
             }
             else {
-                console.log("add task output");
-                console.log(doc.tasks[doc.tasks.length-1]);
                 deferred.resolve(doc.tasks[doc.tasks.length-1]);
             }
         });
@@ -156,26 +154,26 @@ module.exports = function(uuid, mongoose, db) {
 
         var deferred = q.defer();
 
-        ProjectModel.find({_id : projectId}, {'tasks':true,'_id':false}, function (err, doc) {
+        ProjectModel.findOne({_id : projectId}, {'tasks':true,'_id':false}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }
             else {
-                deferred.resolve(doc[0].tasks);
+                deferred.resolve(doc.tasks);
             }
         });
         return deferred.promise;
     }
 
-    function findTask(projectId, taskId) {
+    function findTask(taskId) {
         var deferred = q.defer();
 
-        ProjectModel.find({_id : projectId, "tasks._id" : taskId}, {'tasks':true, '_id':false}, function (err, doc) {
+        ProjectModel.findOne({"tasks._id" : taskId}, {"tasks.$": 1}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }
             else {
-                var task = doc[0].tasks.filter(function (task){return taskId == task._id;})[0];
+                var task = doc.tasks[0];
                 deferred.resolve(task);
             }
         });

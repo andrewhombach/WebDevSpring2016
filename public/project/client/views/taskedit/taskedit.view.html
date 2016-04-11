@@ -1,7 +1,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskEditController">
     <div class="chat-body">
         <br>
-        <button class="btn btn-success col-xs-offset-3 col-xs-6" ng-click="model.updateTask(model.taskId, model.task)">
+        <button class="btn btn-success col-xs-offset-3 col-xs-6" ng-click="model.updateTask(model.task)">
             <span>Update</span>
         </button>
         <br>
@@ -39,19 +39,37 @@
         </table>
         <hr>
         <h2 class="text-center">Assigned Members:</h2>
-        <table class="table table-borderless text-center">
-            <tr ng-repeat="u in model.users">
-                <td>
-                    {{u.firstName + " " + u.lastName}}
-                </td>
-            </tr>
-        </table>
         <div class="row">
-            <div class="col-xs-offset-5 cos-xs-2">
-                <button class="btn btn-info">
-                    edit members
-                </button>
-            </div>
+            <table class="table table-responsive">
+                <thead>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input class="form-control" type="text" ng-model="username">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success" ng-click="model.addUser(username)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="u in model.users">
+                        <td>{{u.username}}</td>
+                        <td>
+                            <button ng-click="model.removeUser(u)" type="button" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <hr>
         <h2 class="text-center">Notes</h2>
