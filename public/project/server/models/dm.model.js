@@ -2,7 +2,7 @@ var q = require('q');
 
 module.exports = function(uuid, mongoose, db) {
 
-    var DMSchema = require("./DM.schema.server.js")(mongoose);
+    var DMSchema = require("./dm.schema.server.js")(mongoose);
     var DMSModel = mongoose.model('DM', DMSchema);
 
 
