@@ -19,7 +19,7 @@
 
             });
 
-            DMService.findAllDMsByUserId("570723779a6cf3c5105af9b9")
+            DMService.findAllDMsByUserId(UserService.getProfile()._id)
             .then(function (response) {
                 vm.dms = response.data;
                 for (var d in vm.dms) {

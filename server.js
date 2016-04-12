@@ -8,6 +8,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var uuid = require('node-uuid');
 var mongoose = require('mongoose');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev-db/';
 
@@ -24,11 +26,11 @@ var db = mongoose.connect(connectionString);
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-
+//127.0.0.1
 
 app.use(session({
-    secret: process.env.PASSPORT_SECRET,
-    resave: false,
+    secret: 'aylmao',
+    resave: true,
     saveUninitialized: true
 }));
 
@@ -41,10 +43,25 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 
 
+io.on('connection', function(socket) {
+    console.log('a user connected');
+    socket.on('disconnect', function() {
+        console.log('user disconnected');
+    });
+    socket.on('join project', function(projectId) {
+        socket.join(projectId)
+    });
+    socket.on('chat message', function(projectId, message) {
+        console.log("message sent");
+        console.log(projectId);
+        console.log(message);
+        io.in(projectId).emit('chat message' + projectId, message);
+    });
+});
 
 require("./public/assignment/server/app.js")(app, uuid, mongoose, db);
 require("./public/project/server/app.js") (app, uuid, mongoose, db);
 
-app.listen(port, ipaddress);
+http.listen(port, ipaddress);
 
 

@@ -55,9 +55,6 @@
     <script src="views/sidebar/sidebar.controller.js"></script>
     <script src="config.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script>
-        var socket = io();
-    </script>
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
@@ -70,7 +67,6 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div ng-hide="!cUser || $location.url() === '/splash'" ng-include="'views/sidebar/sidebar.view.html'"></div>
         <div ng-view></div>
     </div>
 </div>

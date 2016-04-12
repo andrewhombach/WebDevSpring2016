@@ -3,14 +3,18 @@
         .module("CoLabApp")
         .controller("HomeController", HomeController);
 
-    function HomeController(ProjectService, UserService, $rootScope, $routeParams) {
+    function HomeController($scope, ProjectService, UserService, $rootScope, $routeParams) {
         var vm = this;
-
         vm.getUserOfMessage = getUserOfMessage;
-
         vm.me = $rootScope.cUser._id;
-
+        var socket = io();
         vm.projectId = $routeParams.projectId;
+
+        socket.emit('join project', vm.projectId);
+        socket.on('chat message'+vm.projectId, function (message) {
+            vm.messages.push(message);
+            $scope.$apply();
+        });
 
         function init() {
             ProjectService.findProjectById(vm.projectId)
@@ -24,6 +28,8 @@
             vm.messages = vm.project.messages;
             vm.tasks = vm.project.tasks;
             getUsers();
+
+
         }
 
 
@@ -46,6 +52,8 @@
                 }
             }
         }
+
+
 
     }
 })();
