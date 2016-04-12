@@ -105,19 +105,9 @@ module.exports = function (uuid, mongoose, db) {
 
     function createUser(user) {
 
-        var newUser = {
-            "username": user.username,
-            "password": user.password,
-            "firstName": user.firstName,
-            "lastName": user.lastName,
-            "emails": user.emails,
-            "phones": user.phones,
-            "roles": user.roles
-        }
-
         var deferred = q.defer();
 
-        UserModel.create(newUser, function(err, doc) {
+        UserModel.create(user, function(err, doc) {
 
             if (err) {
                 deferred.reject(err);

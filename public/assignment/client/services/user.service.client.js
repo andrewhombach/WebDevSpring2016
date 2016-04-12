@@ -26,7 +26,7 @@
         return api;
 
         function logOut() {
-            return http.post("/api/assignment/logout");
+            return $http.post("/api/assignment/logout");
         }
 
         function adminCreateUser(user) {

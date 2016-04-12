@@ -10,7 +10,7 @@
 
         function logout() {
             UserService.setCurrentUser(null);
-            UserService.logout();
+            UserService.logOut();
 
         }
     }

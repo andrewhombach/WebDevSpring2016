@@ -1,5 +1,6 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(app, userModel) {
 
@@ -31,16 +32,19 @@ module.exports = function(app, userModel) {
     function localStrategy(username, password, done){
 
         userModel
-            .findUserByCredentials({username: username, password: password})
+            .findUserByUsername(username)
             .then(
                 function (user) {
-                    if (!user) {
+                    console.log(user);
+                    if (user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    }
+                    else {
                         return done(null, false);
                     }
-                    return done(null, user);
                 },
                 function (err){
-                    if (err) { return done(err); }
+                    if (err) { return done (err); }
                 }
             );
     }
@@ -84,18 +88,43 @@ module.exports = function(app, userModel) {
 
     function register(req, res) {
 
-        var user = req.body;
+        var newUser = req.body;
+        newUser.password = bcrypt.hashSync(newUser.password);
 
-        userModel.createUser(user)
+        console.log(newUser);
+
+        userModel.findUserByUsername(newUser.username)
             .then(
-                function (doc) {
-                    req.session.cUser = doc;
-                    res.json(doc);
+                function (user) {
+                    if (user) {
+                        res.json(null);
+                    }
+                    else {
+                        return userModel.createUser(newUser);
+                    }
                 },
                 function (err) {
                     res.status(400).send(err);
                 }
-            );
+            )
+            .then(
+                function (user) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
+
+
     }
 
     function findAllUsers(req, res) {

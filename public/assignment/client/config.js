@@ -73,6 +73,7 @@
                 $rootScope.errorMessage = null;
 
                 if (user !== '0') {
+                    console.log(user);
                     UserService.setCurrentUser(user);
                     deferred.resolve();
                 }

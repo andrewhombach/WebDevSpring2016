@@ -11,9 +11,16 @@
 
         function init() {
             vm.user = UserService.getCurrentUser();
-            vm.user.emails = vm.user.emails.toString();
-            vm.user.phones = vm.user.phones.toString();
-            vm.user.roles = vm.user.roles.toString();
+            if (vm.user.emails.length > 0) {
+                vm.user.emails = vm.user.emails.toString();
+            }
+            if (vm.user.phones.length > 0) {
+                vm.user.phones = vm.user.phones.toString();
+
+            }
+            if (vm.user.roles.length > 0) {
+                vm.user.roles = vm.user.roles.toString();
+            }
             console.log(vm.user);
 
         }
