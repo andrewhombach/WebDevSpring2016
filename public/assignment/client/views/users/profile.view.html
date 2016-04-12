@@ -40,6 +40,12 @@
             </div>
         </div>
         <div class="form-group row">
+            <label for="Roles" class="col-sm-2 form-control-label">Phone Numbers:</label>
+            <div class="col-sm-6">
+                <input ng-model="model.user.roles" type="String" class="form-control" id="Roles" placeholder="Comma Separated Roles">
+            </div>
+        </div>
+        <div class="form-group row">
             <div class="col-sm-offset-2 col-sm-6">
                 <button class="btn btn-info btn-lg col-xs-12" ng-click="model.update(model.user)">Update</button>
             </div>

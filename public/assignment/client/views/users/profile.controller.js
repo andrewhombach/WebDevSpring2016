@@ -10,14 +10,12 @@
         vm.deleteUser = deleteUser;
 
         function init() {
-            UserService.getCurrentUser()
-                .then(function (response) {
-                    UserService.setCurrentUser(response.data);
-                    vm.user = response.data;
-                    vm.user.emails = vm.user.emails.toString();
-                    vm.user.phones = vm.user.phones.toString();
-                    console.log(vm.user);
-                });
+            vm.user = UserService.getCurrentUser();
+            vm.user.emails = vm.user.emails.toString();
+            vm.user.phones = vm.user.phones.toString();
+            vm.user.roles = vm.user.roles.toString();
+            console.log(vm.user);
+
         }
 
         init();
@@ -34,6 +32,12 @@
             }
             else {
                 user.emails = [];
+            }
+            if (user.roles.length > 0) {
+                user.roles = user.roles.split(",");
+            }
+            else {
+                user.roles = [];
             }
             UserService.updateUser(user._id, user)
                 .then(function (response) {

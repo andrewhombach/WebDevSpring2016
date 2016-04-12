@@ -14,17 +14,46 @@
             updateUser: updateUser,
             getCurrentUser: getCurrentUser,
             getProfile: getProfile,
-            setCurrentUser: setCurrentUser
+            setCurrentUser: setCurrentUser,
+            adminCreateUser: adminCreateUser,
+            adminFindAllUsers: adminFindAllUsers,
+            adminFindUser: adminFindUser,
+            adminDeleteUser: adminDeleteUser,
+            adminUpdateUser: adminUpdateUser,
+            logOut: logOut
         };
 
         return api;
 
+        function logOut() {
+            return http.post("/api/assignment/logout");
+        }
+
+        function adminCreateUser(user) {
+            return $http.post("/api/assignment/admin/user", user);
+        }
+
+        function adminFindAllUsers() {
+            return $http.get("/api/assignment/admin/user");
+        }
+
+        function adminFindUser(user) {
+            return $http.get("/api/assignment/admin/user/" + user._id);
+        }
+
+        function adminUpdateUser(user) {
+            return $http.put("/api/assignment/admin/user/" + user._id, user);
+        }
+
+        function adminDeleteUser(user) {
+            return $http.delete("/api/assignment/admin/user/" + user._id);
+        }
+
         function getCurrentUser() {
-            return $http.get("/api/assignment/loggedin");
+            return $rootScope.cUser;
         }
 
         function findUserById (userId) {
-            console.log("user.service.client.js got:" + userId);
             return $http.get("/api/assignment/user/" + userId);
         }
 
@@ -34,7 +63,7 @@
 
         function findUserByCredentials (username, password) {
             console.log(username + password);
-            return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
+            return $http.post("/api/assignment/login", {username: username, password: password});
         }
 
         function findAllUsers () {
@@ -50,7 +79,6 @@
         }
 
         function updateUser (userId, user) {
-            console.log(user);
             return $http.put("/api/assignment/user/" + userId, user);
         }
 

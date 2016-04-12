@@ -44,9 +44,11 @@ module.exports = function (uuid, mongoose, db) {
             password: credentials.password},
             function (err, doc) {
                 if (err) {
+                    console.log(err);
                     deferred.reject(err);
                 }
                 else {
+                    console.log(doc);
                     deferred.resolve(doc);
                 }
             });
@@ -101,7 +103,17 @@ module.exports = function (uuid, mongoose, db) {
 
     }
 
-    function createUser(newUser) {
+    function createUser(user) {
+
+        var newUser = {
+            "username": user.username,
+            "password": user.password,
+            "firstName": user.firstName,
+            "lastName": user.lastName,
+            "emails": user.emails,
+            "phones": user.phones,
+            "roles": user.roles
+        }
 
         var deferred = q.defer();
 
@@ -126,7 +138,8 @@ module.exports = function (uuid, mongoose, db) {
             firstName: user.firstName,
             lastName: user.lastName,
             emails: user.emails,
-            phones: user.phones
+            phones: user.phones,
+            roles: user.roles
         };
 
         var deferred = q.defer();

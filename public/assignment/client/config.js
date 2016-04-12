@@ -65,21 +65,23 @@
                 redirectTo: "/home"
             });
 
-        function checkLoggedIn(UserService, $q, $location) {
+        function checkLoggedIn(UserService, $rootScope, $http, $q, $location) {
             var deferred = $q.defer();
 
-            UserService
-                .getCurrentUser()
-                .then(function (response) {
-                    var currentUser = response.data;
-                    if (currentUser) {
-                        UserService.setCurrentUser(currentUser);
-                        deferred.resolve();
-                    } else {
-                        deferred.reject();
-                        $location.url("/home");
-                    }
-                });
+            $http.get("/api/assignment/loggedin").success(function(user)
+            {
+                $rootScope.errorMessage = null;
+
+                if (user !== '0') {
+                    UserService.setCurrentUser(user);
+                    deferred.resolve();
+                }
+                else {
+                    $rootScope.errorMessage = "You need to log in.";
+                    deferred.reject();
+                    $location.url("/home")
+                }
+            });
             return deferred.promise;
         }
     }

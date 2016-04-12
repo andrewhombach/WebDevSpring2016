@@ -12,7 +12,7 @@
 
         function init() {
 
-            ProjectService.findAllProjectsByUserId("57077004eddaded35d73dc02")
+            ProjectService.findAllProjectsByUserId(UserService.getProfile()._id)
             .then(function (response) {
                 vm.projects = response.data;
                 console.log(vm.projects);

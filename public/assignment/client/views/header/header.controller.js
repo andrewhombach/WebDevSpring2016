@@ -4,12 +4,14 @@
         .module("FormBuilderApp")
         .controller("HeaderController", headerController);
 
-    function headerController($rootScope, $location, $scope) {
+    function headerController(UserService, $location, $scope) {
         $scope.logout = logout;
         $scope.$location = $location;
 
         function logout() {
-            $rootScope.cUser = null;
+            UserService.setCurrentUser(null);
+            UserService.logout();
+
         }
     }
 })();
