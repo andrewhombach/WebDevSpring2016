@@ -8,8 +8,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var uuid = require('node-uuid');
 var mongoose = require('mongoose');
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev-db/';
 
@@ -49,6 +47,4 @@ require("./public/project/server/app.js") (app, uuid, mongoose, db);
 
 app.listen(port, ipaddress);
 
-io.on('connection', function(socket){
-    console.log('a user connected');
-});
+
