@@ -24,7 +24,7 @@ var db = mongoose.connect(connectionString);
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-//127.0.0.1
+
 
 app.use(session({
     secret: process.env.PASSPORT_SECRET,

@@ -172,6 +172,7 @@ module.exports = function(app, userModel) {
         userModel.findUserById(userId)
               .then(
                 function (doc) {
+                    delete doc.password
                     res.json(doc);
                 },
                 function (err) {
@@ -193,17 +194,16 @@ module.exports = function(app, userModel) {
         var user = req.body;
         var userId = req.params.userId;
 
-        if (!isAdmin(req.user)) {
-            delete user.roles;
-        }
+        user.password = bcrypt.hashSync(user.password);
 
         userModel.updateUser(userId, user)
             .then(
                 function (na) {
-                    userModel.findUserById(req.session.cUser._id)
+                    userModel.findUserById(req.user._id)
                         .then(
                             function (doc) {
-                                req.session.cUser = doc;
+                                console.log("this is coming back from find user by id");
+                                console.log(doc);
                                 res.json(doc);
                             }
                         ),
@@ -225,7 +225,6 @@ module.exports = function(app, userModel) {
         userModel.findUserByCredentials(cred)
             .then(
                 function (doc) {
-                    req.session.cUser = doc;
                     res.json(doc);
                 },
                 function (err) {
@@ -259,12 +258,6 @@ module.exports = function(app, userModel) {
             );
     }
 
-    function isAdmin(user) {
-        if(user.roles.indexOf("admin") > -1) {
-            return true;
-        }
-        return false;
-    }
 
     function admin(req, res, next) {
         if(req.user.roles.indexOf("admin") === -1) {

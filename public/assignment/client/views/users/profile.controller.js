@@ -11,16 +11,18 @@
 
         function init() {
             vm.user = UserService.getCurrentUser();
-            if (vm.user.emails.length > 0) {
+            if (vm.user.emails) {
                 vm.user.emails = vm.user.emails.toString();
             }
-            if (vm.user.phones.length > 0) {
+            if (vm.user.phones) {
                 vm.user.phones = vm.user.phones.toString();
 
             }
-            if (vm.user.roles.length > 0) {
+            if (vm.user.roles) {
                 vm.user.roles = vm.user.roles.toString();
             }
+            console.log(vm.user);
+            delete vm.user.password;
             console.log(vm.user);
 
         }
@@ -28,19 +30,19 @@
         init();
 
         function update (user) {
-            if (user.phones.length > 0) {
+            if (user.phones) {
                 user.phones = user.phones.split(",");
             }
             else {
                 user.phones = [];
             }
-            if (user.emails.length > 0) {
+            if (user.emails) {
                 user.emails = user.emails.split(",");
             }
             else {
                 user.emails = [];
             }
-            if (user.roles.length > 0) {
+            if (user.roles) {
                 user.roles = user.roles.split(",");
             }
             else {
