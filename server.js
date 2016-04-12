@@ -30,7 +30,7 @@ var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 app.use(session({
     secret: process.env.PASSPORT_SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: true
 }));
 
