@@ -12,7 +12,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev-db/';
-var db = mongoose.connect(connectionString);
 
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
@@ -21,6 +20,9 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
             process.env.OPENSHIFT_MONGODB_DB_PORT + "/" +
             process.env.OPENSHIFT_APP_NAME;
 }
+
+var db = mongoose.connect(connectionString);
+
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
