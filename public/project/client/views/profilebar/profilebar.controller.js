@@ -6,17 +6,20 @@
     function ProfileBarController(ProjectService, TaskService, UserService) {
         var vm = this;
         vm.leaveProject = leaveProject;
-        var userId = UserService.getProfile()._id
+        var userId = UserService.getProfile()._id;
 
         function init() {
             ProjectService.findAllProjectsByUserId(userId)
             .then(function (response) {
                 vm.projects = response.data;
-                TaskService.findAllTasksByUserId(userId)
+
+            });
+            TaskService.findAllTasksByUserId(userId)
                 .then(function (response) {
                     vm.tasks = response.data;
-                });
+                    console.log(vm.tasks);
             });
+
         }
 
         function leaveProject(projectId) {

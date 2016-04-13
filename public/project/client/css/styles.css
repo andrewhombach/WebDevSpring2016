@@ -471,3 +471,8 @@ NEW  CHAT  STYLES
     margin-right: auto;
     width: 100%
 }
+
+.active {
+    background: #FFFFFF;
+    color: #000;
+}

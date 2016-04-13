@@ -1,11 +1,11 @@
 <div ng-controller="SidebarController as model">
     <div ng-class="model.showSidebar ? 'col-sm-3 col-md-2 sidebar' : 'hidden'">
     <ul class="nav nav-sidebar" ng-repeat="p in model.projects">
-        <li><a href="#/home/{{p._id}}">{{p.name}}</a></li>
+        <li><a ng-class="model.active === p._id ? 'active' : ''" href="#/home/{{p._id}}">{{p.name}}</a></li>
     </ul>
     <hr>
     <ul class="nav nav-sidebar" ng-repeat="d in model.dms">
-        <li><a href="#/directmessage/{{d._id}}">{{d.name}}</a></li>
+        <li><a ng-class="model.active === p._id ? 'active' : ''" href="#/directmessage/{{d._id}}">{{d.name}}</a></li>
     </ul>
 </div>
 </div>

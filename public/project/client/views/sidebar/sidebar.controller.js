@@ -4,8 +4,12 @@
         .module("CoLabApp")
         .controller("SidebarController", SidebarController);
 
-    function SidebarController(ProjectService, DMService, UserService, $scope, $window) {
+    function SidebarController(ProjectService, DMService, UserService, $scope, $window, $routeParams) {
         var vm = this;
+
+        vm.active = active();
+
+        console.log(vm.active);
 
         vm.showSidebar = window.innerWidth < 768 ? false : true;
         vm.toggle = toggle;
@@ -61,6 +65,17 @@
         function toggle() {
             vm.showSidebar = !vm.showSidebar;
             console.log(vm.showSidebar);
+        }
+
+        function active() {
+            if ($routeParams.projectId) {
+                return $routeParams.projectId;
+            }
+            if ($routeParams.dmId) {
+                return $routeParams.dmId;
+            }
+
+            return null;
         }
     }
 })();
