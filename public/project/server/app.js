@@ -10,7 +10,7 @@ module.exports = function(app, mongoose, db) {
     var MessageModel = require("./models/message.model.js") (ProjectModel, DMModel, mongoose, db);
     var UserModel = require("./models/users.model.js") (ProjectModel, TaskModel, mongoose, db);
 
-    var userService = require("./services/user.service.server.js") (app, UserModel, ProjectModel, DMModel, authorized, passport);
+    var userService = require("./services/user.service.server.js") (app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt);
     var dmService = require("./services/dm.service.server.js") (app, DMModel, authorized);
     var taskService = require("./services/task.service.server.js") (app, TaskModel, ProjectModel, UserModel, authorized);
     var projectService = require("./services/project.service.server.js") (app, ProjectModel, authorized);

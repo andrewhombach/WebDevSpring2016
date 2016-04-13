@@ -1,6 +1,6 @@
 
 
-module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, passport) {
+module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt) {
 
     var auth = authorized;
     var admin = admin;
