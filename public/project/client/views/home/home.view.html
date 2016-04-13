@@ -3,6 +3,13 @@
     <br>
     <div class="chat-body">
         <h1 class="page-header text-center">{{model.project.name}}
+            <div class="visible-xs pull-left">
+                <a href="#/project/{{model.project._id}}/taskbar">
+                    <button class="btn btn-info">
+                        Tasks
+                    </button>
+                </a>
+            </div>
             <div class="btn-group pull-right">
                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <span class="glyphicon glyphicon-triangle-bottom"></span>
@@ -17,13 +24,6 @@
                 </ul>
             </div>
         </h1>
-        <div class="visible-xs">
-            <a href="#/project/{{model.project._id}}/taskbar">
-                <button class="btn btn-info">
-                    See tasks
-                </button>
-            </a>
-        </div>
         <br class="visible-xs">
         <div ng-style="{'height': model.chatHeight - 240 + 'px'}" class="outer">
         <div id="chatWindow" class="chat-box-div">
