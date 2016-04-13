@@ -35,17 +35,17 @@
 
         function deleteMessage(message) {
             MessageService.deleteMessageById(messageProjectLookup(message), message._id)
-                .then(retrieveMessages);
+                .then(init);
         }
 
         function addMessage(message) {
             MessageService.createMessageForProject(message.projectId, message)
-                .then(retrieveMessages);
+                .then(init);
         }
 
         function updateMessage(message) {
             MessageService.updateMessage(messageProjectLookup(message), message)
-                .then(retrieveMessages);
+                .then(init);
             vm.message = null;
         }
 
