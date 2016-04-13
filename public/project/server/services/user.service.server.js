@@ -56,9 +56,12 @@ module.exports = function(app, UserModel, ProjectModel, DMModel) {
 
     function findUsersByTaskId(req, res) {
 
+        console.log(req.params.taskId);
+
         ProjectModel.findTask(req.params.taskId)
             .then(
                 function(task) {
+                    console.log(task.userIds);
                     UserModel.findUsersByIds(task.userIds)
                         .then(
                             function (doc) {

@@ -42,7 +42,7 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 
 
-io.on('connection', function(socket) {
+io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function() {
     });
     socket.on('join chat', function(id) {

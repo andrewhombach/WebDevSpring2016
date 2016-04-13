@@ -4,8 +4,26 @@
         .module("CoLabApp")
         .controller("SidebarController", SidebarController);
 
-    function SidebarController(ProjectService, DMService, UserService) {
+    function SidebarController(ProjectService, DMService, UserService, $scope, $window) {
         var vm = this;
+
+        vm.showSidebar = window.innerWidth < 768 ? false : true;
+        vm.toggle = toggle;
+
+        var w = angular.element($window);
+
+        w.bind('resize', function() {
+
+            if (window.innerWidth < 768) {
+                console.log(window.innerWidth);
+                vm.showSidebar = false;
+            }
+            else {
+                vm.showSidebar = true;
+            }
+        });
+
+        $scope.$on('toggle', vm.toggle);
 
         var userId = UserService.getProfile()._id;
 
@@ -38,10 +56,12 @@
                 }
             });
         }
-
         init();
 
-
+        function toggle() {
+            vm.showSidebar = !vm.showSidebar;
+            console.log(vm.showSidebar);
+        }
     }
 })();
 

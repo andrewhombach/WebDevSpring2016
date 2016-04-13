@@ -1,16 +1,16 @@
+<div class="visible-xs" ng-include="'views/sidebar/sidebar.view.html'"></div>
 <div ng-controller="TaskBarController as model">
     <h1 class="page-header text-center">Tasks</h1>
-    <div class="visible-xs">
+    <div class="visible-xs" style="padding-left: 20px">
         <a href="#/home/{{model.projectId}}">
             <button class="btn btn-info">
                 Return to Project
             </button>
         </a>
-
     </div>
     <br>
-    <div>
-    <table class="table table-borderless table-striped table-fixed">
+    <div class="container-fluid">
+    <table class="table table-borderless table-striped table-fixed center">
         <thead>
         <th width="33.3%">
             Task

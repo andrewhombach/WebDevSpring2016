@@ -1,4 +1,4 @@
-<div class="hidden-xs" ng-include="'views/sidebar/sidebar.view.html'"></div>
+<div ng-include="'views/sidebar/sidebar.view.html'"></div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <H3>{{model.project.name}}</H3>
     <a href="#/editproject/{{model.project._id}}">
@@ -42,7 +42,16 @@
             Tasks
         </th>
         <th>
+            Users
+        </th>
+        <th>
             Due Dates
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Status
         </th>
         </thead>
         <tbody>
@@ -51,6 +60,9 @@
                 <a href="#/project/{{model.projectId}}/taskdetails/{{t._id}}">
                 {{t.name}}
                 </a>
+            </td>
+            <td>
+                {{model.showUsers(t.userIds)}}
             </td>
             <td>
                 {{t.dueDate}}

@@ -1,94 +1,96 @@
-<div class="hidden-xs" ng-include="'views/sidebar/sidebar.view.html'"></div>
+<div ng-include="'views/sidebar/sidebar.view.html'"></div>
 <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskEditController">
     <div class="chat-body">
         <br>
-        <button class="btn btn-success col-xs-offset-3 col-xs-6" ng-click="model.updateTask(model.task)">
+        <button class="btn btn-success pull-right col-xs-2" ng-click="model.updateTask(model.task)">
             <span>Update</span>
         </button>
-        <br>
-        <br>
-        <div class="row">
-            <h2 class="text-center">Name:</h2>
-            <input ng-model="model.task.name" placeholder="task name" type="text" id="title" class="form-control">
-        </div>
-        <div class="visible-xs col-xs-offset-4 col-xs-3">
-            <a href="#/taskbar">
+
+        <div class="visible-xs col-xs-3 pull-left">
+            <a href="#/project/{{model.projectId}}/taskdetails/{{model.taskId}}">
                 <button class="btn btn-info">
                     Back to Tasks
                 </button>
 
             </a>
         </div>
-        <hr>
-        <div ng-style="{'height': model.chatHeight - 350 + 'px'}" class="outer scrollable">
-        <table class="table table-borderless text-center">
-            <tr>
-                <td>
-                    Due Date:
-                </td>
-                <td>
-                    <input type="date" placeholder="0/0/0" ng-model="model.task.dueDate" class="form-control">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Creation Date:
-                </td>
-                <td>
-                    <input type="date" placeholder="0/0/0" ng-model="model.task.createDate" class="form-control">
-                </td>
-            </tr>
-        </table>
-        <hr>
-        <h2 class="text-center">Assigned Members:</h2>
+        <br>
         <div class="row">
-            <table class="table table-responsive">
-                <thead>
-                    <th>
-                        Username
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </thead>
-                <tbody>
+            <h2 class="text-center">Name:</h2>
+            <input ng-model="model.task.name" placeholder="task name" type="text" id="title" class="form-control">
+        </div>
+        <hr>
+        <div style="display: block" ng-style="{'height': model.chatHeight - 350 + 'px'}" class="outer scrollable">
+            <div class="inner">
+                <table style="padding-left: 20px;" class="table table-borderless text-center">
                     <tr>
                         <td>
-                            <input class="form-control" type="text" ng-model="username">
+                            Due Date:
                         </td>
                         <td>
-                            <button type="button" class="btn btn-success" ng-click="model.addUser(username)">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
+                            <input type="date" placeholder="0/0/0" ng-model="model.task.dueDate" class="form-control">
                         </td>
                     </tr>
-                    <tr ng-repeat="u in model.users">
-                        <td>{{u.username}}</td>
+                    <tr>
                         <td>
-                            <button ng-click="model.removeUser(u)" type="button" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
+                            Creation Date:
+                        </td>
+                        <td>
+                            <input type="date" placeholder="0/0/0" ng-model="model.task.createDate"
+                                   class="form-control">
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                </table>
+                <hr>
+                <h2 class="text-center">Assigned Members:</h2>
+                    <table class="table table-borderless">
+                        <thead>
+                        <th width="90%">
+                            Username
+                        </th>
+                        <th with="10%">
+
+                        </th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input class="form-control" type="text" ng-model="username">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success" ng-click="model.addUser(username)">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="u in model.users">
+                            <td>{{u.username}}</td>
+                            <td>
+                                <button ng-click="model.removeUser(u)" type="button" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                <hr>
+                <h2 class="text-center">Notes</h2>
+                <input class="form-control" type="text" ng-model="model.task.notes"
+                       placeholder="Add notes about the task here">
+                <hr>
+                <h2 class="text-center">Location</h2>
+                <input class="form-control" ng-model="model.task.location" type="text" placeholder="City and State">
+                <div align="middle">
+                    <iframe
+                            width="600"
+                            height="400"
+                            frameborder="0" style="border:0" align="middle"
+                            src={{model.locationURL}}
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
         </div>
-        <hr>
-        <h2 class="text-center">Notes</h2>
-        <input class="form-control" type="text" ng-model="model.task.notes" placeholder="Add notes about the task here">
-        <hr>
-        <h2 class="text-center">Location</h2>
-        <input class="form-control" ng-model="model.task.location" type="text" placeholder="City and State">
-        <div align="middle">
-            <iframe
-                    width="600"
-                    height="400"
-                    frameborder="0" style="border:0" align="middle"
-                    src= {{model.locationURL}}
-                    allowfullscreen>
-            </iframe>
-        </div>
-    </div>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2  chat-footer">
         <div ng-include="'views/footer/footer.view.html'"></div>
