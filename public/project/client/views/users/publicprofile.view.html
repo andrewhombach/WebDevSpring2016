@@ -1,0 +1,52 @@
+<div ng-include="'views/sidebar/sidebar.view.html'"></div>
+<div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="PublicProfileController as model">
+    <br>
+    <h1 class="page-header text-center">{{model.user.firstName + " " + model.user.lastName}}</h1>
+    <br>
+    <div class="row">
+        <div class=" col-sm-6">
+            <img class="profile-pricture"  src="https://pbs.twimg.com/profile_images/1407284510/254187_10150214580401865_643336864_7179279_4815578_n.jpg">
+        </div>
+        <br>
+        <br>
+        <div class="pull-right">
+            <table class="table table-responsive table-borderless">
+                <tbody>
+                    <tr>
+                        <td>
+                            <h5>Username:</h5>
+                        </td>
+                        <td>
+                            <h5>{{model.user.username}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5>Email:</h5>
+                        </td>
+                        <td>
+                            <h5>{{model.user.email}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5>Phone Number:</h5>
+                        </td>
+                        <td>
+                            <h5>{{model.user.phoneNumber}}</h5>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+    <button ng-click="model.directMessage()"  class="btn btn-lg btn-success col-sm-offset-3 col-sm-6">
+        Direct Message
+    </button>
+
+</div>
+<div class="col-sm-offset-3 col-md-offset-0 col-sm-4 disapear">
+    <div ng-include="'views/profilebar/profilebar.view.html'"></div>
+</div>

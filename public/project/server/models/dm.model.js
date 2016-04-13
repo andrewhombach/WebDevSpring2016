@@ -50,7 +50,7 @@ module.exports = function(mongoose, db) {
         var newDM = {
             user1: dm.user1,
             user2: dm.user2,
-            createDate: (new Date).getTime(),
+            createDate: new Date,
             messages: []
         };
 

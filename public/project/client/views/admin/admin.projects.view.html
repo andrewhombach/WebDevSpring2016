@@ -32,14 +32,6 @@
             </th>
             <th>
                 <span class="caret"></span>
-                Tasks
-            </th>
-            <th>
-                <span class="caret"></span>
-                Messages
-            </th>
-            <th>
-                <span class="caret"></span>
                 Description
             </th>
             <th width="100px">
@@ -59,12 +51,6 @@
             </td>
             <td>
                 <input ng-model="model.project.admin" type="text" class="form-control" placeholder="User ID of Admin">
-            </td>
-            <td>
-                <input ng-model="model.project.tasks" type="text" class="form-control" placeholder="comma separated task IDs">
-            </td>
-            <td>
-                <input ng-model="model.project.messages" type="text" class="form-control" placeholder="comma separated message IDs">
             </td>
             <td>
                 <input ng-model="model.project.description" type="text" class="form-control" placeholder="Description">
@@ -92,12 +78,6 @@
             </td>
             <td>
                 <p class="text-right">{{project.admin}}</p>
-            </td>
-            <td>
-                <p class="text-right">{{project.tasks}}</p>
-            </td>
-            <td>
-                <p class="text-right">{{project.messages}}</p>
             </td>
             <td>
                 {{project.description}}

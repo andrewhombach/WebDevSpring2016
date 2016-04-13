@@ -157,12 +157,22 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
+            .when("/profile/:userId", {
+                templateUrl: "views/users/publicprofile.view.html",
+                controller: "PublicProfileController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
+            })
             .otherwise({
                 redirectTo: "/splash"
             });
 
         function checkLoggedIn(UserService, $rootScope, $http, $q, $location) {
             var deferred = $q.defer();
+
+            console.log("got called");
 
             $http.get("/api/loggedin").success(function(user)
             {
