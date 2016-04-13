@@ -1,10 +1,10 @@
-module.exports = function(app, MessageModel, ProjectModel) {
+module.exports = function(app, MessageModel, ProjectModel, DMModel) {
     app.get("/api/message/:messageId", getMessageById);
     app.get("/api/message", getAllMessages);
     app.get("/api/user/:userId/message", getMessagesByUserId);
     app.delete("/api/project/:projectId/message/:messageId", deleteMessageById);
     app.post("/api/project/:projectId/message/", createMessageForProject);
-    app.post("/api/dm/:DMId/message", createMessageForDM);
+    app.post("/api/dm/:dmId/message", createMessageForDM);
     app.put("/api/project/:projectId/message/", updateMessage);
     app.get("/api/project/:projectId/message", findMessagesByProjectId);
     app.get("/api/dm/:dmId/message", findMessagesByDMId);
@@ -70,18 +70,12 @@ module.exports = function(app, MessageModel, ProjectModel) {
     }
 
     function createMessageForDM(req, res) {
-        MessageModel.createMessage(req.body)
+        console.log(req.body);
+        DMModel.addMessage(req.params.dmId, req.body)
             .then(
-                function (message) {
-                    DMModel.addMessage(req.params.DMId, message._id)
-                        .then(
-                            function (doc) {
-                                res.json(doc);
-                            },
-                            function (err) {
-                                res.status(400).send(err);
-                            }
-                        );
+                function (doc) {
+                    console.log(doc);
+                    res.json(doc);
                 },
                 function (err) {
                     res.status(400).send(err);
@@ -122,7 +116,7 @@ module.exports = function(app, MessageModel, ProjectModel) {
     }
 
     function findMessagesByDMId(req, res) {
-        MessageModel.findMessagesByDMId(req.params.dmId)
+        DMModel.findMessagesByDMId(req.params.dmId)
             .then(
                 function (doc) {
                     res.json(doc);

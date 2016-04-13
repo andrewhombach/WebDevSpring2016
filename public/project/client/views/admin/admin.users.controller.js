@@ -3,20 +3,22 @@
         .module("CoLabApp")
         .controller("AdminUsersController", AdminUsersController);
 
-    function AdminUsersController(UserService, $rootScope, $scope) {
-        $scope.deleteUser = deleteUser;
-        $scope.addUser = addUser;
-        $scope.updateUser = updateUser;
-        $scope.selectUser = selectUser;
-
-        function renderUsers(response) {
-            $scope.users = response.data;
-            $scope.user = null;
-        }
+    function AdminUsersController(UserService) {
+        var vm = this;
+        vm.deleteUser = deleteUser;
+        vm.addUser = addUser;
+        vm.updateUser = updateUser;
+        vm.selectUser = selectUser;
+        vm.users;
+        vm.user;
 
         function init() {
             UserService.findAllUsers()
-                .then(renderUsers)
+                .then(
+                    function (response) {
+                        vm.users = response.data;
+                    }
+                )
         }
 
         init();
@@ -32,13 +34,12 @@
         }
 
         function updateUser(user) {
-            console.log(user);
             UserService.updateUser(user)
                 .then(init);
         }
 
         function selectUser(uIndex) {
-            $scope.user = $scope.users[uIndex];
+            vm.user = vm.users[uIndex];
         }
     }
 })();

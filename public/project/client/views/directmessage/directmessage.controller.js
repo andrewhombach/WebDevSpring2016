@@ -3,13 +3,27 @@
         .module("CoLabApp")
         .controller("DirectMessageController", DirectMessageController);
 
-    function DirectMessageController(DMService, MessageService, UserService, TaskService, $rootScope, $routeParams) {
+    function DirectMessageController(DMService, UserService, $routeParams, $scope, $window) {
         var vm = this;
 
-        vm.me = $rootScope.cUser._id;
-        vm.getUsername = getUsername;
-        vm.notMe = notMe;
+        vm.me = UserService.getProfile()._id;
+        vm.getUserOfMessage = getUserOfMessage;
         vm.dmId = $routeParams.dmId;
+        var socket = io();
+        vm.chatHeight = window.innerHeight;
+        var w = angular.element($window);
+
+        w.bind('resize', function() {
+            vm.chatHeight = window.innerHeight;
+            console.log(window.innerWidth);
+            $scope.$apply();
+        });
+
+        socket.emit('join chat', vm.dmId);
+        socket.on('chat message' + vm.dmId, function (message) {
+            vm.messages.push(message);
+            $scope.$apply();
+        });
 
         function init() {
             DMService.findDMById(vm.dmId)
@@ -20,51 +34,32 @@
 
         function renderDM(response) {
             vm.dm = response.data;
-            console.log(vm.dm);
-            getMessages();
-            getUsers(vm.dm.user1, vm.dm.user2);
-
+            vm.messages = vm.dm.messages;
+            console.log(vm.messages);
+            getUsers();
         }
 
-        function getMessages() {
-            MessageService.findMessagesByDMId(vm.dm._id)
+        function getUsers() {
+            UserService.findUsersByDMId(vm.dmId)
                 .then(function (response) {
-                    vm.messages = response.data;
-                    console.log(response.data);
-                });
-
-        }
-
-        function getUsers(user1, user2) {
-            UserService.findUserById(user1)
-                .then(function (response) {
-                    vm.user1 = response.data;
-                    console.log(response.data);
-                    UserService.findUserById(user2)
-                    .then(function (response) {
-                        vm.user2 = response.data;
-                        console.log(response.data);
-                    });
+                    vm.users = response.data;
+                    vm.notMe = notMe();
                 });
         }
 
+        function getUserOfMessage(userId) {
+            for(var u in vm.users) {
+                if (vm.users[u]._id === userId) {
+                    return vm.users[u].username;
+                }
+            }
+        }
 
         function notMe() {
-            if (vm.user1._id == $rootScope.cUser._id) {
-                return vm.user2;
+            if (vm.me === vm.users[0]._id) {
+                return vm.users[1];
             }
-            else {
-                return vm.user1;
-            }
-        }
-
-        function getUsername(id) {
-            if (id == vm.user1._id) {
-                return vm.user1.username;
-            }
-            else {
-                return vm.user2.username;
-            }
+            return vm.users[0];
         }
 
     }

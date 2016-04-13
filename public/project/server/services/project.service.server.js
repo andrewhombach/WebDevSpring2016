@@ -31,7 +31,7 @@ module.exports = function(app, ProjectModel) {
     }
 
     function getProjectsByUserId(req, res) {
-        var getProjects = ProjectModel.findProjectsByUserId(req.params.userId)
+        ProjectModel.findProjectsByUserId(req.params.userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -55,7 +55,13 @@ module.exports = function(app, ProjectModel) {
     }
 
     function createProject(req, res) {
-        ProjectModel.createProject(req.body)
+        var project = req.body;
+
+        if (typeof project.userIds === 'string') {
+            project.userIds = project.userIds.replace(" ", "").split(",");
+        }
+
+        ProjectModel.createProject(project)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -68,7 +74,13 @@ module.exports = function(app, ProjectModel) {
     }
 
     function updateProject(req, res) {
-        ProjectModel.updateProject(req.body)
+        var project = req.body;
+
+        if (typeof project.userIds === 'string') {
+            project.userIds = project.userIds.replace(" ", "").split(",");
+        }
+
+        ProjectModel.updateProject(project)
             .then(
                 function (doc) {
                     res.json(doc);

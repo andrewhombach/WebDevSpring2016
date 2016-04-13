@@ -23,6 +23,7 @@ module.exports = function(app, TaskModel, ProjectModel, UserModel) {
         ProjectModel.findTask(req.params.taskId)
             .then(
                 function (doc) {
+                    doc.userIds = doc.userIds.toString();
                     res.json(doc);
                 },
                 function (err) {
@@ -35,7 +36,7 @@ module.exports = function(app, TaskModel, ProjectModel, UserModel) {
         UserModel.findUser(req.params.userId)
             .then(
                 function (user) {
-                    TaskModel.findTasksByUserId(uId)
+                    TaskModel.findTasksByUserId(user._id)
                         .then(
                             function (doc) {
                                 res.json(doc);
@@ -64,7 +65,12 @@ module.exports = function(app, TaskModel, ProjectModel, UserModel) {
     }
 
     function newTask(req, res) {
-        ProjectModel.addTask(req.params.projectId, req.body)
+        var task = req.body;
+
+        if (typeof task.userIds === 'string') {
+            task.userIds = task.userIds.replace(" ", "").split(",");
+        }
+        ProjectModel.addTask(req.params.projectId, task)
             .then(
                 function (task) {
                     res.json(task);
@@ -76,7 +82,13 @@ module.exports = function(app, TaskModel, ProjectModel, UserModel) {
     }
 
     function updateTaskById(req, res) {
-        ProjectModel.updateTask(req.params.projectId, req.body)
+        var task = req.body;
+
+        if (typeof task.userIds === 'string') {
+            task.userIds = task.userIds.replace(" ", "").split(",");
+        }
+
+        ProjectModel.updateTask(req.params.projectId, task)
             .then(
                 function (doc) {
                     res.json(doc);

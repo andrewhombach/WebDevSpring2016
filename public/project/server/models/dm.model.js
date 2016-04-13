@@ -18,15 +18,27 @@ module.exports = function(uuid, mongoose, db) {
 
     return api;
 
-    function addMessage(DMId, messageId) {
-        console.log(messageId);
+    function addMessage(dmId, message) {
+
+        var newMessage = {
+            userId: message.userId,
+            text: message.text,
+            createDate: (new Date).getTime()
+        };
+
+        console.log(dmId);
+        console.log(message);
+
         var deferred = q.defer();
 
-        ProjectModel.findByIdAndUpdate(DMId, {$push: {"messages": messageId}}, {new: true}, function (err, doc) {
+        DMSModel.findByIdAndUpdate(dmId, {$push: {"messages": newMessage}}, {new: true}, function (err, doc) {
             if (err) {
+                console.log(err);
+
                 deferred.reject(err);
             }
             else {
+                console.log(doc);
                 deferred.resolve(doc);
             }
         });
@@ -39,7 +51,7 @@ module.exports = function(uuid, mongoose, db) {
             user1: dm.user1,
             user2: dm.user2,
             createDate: (new Date).getTime(),
-            messages: dm.messages
+            messages: []
         };
 
         var deferred = q.defer();

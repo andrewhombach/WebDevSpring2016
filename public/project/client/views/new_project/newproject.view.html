@@ -9,7 +9,7 @@
                 </td>
                 <td>
                     <div>
-                        <input ng-model="model.project.name" type="text" class="form-control col-xs-12"
+                        <input ng-model="project.name" type="text" class="form-control col-xs-12"
                                placeholder="Title">
                     </div>
                 </td>
@@ -44,7 +44,7 @@
                     <label class="form-control-label">Description:</label>
                 </td>
                 <td>
-                    <input ng-model="model.project.description" type="text" class="form-control" id="description"
+                    <input ng-model="project.description" type="text" class="form-control" id="description"
                            placeholder="Description">
                 </td>
             </tr>
@@ -59,7 +59,7 @@
         <div class="form-group row">
             <div class="col-xs-offset-2 col-xs-8">
                 <button type="button" class="btn btn-success btn-lg col-xs-12"
-                        ng-click="model.newProject(model.project)">Submit
+                        ng-click="model.newProject(project)">Submit
                 </button>
             </div>
         </div>

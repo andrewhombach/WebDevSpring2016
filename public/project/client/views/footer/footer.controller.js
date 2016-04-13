@@ -11,17 +11,40 @@
 
         function sendMessage(message) {
             var m = {userId: UserService.getProfile()._id, text: message};
-            MessageService.createMessageForProject($routeParams.projectId, m)
-                .then(function (response) {
-                    console.log(response.data);
-                    socket.emit('chat message', $routeParams.projectId,
-                    {
-                        userId: UserService.getProfile()._id,
-                        text: message,
-                        createDate: (new Date).getTime()
-                    });
-                    vm.message = null;
-                });
+
+            var chat = null;
+
+            if ($routeParams.projectId) {
+                chat = $routeParams.projectId;
+                MessageService
+                    .createMessageForProject($routeParams.projectId, m)
+                    .then(
+                        function (response) {
+                            socket.emit('chat message', chat,
+                                {
+                                    userId: UserService.getProfile()._id,
+                                    text: message,
+                                    createDate: (new Date).getTime()
+                                });
+                            vm.message = null;
+                        });
+            }
+            if ($routeParams.dmId) {
+                chat = $routeParams.dmId;
+                MessageService
+                    .createMessageForDM($routeParams.dmId, m)
+                    .then(
+                        function (response) {
+                            socket.emit('chat message', chat,
+                                {
+                                    userId: UserService.getProfile()._id,
+                                    text: message,
+                                    createDate: (new Date).getTime()
+                                });
+                            vm.message = null;
+                        });
+            }
+
         }
     }
 })();

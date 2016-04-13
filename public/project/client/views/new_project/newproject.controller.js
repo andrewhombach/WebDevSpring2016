@@ -13,6 +13,7 @@
         vm.removeUser = removeUser;
 
         function newProject(project) {
+            console.log(project);
             project.userIds = vm.userIds;
             project.admin = $rootScope.cUser._id;
             ProjectService.createProject(project)

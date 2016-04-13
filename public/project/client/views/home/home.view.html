@@ -28,7 +28,7 @@
         <div id="chatWindow" class="chat-box-div">
             <div scroll-glue class="panel-body chat-box-main inner">
                 <div ng-repeat="message in model.messages">
-                    <div ng-if="message.userId == model.me">
+                    <div ng-if="message.userId === model.me">
                         <div class="chat-box-left">
                             <p>{{message.text}}</p>
                         </div>
@@ -40,7 +40,7 @@
                         </div>
                         <br>
                     </div>
-                    <div ng-if="message.userId != model.me">
+                    <div ng-if="message.userId !== model.me">
                         <div class="chat-box-right">
                             <p>{{message.text}}</p>
                         </div>

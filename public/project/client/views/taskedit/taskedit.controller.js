@@ -5,7 +5,7 @@
         .module("CoLabApp")
         .controller("TaskEditController", TaskEditController);
 
-    function TaskEditController(UserService, $sce, TaskService, $routeParams, $location, $scope, $window) {
+    function TaskEditController(UserService, TaskService, $routeParams, $location, $scope, $window) {
         var vm = this;
         vm.updateTask = updateTask;
         vm.users = null;
@@ -29,7 +29,7 @@
             TaskService.findTaskById(vm.taskId)
                 .then(function (response) {
                     vm.task = response.data;
-                    vm.locationURL = {url:$sce.trustAsResourceUrl("https://www.google.com/maps/embed/v1/place?key=AIzaSyCasNgXTgj-TVaIt6N5GizuoeF7KQMv9VU&q=" + vm.task.location.replace(" ", "+").replace(",", "+"))};
+                    vm.locationURL = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCasNgXTgj-TVaIt6N5GizuoeF7KQMv9VU&q=" + vm.task.location.replace(" ", "+").replace(",", "+");
                 });
             getUsers();
         }

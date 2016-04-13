@@ -1,5 +1,5 @@
 <div class="hidden-xs" ng-include="'views/sidebar/sidebar.view.html'"></div>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminUsersController">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminUsersController as model">
     <h1 class="page-header">Users</h1>
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="#/admin/projects">Projects</a></li>
@@ -43,34 +43,34 @@
         <tbody>
         <tr>
             <td>
-                <input ng-model="user._id" type="text" class="form-control" placeholder="user ID" </td>
+                <input ng-model="model.user._id" type="text" class="form-control" placeholder="user ID" </td>
             <td>
-                <input ng-model="user.username" type="text" class="form-control" placeholder="username">
+                <input ng-model="model.user.username" type="text" class="form-control" placeholder="username">
             </td>
             <td>
-                <input ng-model="user.password" type="text" class="form-control" placeholder="password">
+                <input ng-model="model.user.password" type="text" class="form-control" placeholder="password">
             </td>
             <td>
-                <input ng-model="user.firstName" type="text" class="form-control" placeholder="first name">
+                <input ng-model="model.user.firstName" type="text" class="form-control" placeholder="first name">
             </td>
             <td>
-                <input ng-model="user.lastName" type="text" class="form-control" placeholder="last name">
+                <input ng-model="model.user.lastName" type="text" class="form-control" placeholder="last name">
             </td>
             <td>
-                <input ng-model="user.email" type="text" class="form-control" placeholder="email">
+                <input ng-model="model.user.email" type="text" class="form-control" placeholder="email">
             </td>
             <td>
                 <div class="input-group">
-                    <button ng-click="addUser(user)" class="btn btn-success">
+                    <button ng-click="model.addUser(model.user)" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button ng-click="updateUser(user)" class="btn btn-info">
+                    <button ng-click="model.updateUser(model.user)" class="btn btn-info">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="user in users">
+        <tr ng-repeat="user in model.users">
             <td>
                 <p class="text-right">{{user._id}}</p>
             </td>
@@ -91,10 +91,10 @@
             </td>
             <td  width="100px">
                 <div class="input-group">
-                    <button ng-click="deleteUser(user)" class="btn btn-danger">
+                    <button ng-click="model.deleteUser(user)" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <button ng-click="selectUser($index)" class="btn btn-warning">
+                    <button ng-click="model.selectUser($index)" class="btn btn-warning">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </div>

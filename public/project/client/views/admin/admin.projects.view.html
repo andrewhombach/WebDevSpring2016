@@ -1,12 +1,6 @@
 <div class="hidden-xs" ng-include="'views/sidebar/sidebar.view.html'"></div>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminProjectsController">
-    <h1 class="page-header">Projects
-        <div align="right" class="input-group">
-            <button ng-click="changePicker()" class="btn btn-info">
-                See All or User
-            </button>
-        </div>
-    </h1>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminProjectsController as model">
+    <h1 class="page-header">Projects</h1>
 
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#/admin/projects">Projects</a></li>
@@ -55,38 +49,38 @@
         <tbody>
         <tr>
             <td>
-                <input ng-model="project.name" type="text" class="form-control" placeholder="project name">
+                <input ng-model="model.project.name" type="text" class="form-control" placeholder="project name">
             </td>
             <td>
-                <input ng-model="project._id" type="text" class="form-control" placeholder="project id">
+                <input ng-model="model.project._id" type="text" class="form-control" placeholder="project id">
             </td>
             <td>
-                <input ng-model="project.userIds" type="text" class="form-control" placeholder="comma separated user IDs">
+                <input ng-model="model.project.userIds" type="text" class="form-control" placeholder="comma separated user IDs">
             </td>
             <td>
-                <input ng-model="project.admin" type="text" class="form-control" placeholder="User ID of Admin">
+                <input ng-model="model.project.admin" type="text" class="form-control" placeholder="User ID of Admin">
             </td>
             <td>
-                <input ng-model="project.tasks" type="text" class="form-control" placeholder="comma separated task IDs">
+                <input ng-model="model.project.tasks" type="text" class="form-control" placeholder="comma separated task IDs">
             </td>
             <td>
-                <input ng-model="project.messages" type="text" class="form-control" placeholder="comma separated message IDs">
+                <input ng-model="model.project.messages" type="text" class="form-control" placeholder="comma separated message IDs">
             </td>
             <td>
-                <input ng-model="project.description" type="text" class="form-control" placeholder="Description">
+                <input ng-model="model.project.description" type="text" class="form-control" placeholder="Description">
             </td>
             <td>
                 <div class="input-group">
-                    <button ng-click="addProject(project)" class="btn btn-success">
+                    <button ng-click="model.addProject(model.project)" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button ng-click="updateProject(project)" class="btn btn-info">
+                    <button ng-click="model.updateProject(model.project)" class="btn btn-info">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="project in projects">
+        <tr ng-repeat="project in model.projects">
             <td>
                 {{project.name}}
             </td>
@@ -94,26 +88,26 @@
                 <p class="text-right">{{project._id}}</p>
             </td>
             <td>
-                <p class="text-right">{{project.userIds.toString()}}</p>
+                <p class="text-right">{{project.userIds}}</p>
             </td>
             <td>
                 <p class="text-right">{{project.admin}}</p>
             </td>
             <td>
-                <p class="text-right">{{project.tasks.toString()}}</p>
+                <p class="text-right">{{project.tasks}}</p>
             </td>
             <td>
-                <p class="text-right">{{project.messages.toString()}}</p>
+                <p class="text-right">{{project.messages}}</p>
             </td>
             <td>
                 {{project.description}}
             </td>
             <td width="100px">
                 <div class="input-group">
-                    <button ng-click="deleteProject(project)" class="btn btn-danger">
+                    <button ng-click="model.deleteProject(project)" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <button ng-click="selectProject($index)" class="btn btn-warning">
+                    <button ng-click="model.selectProject($index)" class="btn btn-warning">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </div>

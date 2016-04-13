@@ -17,13 +17,13 @@
             findUsersByProjectId: findUsersByProjectId,
             findUsersByTaskId: findUsersByTaskId,
             getCurrentUser: getCurrentUser,
-            findUserByUsername: findUserByUsername
+            findUserByUsername: findUserByUsername,
+            findUsersByDMId: findUsersByDMId
         };
 
         return api;
 
         function findUserById (userId) {
-            console.log("user.service.client.js got:" + userId);
             return $http.get("/api/user/" + userId);
         }
 
@@ -53,6 +53,10 @@
 
         function findUsersByProjectId(projectId) {
             return $http.get("/api/project/" + projectId + "/user");
+        }
+
+        function findUsersByDMId(dmId) {
+            return $http.get("/api/dm/" + dmId + "/user");
         }
 
         function findUsersByTaskId(taskId) {

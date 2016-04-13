@@ -43,18 +43,13 @@ app.use(express.static(__dirname + '/public'));
 
 
 io.on('connection', function(socket) {
-    console.log('a user connected');
     socket.on('disconnect', function() {
-        console.log('user disconnected');
     });
-    socket.on('join project', function(projectId) {
-        socket.join(projectId)
+    socket.on('join chat', function(id) {
+        socket.join(id)
     });
-    socket.on('chat message', function(projectId, message) {
-        console.log("message sent");
-        console.log(projectId);
-        console.log(message);
-        io.in(projectId).emit('chat message' + projectId, message);
+    socket.on('chat message', function(id, message) {
+        io.in(id).emit('chat message' + id, message);
     });
 });
 

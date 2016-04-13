@@ -1,4 +1,4 @@
-module.exports = function(app, UserModel, ProjectModel, TaskModel) {
+module.exports = function(app, UserModel, ProjectModel, DMModel) {
     app.post("/api/user", register);
     app.get("/api/user", userRouter);
     app.get("/api/user/:id", findUserById);
@@ -7,6 +7,7 @@ module.exports = function(app, UserModel, ProjectModel, TaskModel) {
     app.get("/api/project/:projectId/user", findUsersByProjectId);
     app.get("/api/task/:taskId/user", findUsersByTaskId);
     app.get("/api/loggedin", loggedIn);
+    app.get("/api/dm/:dmId/user", findUsersByDMId);
 
     function userRouter(req, res) {
         if (req.query.username && req.query.password) {
@@ -158,6 +159,25 @@ module.exports = function(app, UserModel, ProjectModel, TaskModel) {
                 function (err) {
                     res.status(400).send(err);
                 });
+    }
+
+    function findUsersByDMId(req, res) {
+        DMModel
+            .findDM(req.params.dmId)
+            .then(
+                function (dm) {
+                    UserModel
+                        .findUsersByIds([dm.user1, dm.user2])
+                        .then(
+                            function (users) {
+                                res.json(users);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        );
+                }
+            );
     }
 
 

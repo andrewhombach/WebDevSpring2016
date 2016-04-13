@@ -146,7 +146,6 @@ module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
                 deferred.reject(err);
             }
             else {
-                console.log(doc);
                 deferred.resolve(doc);
             }
         });

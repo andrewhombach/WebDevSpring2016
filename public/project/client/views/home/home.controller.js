@@ -14,10 +14,11 @@
 
         w.bind('resize', function() {
             vm.chatHeight = window.innerHeight;
+            console.log(window.innerWidth);
             $scope.$apply();
         });
 
-        socket.emit('join project', vm.projectId);
+        socket.emit('join chat', vm.projectId);
         socket.on('chat message'+vm.projectId, function (message) {
             vm.messages.push(message);
             $scope.$apply();
@@ -36,9 +37,7 @@
             vm.messages = vm.project.messages;
             vm.tasks = vm.project.tasks;
             getUsers();
-            window.scrollTo(0,document.body.scrollHeight);
         }
-
 
         function getUsers() {
             UserService.findUsersByProjectId(vm.project._id)
@@ -47,14 +46,9 @@
             });
         }
 
-        function isMe(userId) {
-            console.log(userId);
-            return userId == $rootScope.cUser._id;
-        }
-
         function getUserOfMessage(userId) {
-            for(u in vm.users) {
-                if (vm.users[u]._id == userId) {
+            for(var u in vm.users) {
+                if (vm.users[u]._id === userId) {
                     return vm.users[u].username;
                 }
             }

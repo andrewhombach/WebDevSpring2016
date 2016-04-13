@@ -7,32 +7,31 @@
     function SidebarController(ProjectService, DMService, UserService) {
         var vm = this;
 
-        //had to hardcode the user because I haven't implemented sessions for this assignment yet. The sidebar fails on load because no
-        //one is logged in. It can load dynamically.
+        var userId = UserService.getProfile()._id;
 
         function init() {
 
-            ProjectService.findAllProjectsByUserId(UserService.getProfile()._id)
+            ProjectService.findAllProjectsByUserId(userId)
             .then(function (response) {
                 vm.projects = response.data;
                 console.log(vm.projects);
 
             });
 
-            DMService.findAllDMsByUserId(UserService.getProfile()._id)
+            DMService.findAllDMsByUserId(userId)
             .then(function (response) {
                 vm.dms = response.data;
                 for (var d in vm.dms) {
-                    if (vm.dms[d].user1 == 234) {
+                    if (vm.dms[d].user1 == userId) {
                         UserService.findUserById(vm.dms[d].user2)
                         .then(function (response) {
-                            vm.dms[d].name = response.data.username;
+                            vm.dms[d].name = response.data.firstName + " " + response.data.lastName;
                         })
                     }
                     else {
                         UserService.findUserById(vm.dms[d].user1)
                         .then(function (response) {
-                            vm.dms[d].name = response.data.username;
+                            vm.dms[d].name = response.data.firstName + " " + response.data.lastName;
                         })
 
                     }

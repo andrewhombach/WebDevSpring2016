@@ -23,7 +23,6 @@
         function init() {
             TaskService.findTasksByProjectId($routeParams.projectId)
             .then(function (response) {
-                console.log(response.data);
                 vm.tasks = response.data;
             });
         }

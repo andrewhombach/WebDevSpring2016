@@ -20,7 +20,6 @@
         return api;
 
         function findMessageById(id) {
-            console.log(id);
             return $http.get("/api/message/" + id);
         }
 
@@ -37,13 +36,11 @@
         }
 
         function createMessageForProject(projectId, message) {
-            var parcel = {userId: message.userId, text: message.text};
-            return $http.post("/api/project/"+ projectId + "/message/", parcel);
+            return $http.post("/api/project/"+ projectId + "/message/", message);
         }
 
-        function createMessageForDM(message, userId, DMId) {
-            var parcel = {userId: userId, text: message};
-            return $http.post("/api/DM/" + DMId + "/message", parcel)
+        function createMessageForDM(dmId, message) {
+            return $http.post("/api/dm/" + dmId + "/message", message)
         }
 
         function updateMessage(projectId, message) {

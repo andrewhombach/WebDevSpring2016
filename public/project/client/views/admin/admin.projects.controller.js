@@ -3,76 +3,43 @@
         .module("CoLabApp")
         .controller("AdminProjectsController", AdminProjectsController);
 
-    function AdminProjectsController(ProjectService, $rootScope, $scope) {
-        $scope.deleteProject = deleteProject;
-        $scope.addProject = addProject;
-        $scope.updateProject = updateProject;
-        $scope.selectProject = selectProject;
-        $scope.changePicker = changePicker;
-
-        var all = true;
+    function AdminProjectsController(ProjectService) {
+        var vm = this;
+        vm.deleteProject = deleteProject;
+        vm.addProject = addProject;
+        vm.updateProject = updateProject;
+        vm.selectProject = selectProject;
 
         function init() {
 
-            ProjectService.findAllProjectsByUserId($rootScope.cUser._id)
+            ProjectService.findAllProjects()
                 .then(function (response) {
-                    $scope.projects = response.data;
-                    $scope.project = null;
-                })
+                    vm.projects = response.data;
+                    vm.project = null;
+                });
         }
 
         init();
 
-        function seeAllProjects() {
-
-            ProjectService.findAllProjects()
-                .then(function (response) {
-                    $scope.projects = response.data;
-                    $scope.project = null;
-                });
-        }
-
-        function retrieveProjects (){
-            if (!all) {
-                seeAllProjects();
-            }
-            else {
-                init();
-            }
-        }
-
-
-        function changePicker() {
-            if (all) {
-                all = false;
-                seeAllProjects();
-            }
-            else {
-                all = true;
-                init();
-            }
-        }
-
         function deleteProject(project) {
             ProjectService.deleteProjectById(project._id)
-                .then(retrieveProjects);;
+                .then(init);
         }
 
         function addProject(project) {
-            var userArray = project.userIds.split(",");
-            project.userIds = userArray;
             ProjectService.createProject(project)
-                .then(retrieveProjects);;
+                .then(init);
         }
 
         function updateProject(project) {
             ProjectService.updateProject(project)
-                .then(retrieveProjects);
-            $scope.project = null;
+                .then(init);
+            vm.project = null;
         }
 
         function selectProject(pIndex) {
-            $scope.project = $scope.projects[pIndex];
+            vm.project = vm.projects[pIndex];
+            vm.project.userIds = vm.project.userIds.join();
         }
     }
 })();

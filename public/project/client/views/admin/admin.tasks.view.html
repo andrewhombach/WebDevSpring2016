@@ -1,12 +1,6 @@
 <div class="hidden-xs" ng-include="'views/sidebar/sidebar.view.html'"></div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminTasksController">
-    <h1 class="page-header">Tasks
-        <div align="right" class="input-group">
-            <button ng-click="model.changePicker()" class="btn btn-info">
-                See All or User
-            </button>
-        </div>
-    </h1>
+    <h1 class="page-header">Tasks</h1>
 
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="#/admin/projects">Projects</a></li>
@@ -115,7 +109,7 @@
                 {{task.dueDate}}
             </td>
             <td>
-                <p class="text-right">{{task.userIds.toString()}}</p>
+                <p class="text-right">{{task.userIds}}</p>
             </td>
             <td>
                 <p class="text-right">{{task.projectId}}</p>
