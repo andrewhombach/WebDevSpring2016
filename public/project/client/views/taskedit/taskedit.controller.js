@@ -5,7 +5,7 @@
         .module("CoLabApp")
         .controller("TaskEditController", TaskEditController);
 
-    function TaskEditController(UserService, TaskService, $routeParams, $location) {
+    function TaskEditController(UserService, $sce, TaskService, $routeParams, $location, $scope, $window) {
         var vm = this;
         vm.updateTask = updateTask;
         vm.users = null;
@@ -14,11 +14,22 @@
         vm.removeUser = removeUser;
         vm.taskId = $routeParams.taskId;
         vm.projectId = $routeParams.projectId;
+        vm.chatHeight = window.innerHeight;
+
+        console.log(vm.chatHeight);
+
+        var w = angular.element($window);
+
+        w.bind('resize', function() {
+            vm.chatHeight = window.innerHeight;
+            $scope.$apply();
+        });
 
         function init() {
             TaskService.findTaskById(vm.taskId)
                 .then(function (response) {
                     vm.task = response.data;
+                    vm.locationURL = {url:$sce.trustAsResourceUrl("https://www.google.com/maps/embed/v1/place?key=AIzaSyCasNgXTgj-TVaIt6N5GizuoeF7KQMv9VU&q=" + vm.task.location.replace(" ", "+").replace(",", "+"))};
                 });
             getUsers();
         }

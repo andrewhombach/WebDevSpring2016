@@ -232,7 +232,6 @@ body {
 }
 .chat-box-footer {
     background-color: #D8D8D8;
-    padding: 10px;
     position: fixed;
     bottom:0;
     margin-left: -40px;
@@ -329,7 +328,7 @@ NEW  CHAT  STYLES
 }
 
 .chat-body {
-    padding-bottom: 80px;
+    padding-bottom: 10px;
 }
 
 .fixed {
@@ -444,5 +443,32 @@ NEW  CHAT  STYLES
     width: auto;
 }
 
+.outer {
+    position: relative;
+}
 
+.inner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    overflow: scroll;
+}
+
+.bodycontainer {
+    width: 100%;
+    margin: 0;
+    overflow-y: scroll;
+}
+.table-scrollable {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.scrollable {
+    overflow: scroll;
+}
 

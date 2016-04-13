@@ -9,30 +9,36 @@
 
     </div>
     <br>
-    <table class="table table-responsive table-borderless table-striped">
-        <th>
+    <div>
+    <table class="table table-borderless table-striped table-fixed">
+        <thead>
+        <th width="33.3%">
             Task
         </th>
-        <th>
+        <th width="33.3%">
             Due Date
         </th>
-        <th>
+        <th with="20%">
             Status
         </th>
-        <th>
+        <th with="13.6%">
             <span></span>
         </th>
+        </thead>
+    </table>
+    <div ng-style="{'height': model.chatHeight - 320 + 'px'}" class="bodycontainer">
+    <table class="table table-striped table-borderless table-scrollable">
         <tr ng-repeat="t in model.tasks">
-            <td>
+            <td width="33.3%">
                 {{t.name}}
             </td>
-            <td>
+            <td width="33.3%">
                 {{t.dueDate}}
             </td>
-            <td>
+            <td width="20%">
                 {{t.status}}
             </td>
-            <td>
+            <td width="13.6%">
                 <a href="#/project/{{model.projectId}}/taskdetails/{{t._id}}">
                     <button class="btn btn-info">
                         <span>Details</span>
@@ -40,6 +46,10 @@
                 </a>
             </td>
         </tr>
+        </tbody>
     </table>
+    </div>
+    </table>
+    </div>
         <div ng-include="'views/taskfooter/taskFooter.view.html'"></div>
 </div>

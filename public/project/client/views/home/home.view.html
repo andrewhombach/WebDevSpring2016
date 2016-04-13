@@ -9,9 +9,9 @@
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><span class="fa fa-map-marker"></span>&nbsp;Invisible</a></li>
-                    <li><a href="#"><span class="fa fa-comments-o"></span>&nbsp;Online</a></li>
-                    <li><a href="#"><span class="fa fa-lock"></span>&nbsp;Busy</a></li>
+                    <li><a href="#/projectdetails/{{model.project._id}}"><span class="fa fa-map-marker"></span>&nbsp;Details</a></li>
+                    <li><a href="#/editproject/{{model.project._id}}"><span class="fa fa-comments-o"></span>&nbsp;Edit</a></li>
+                    <li><a href="#"><span class="fa fa-lock"></span>&nbsp;Leave</a></li>
                     <li class="divider"></li>
                     <li><a href="#"><span class="fa fa-circle-o-notch"></span>&nbsp;Logout</a></li>
                 </ul>
@@ -24,8 +24,9 @@
                 </button>
             </a>
         </div>
+        <div ng-style="{'height': model.chatHeight - 240 + 'px'}" class="outer">
         <div id="chatWindow" class="chat-box-div">
-            <div class="panel-body chat-box-main">
+            <div scroll-glue class="panel-body chat-box-main inner">
                 <div ng-repeat="message in model.messages">
                     <div ng-if="message.userId == model.me">
                         <div class="chat-box-left">
@@ -37,7 +38,7 @@
                                  alt="bootstrap Chat box user image" class="img-circle"/>
                             {{model.getUserOfMessage(message.userId)}}
                         </div>
-                        <hr class="hr-clas"/>
+                        <br>
                     </div>
                     <div ng-if="message.userId != model.me">
                         <div class="chat-box-right">
@@ -49,10 +50,11 @@
                                  alt="bootstrap Chat box user image" class="img-circle"/>
                             {{model.getUserOfMessage(message.userId)}}
                         </div>
-                        <hr class="hr-clas"/>
+                        <br>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2  chat-footer">

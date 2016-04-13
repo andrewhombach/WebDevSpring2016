@@ -20,6 +20,7 @@
             </a>
         </div>
         <hr>
+        <div ng-style="{'height': model.chatHeight - 350 + 'px'}" class="outer scrollable">
         <table class="table table-borderless text-center">
             <tr>
                 <td>
@@ -83,10 +84,11 @@
                     width="600"
                     height="400"
                     frameborder="0" style="border:0" align="middle"
-                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCasNgXTgj-TVaIt6N5GizuoeF7KQMv9VU
-    &q=Big+Sur+CA" allowfullscreen>
+                    src= {{model.locationURL}}
+                    allowfullscreen>
             </iframe>
         </div>
+    </div>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2  chat-footer">
         <div ng-include="'views/footer/footer.view.html'"></div>

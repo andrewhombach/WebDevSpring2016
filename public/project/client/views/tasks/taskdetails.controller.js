@@ -5,11 +5,21 @@
         .module("CoLabApp")
         .controller("TaskDetailsController", TaskDetailsController);
 
-    function TaskDetailsController(TaskService, UserService, $routeParams, $location) {
+    function TaskDetailsController(TaskService, UserService, $routeParams, $location, $window, $scope) {
         var vm = this;
         vm.taskId = $routeParams.taskId;
         vm.projectId = $routeParams.projectId;
         vm.editTask = editTask;
+        vm.chatHeight = window.innerHeight;
+
+        console.log(vm.chatHeight);
+
+        var w = angular.element($window);
+
+        w.bind('resize', function() {
+            vm.chatHeight = window.innerHeight;
+            $scope.$apply();
+        });
 
         function init() {
             TaskService.findTaskById(vm.taskId)

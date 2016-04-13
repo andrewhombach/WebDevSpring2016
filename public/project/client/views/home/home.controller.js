@@ -3,18 +3,25 @@
         .module("CoLabApp")
         .controller("HomeController", HomeController);
 
-    function HomeController($window, $scope, ProjectService, UserService, $rootScope, $routeParams) {
+    function HomeController($scope, ProjectService, UserService, $rootScope, $routeParams, $window) {
         var vm = this;
         vm.getUserOfMessage = getUserOfMessage;
         vm.me = $rootScope.cUser._id;
         var socket = io();
         vm.projectId = $routeParams.projectId;
+        vm.chatHeight = window.innerHeight;
+        var w = angular.element($window);
+
+        w.bind('resize', function() {
+            vm.chatHeight = window.innerHeight;
+            $scope.$apply();
+        });
 
         socket.emit('join project', vm.projectId);
         socket.on('chat message'+vm.projectId, function (message) {
             vm.messages.push(message);
             $scope.$apply();
-            window.scrollTo(0,document.body.scrollHeight);
+
         });
 
         function init() {
@@ -35,7 +42,7 @@
 
         function getUsers() {
             UserService.findUsersByProjectId(vm.project._id)
-            .then(function (response) {
+             .then(function (response) {
                 vm.users = response.data;
             });
         }
@@ -52,8 +59,6 @@
                 }
             }
         }
-
-
 
     }
 })();
