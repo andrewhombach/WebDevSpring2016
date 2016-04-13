@@ -4,7 +4,6 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
 
     var auth = authorized;
     var admin = admin;
-
     app.post("/api/user", register);
     app.get("/api/user", userRouter);
     app.get("/api/user/:id", auth, findUserById);
