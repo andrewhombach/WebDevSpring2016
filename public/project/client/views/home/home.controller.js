@@ -7,7 +7,7 @@
         var vm = this;
         vm.getUserOfMessage = getUserOfMessage;
         vm.me = $rootScope.cUser._id;
-        var socket = io.connect('http://webdev2016-hombachandrew.rhcloud.com/:8000');
+        var socket = io.connect('ws://webdev2016-hombachandrew.rhcloud.com:8000');
         vm.projectId = $routeParams.projectId;
         vm.chatHeight = window.innerHeight;
         var w = angular.element($window);

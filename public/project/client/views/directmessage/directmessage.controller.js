@@ -9,7 +9,7 @@
         vm.me = UserService.getProfile()._id;
         vm.getUserOfMessage = getUserOfMessage;
         vm.dmId = $routeParams.dmId;
-        var socket = io.connect('http://webdev2016-hombachandrew.rhcloud.com/:8000');
+        var socket = io.connect('ws://webdev2016-hombachandrew.rhcloud.com:8000');
         vm.chatHeight = window.innerHeight;
         var w = angular.element($window);
 

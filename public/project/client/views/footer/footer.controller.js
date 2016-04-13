@@ -7,7 +7,7 @@
         var vm = this;
         vm.message = null;
         vm.sendMessage = sendMessage;
-        var socket = io.connect('http://webdev2016-hombachandrew.rhcloud.com/:8000');
+        var socket = io.connect('ws://webdev2016-hombachandrew.rhcloud.com:8000');
         function sendMessage(message) {
             var m = {userId: UserService.getProfile()._id, text: message};
 
