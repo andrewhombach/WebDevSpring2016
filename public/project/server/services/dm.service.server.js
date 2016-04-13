@@ -1,10 +1,10 @@
-module.exports = function(app, DMModel) {
-    app.get("/api/dm/:dmId", getDMById);
-    app.get("/api/dm", getAllDM);
-    app.get("/api/user/:userId/dm", getDMsByUserId);
-    app.delete("/api/dm/:dmId", deleteDMById);
-    app.post("/api/dm/", createDM);
-    app.put("/api/dm/:dmId", updateDMById);
+module.exports = function(app, DMModel, auth) {
+    app.get("/api/dm/:dmId", auth, getDMById);
+    app.get("/api/dm", auth, getAllDM);
+    app.get("/api/user/:userId/dm", auth, getDMsByUserId);
+    app.delete("/api/dm/:dmId", auth, deleteDMById);
+    app.post("/api/dm/", auth, createDM);
+    app.put("/api/dm/:dmId", auth, updateDMById);
 
     function getAllDM(req, res) {
         DMModel.findAllDms()

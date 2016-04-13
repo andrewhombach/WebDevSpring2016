@@ -1,11 +1,11 @@
-module.exports = function(app, TaskModel, ProjectModel, UserModel) {
-    app.get("/api/task/:taskId", findTaskById);
-    app.get("/api/task", findAllTasks);
-    app.get("/api/user/:userId/task", findTasksByUserId);
-    app.delete("/api/project/:projectId/task/:taskId", deleteTaskById);
-    app.post("/api/project/:projectId/task/", newTask);
-    app.put("/api/project/:projectId/task/", updateTaskById);
-    app.get("/api/project/:projectId/task", findTasksByProjectId);
+module.exports = function(app, TaskModel, ProjectModel, UserModel, auth) {
+    app.get("/api/task/:taskId", auth, findTaskById);
+    app.get("/api/task", auth, findAllTasks);
+    app.get("/api/user/:userId/task", auth, findTasksByUserId);
+    app.delete("/api/project/:projectId/task/:taskId", auth, deleteTaskById);
+    app.post("/api/project/:projectId/task/", auth, newTask);
+    app.put("/api/project/:projectId/task/", auth, updateTaskById);
+    app.get("/api/project/:projectId/task", auth, findTasksByProjectId);
 
     function findAllTasks(req, res) {
         ProjectModel.findAllTasks()

@@ -1,10 +1,10 @@
-module.exports = function(app, ProjectModel) {
-    app.get("/api/project/:projectId", getProjectById);
-    app.get("/api/project", getAllProject);
-    app.get("/api/user/:userId/project", getProjectsByUserId);
-    app.delete("/api/project/:projectId", deleteProjectById);
-    app.post("/api/project/", createProject);
-    app.put("/api/project/", updateProject);
+module.exports = function(app, ProjectModel, auth) {
+    app.get("/api/project/:projectId", auth, getProjectById);
+    app.get("/api/project", auth, getAllProject);
+    app.get("/api/user/:userId/project", auth, getProjectsByUserId);
+    app.delete("/api/project/:projectId", auth, deleteProjectById);
+    app.post("/api/project/", auth, createProject);
+    app.put("/api/project/", auth, updateProject);
 
     function getAllProject(req, res) {
         ProjectModel.findAllProjects()

@@ -1,13 +1,13 @@
-module.exports = function(app, MessageModel, ProjectModel, DMModel) {
-    app.get("/api/message/:messageId", getMessageById);
-    app.get("/api/message", getAllMessages);
-    app.get("/api/user/:userId/message", getMessagesByUserId);
-    app.delete("/api/project/:projectId/message/:messageId", deleteMessageById);
-    app.post("/api/project/:projectId/message/", createMessageForProject);
-    app.post("/api/dm/:dmId/message", createMessageForDM);
-    app.put("/api/project/:projectId/message/", updateMessage);
-    app.get("/api/project/:projectId/message", findMessagesByProjectId);
-    app.get("/api/dm/:dmId/message", findMessagesByDMId);
+module.exports = function(app, MessageModel, ProjectModel, DMModel, auth) {
+    app.get("/api/message/:messageId", auth, getMessageById);
+    app.get("/api/message", auth, getAllMessages);
+    app.get("/api/user/:userId/message", auth, getMessagesByUserId);
+    app.delete("/api/project/:projectId/message/:messageId", auth, deleteMessageById);
+    app.post("/api/project/:projectId/message/", auth, createMessageForProject);
+    app.post("/api/dm/:dmId/message", auth, createMessageForDM);
+    app.put("/api/project/:projectId/message/", auth, updateMessage);
+    app.get("/api/project/:projectId/message", auth, findMessagesByProjectId);
+    app.get("/api/dm/:dmId/message", auth, findMessagesByDMId);
 
     function getAllMessages(req, res) {
         ProjectModel.findAllMessages()

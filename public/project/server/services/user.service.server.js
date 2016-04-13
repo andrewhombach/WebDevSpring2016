@@ -1,13 +1,27 @@
-module.exports = function(app, UserModel, ProjectModel, DMModel) {
+
+
+module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, passport) {
+
+    var auth = authorized;
+    var admin = admin;
+
     app.post("/api/user", register);
     app.get("/api/user", userRouter);
-    app.get("/api/user/:id", findUserById);
-    app.put("/api/user/", updateUser);
-    app.delete("/api/user/:id", deleteUser);
-    app.get("/api/project/:projectId/user", findUsersByProjectId);
-    app.get("/api/task/:taskId/user", findUsersByTaskId);
+    app.get("/api/user/:id", auth, findUserById);
+    app.put("/api/user/", auth, updateUser);
+    app.delete("/api/user/:id", auth, deleteUser);
+    app.get("/api/project/:projectId/user", auth, findUsersByProjectId);
+    app.get("/api/task/:taskId/user", auth, findUsersByTaskId);
     app.get("/api/loggedin", loggedIn);
-    app.get("/api/dm/:dmId/user", findUsersByDMId);
+    app.get("/api/dm/:dmId/user", auth, findUsersByDMId);
+    app.post("/api/register", register);
+    app.post("/api/login", passport.authenticate('local'), login);
+
+    function login(req, res) {
+        var user = req.user;
+        delete user.password;
+        res.json(user);
+    }
 
     function userRouter(req, res) {
         if (req.query.username && req.query.password) {
@@ -80,24 +94,56 @@ module.exports = function(app, UserModel, ProjectModel, DMModel) {
 
 
     function loggedIn(req, res) {
-        res.json(req.session.cUser);
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
     }
 
 
     function register(req, res) {
-        var user = req.body;
+        console.log(req.body);
 
-        UserModel.createUser(user)
+        var newUser = req.body;
+        newUser.password = bcrypt.hashSync(newUser.password);
+
+        console.log(newUser);
+
+        UserModel.findUserByUsername(newUser.username)
             .then(
-                function (doc) {
-                    req.session.cUser = doc;
-                    res.json(doc);
+                function (user) {
+                    console.log(user);
+                    if (user) {
+                        res.json(null);
+                    }
+                    else {
+                        return UserModel.createUser(newUser);
+                    }
                 },
                 function (err) {
                     res.status(400).send(err);
                 }
-            );
+            )
+            .then(
+                function (user) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
+
 
     function getUsers(req, res) {
         UserModel.findAllUsers()
@@ -127,13 +173,14 @@ module.exports = function(app, UserModel, ProjectModel, DMModel) {
     function updateUser(req, res) {
         var user = req.body;
 
+        user.password = bcrypt.hashSync(user.password);
+
         UserModel.updateUser(user)
             .then(
                 function (na) {
-                    UserModel.findUserById(req.session.cUser._id)
+                    UserModel.findUserById(req.user._id)
                         .then(
                             function (doc) {
-                                req.session.cUser = doc;
                                 res.json(doc);
                             }
                         ),
@@ -145,7 +192,6 @@ module.exports = function(app, UserModel, ProjectModel, DMModel) {
                     res.status(400).send(err);
                 }
             );
-
     }
 
     function findUserByCredentials(req, res) {
@@ -197,4 +243,13 @@ module.exports = function(app, UserModel, ProjectModel, DMModel) {
                 }
             );
     }
+
+    function admin(req, res, next) {
+        if(req.user.roles.indexOf("admin") === -1) {
+            res.send(403);
+        }
+        next();
+    }
+
+
 };

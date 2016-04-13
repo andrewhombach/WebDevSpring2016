@@ -1,5 +1,5 @@
 var q = require('q');
-module.exports = function (uuid, mongoose, db) {
+module.exports = function (mongoose, db) {
 
     var TaskSchema = require("./task.schema.server.js")(mongoose);
     var TaskModel = mongoose.model('Task', TaskSchema);

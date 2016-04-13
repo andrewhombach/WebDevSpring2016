@@ -1,6 +1,6 @@
 var q = require('q');
 
-module.exports = function(uuid, ProjectModel, DMModel, mongoose, db) {
+module.exports = function(ProjectModel, DMModel, mongoose, db) {
 
     var MessageSchema = require("./message.schema.server.js")(mongoose);
     var MessageModel = mongoose.model('Message', MessageSchema);

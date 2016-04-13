@@ -18,10 +18,28 @@
             findUsersByTaskId: findUsersByTaskId,
             getCurrentUser: getCurrentUser,
             findUserByUsername: findUserByUsername,
-            findUsersByDMId: findUsersByDMId
+            findUsersByDMId: findUsersByDMId,
+            register: register,
+            login: login,
+            logOut: logOut
         };
 
         return api;
+
+        function login(username, password) {
+            var cred = {username: username, password: password};
+            return $http.post("/api/login", cred);
+
+        }
+
+        function register(user) {
+            return $http.post("/api/register", user);
+        }
+
+        function logOut() {
+            setCurrentUser(null);
+            return $http.post("/api/logout");
+        }
 
         function findUserById (userId) {
             return $http.get("/api/user/" + userId);

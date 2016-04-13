@@ -6,6 +6,7 @@ module.exports = function(app, userModel) {
 
     var auth = authorized;
     var admin = admin;
+
     app.post("/api/assignment/user", register);
     app.post("/api/assignment/logout", logout);
     app.post("/api/assignment/login", passport.authenticate('local'), login);
@@ -151,7 +152,6 @@ module.exports = function(app, userModel) {
                     res.status(400).send(err);
                 }
             )
-
     }
 
     function getUsers(req, res) {

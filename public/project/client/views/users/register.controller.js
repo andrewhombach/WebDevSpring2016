@@ -7,7 +7,7 @@
         $scope.register = register;
 
         function register(user) {
-            UserService.createUser(user)
+            UserService.register(user)
                 .then(function (response) {
                     console.log(response.data);
                     $rootScope.cUser = response.data;

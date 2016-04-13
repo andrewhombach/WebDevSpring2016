@@ -3,7 +3,7 @@
         .module("CoLabApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($rootScope, $location, $scope) {
+    function HeaderController($rootScope, UserService, $location, $scope) {
         $scope.sidebarToggle = sidebarToggle;
         $scope.logout = logout;
         $scope.search = search;
@@ -14,7 +14,7 @@
         }
 
         function logout() {
-            $rootScope.cUser = null;
+            UserService.logOut();
         }
 
         function search(searchTerm){

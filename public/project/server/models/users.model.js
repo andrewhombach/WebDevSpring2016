@@ -1,6 +1,6 @@
 var q = require('q');
 
-module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
+module.exports = function(ProjectModel, TaskModel, mongoose, db) {
 
     var UserSchema = require("./user.schema.server.js")(mongoose);
     var UserModel = mongoose.model('pUser', UserSchema);
@@ -55,12 +55,15 @@ module.exports = function(uuid, ProjectModel, TaskModel, mongoose, db) {
     function createUser(user) {
         var deferred = q.defer();
 
+        console.log(user);
+
         UserModel.create(user, function(err, doc) {
 
             if (err) {
                 deferred.reject(err);
             }
             else {
+                console.log(doc);
                 deferred.resolve(doc);
             }
         });

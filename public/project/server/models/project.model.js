@@ -1,5 +1,5 @@
 var q = require('q');
-module.exports = function(uuid, mongoose, db) {
+module.exports = function(mongoose, db) {
 
     var ProjectSchema = require("./project.schema.server.js")(mongoose);
     var ProjectModel = mongoose.model('Project', ProjectSchema);
