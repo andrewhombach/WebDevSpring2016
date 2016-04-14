@@ -1,0 +1,32 @@
+<div ng-controller="PublicProfileBarController as model">
+    <h1 class="page-header text-center">Projects</h1>
+    <div class="visible-xs">
+        <a href="#/profile">
+            <button class="btn btn-info">
+                See Profile
+            </button>
+        </a>
+    </div>
+    <br>
+    <table class="table table-responsive table-borderless text-center">
+        <tr ng-repeat="p in model.projects">
+            <td>
+                {{p.name}}
+            </td>
+            <td>
+                <a href="#/projectdetails/{{p._id}}">
+                    <button ng-click="model.joinProject(p)" class="btn btn-success">
+                        <span>Join</span>
+                    </button>
+                </a>
+                <a href="#/projectdetails/{{p._id}}">
+                <button class="btn btn-info">
+                    <span>Details</span>
+                </button>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+</div>

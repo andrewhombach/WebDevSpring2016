@@ -10,7 +10,8 @@
             findAllProjectsByUserId: findAllProjectsByUserId,
             findProjectById: findProjectById,
             updateProject: updateProject,
-            findAllProjects: findAllProjects
+            findAllProjects: findAllProjects,
+            findProjectByTaskId: findProjectByTaskId
         };
 
         return api;
@@ -37,6 +38,10 @@
 
         function updateProject(project) {
             return $http.put("/api/project/", project);
+        }
+
+        function findProjectByTaskId(taskId) {
+            return $http.get("/api/task/" + taskId + "/project");
         }
     }
 })();

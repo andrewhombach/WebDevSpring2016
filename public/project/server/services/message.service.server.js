@@ -70,11 +70,9 @@ module.exports = function(app, MessageModel, ProjectModel, DMModel, auth) {
     }
 
     function createMessageForDM(req, res) {
-        console.log(req.body);
         DMModel.addMessage(req.params.dmId, req.body)
             .then(
                 function (doc) {
-                    console.log(doc);
                     res.json(doc);
                 },
                 function (err) {

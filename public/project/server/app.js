@@ -27,7 +27,6 @@ module.exports = function(app, mongoose, db) {
             .findUserByUsername(username)
             .then(
                 function (user) {
-                    console.log(user);
                     if (user && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     }
@@ -52,11 +51,9 @@ module.exports = function(app, mongoose, db) {
             .then(
                 function (user) {
                     delete user.password;
-                    console.log(user);
                     done(null, user);
                 },
                 function (err) {
-                    console.log(err);
                     done(err, null);
                 }
             )

@@ -36,7 +36,7 @@ module.exports = function(app, TaskModel, ProjectModel, UserModel, auth) {
         UserModel.findUser(req.params.userId)
             .then(
                 function (user) {
-                    TaskModel.findTasksByUserId(user._id)
+                    ProjectModel.findTasksByUserId(user._id)
                         .then(
                             function (doc) {
                                 res.json(doc);
@@ -70,6 +70,9 @@ module.exports = function(app, TaskModel, ProjectModel, UserModel, auth) {
         if (typeof task.userIds === 'string') {
             task.userIds = task.userIds.replace(" ", "").split(",");
         }
+
+        task.createDate = new Date;
+
         ProjectModel.addTask(req.params.projectId, task)
             .then(
                 function (task) {

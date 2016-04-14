@@ -3,8 +3,9 @@ module.exports = function(app, ProjectModel, auth) {
     app.get("/api/project", auth, getAllProject);
     app.get("/api/user/:userId/project", auth, getProjectsByUserId);
     app.delete("/api/project/:projectId", auth, deleteProjectById);
-    app.post("/api/project/", auth, createProject);
-    app.put("/api/project/", auth, updateProject);
+    app.post("/api/project", auth, createProject);
+    app.put("/api/project", auth, updateProject);
+    app.get("/api/task/:taskId/project", findProjectByTaskId);
 
     function getAllProject(req, res) {
         ProjectModel.findAllProjects()
@@ -81,6 +82,21 @@ module.exports = function(app, ProjectModel, auth) {
         }
 
         ProjectModel.updateProject(project)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findProjectByTaskId(req, res) {
+        var taskId = req.params.taskId;
+
+        ProjectModel
+            .findProjectByTaskId(taskId)
             .then(
                 function (doc) {
                     res.json(doc);

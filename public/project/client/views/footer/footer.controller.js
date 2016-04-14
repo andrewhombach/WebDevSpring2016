@@ -3,11 +3,12 @@
         .module("CoLabApp")
         .controller("FooterController", FooterController);
 
-    function FooterController ($routeParams, UserService, MessageService) {
+    function FooterController ($routeParams, UserService, MessageService, $location) {
         var vm = this;
         vm.message = null;
         vm.sendMessage = sendMessage;
         var socket = io.connect('ws://webdev2016-hombachandrew.rhcloud.com:8000');
+
         function sendMessage(message) {
             var m = {userId: UserService.getProfile()._id, text: message};
 
@@ -26,6 +27,10 @@
                                     createDate: (new Date).getTime()
                                 });
                             vm.message = null;
+                            if ($location.path().toString().includes(0, '/home')) {
+                                console.log('changing');
+                                $location.path('/home/' + $routeParams.projectId);
+                            }
                         });
             }
             if ($routeParams.dmId) {

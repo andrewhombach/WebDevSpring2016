@@ -1,20 +1,12 @@
-<div class="visible-xs" ng-include="'views/sidebar/sidebar.view.html'"></div>
 <div ng-controller="ProfileBarController as model">
     <h1 class="page-header text-center">Projects</h1>
-    <div class="visible-xs">
-        <a href="#/profile">
-            <button class="btn btn-info">
-                See Profile
-            </button>
-        </a>
-    </div>
     <br>
     <table class="table table-responsive table-borderless text-center">
         <tr ng-repeat="p in model.projects">
-            <td>
-                {{p.name}}
+            <td width="50%">
+                <h5>{{p.name}}</h5>
             </td>
-            <td>
+            <td width="50%">
                 <a href="#/projectdetails/{{p._id}}">
                     <button class="btn btn-info">
                         <span>Details</span>
@@ -34,17 +26,16 @@
     <br>
     <br>
     <h1 class="page-header text-center">Tasks</h1>
+    <br>
     <table class="table table-responsive table-borderless text-center">
         <tr ng-repeat="t in model.tasks">
-            <td>
-                {{t.name}}
+            <td class="text-center" width="50%">
+                <h5>{{t.name}}</h5>
             </td>
-            <td class="col-xs-4">
-                <a href="#/taskdetails/{{t._id}}">
-                    <button class="btn btn-info">
-                        <span>Details</span>
-                    </button>
-                </a>
+            <td width="50%">
+                <button ng-click="model.taskDetails(t._id)" class="btn btn-info">
+                    <span>Details</span>
+                </button>
             </td>
         </tr>
     </table>

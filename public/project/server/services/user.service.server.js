@@ -69,12 +69,9 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
 
     function findUsersByTaskId(req, res) {
 
-        console.log(req.params.taskId);
-
         ProjectModel.findTask(req.params.taskId)
             .then(
                 function(task) {
-                    console.log(task.userIds);
                     UserModel.findUsersByIds(task.userIds)
                         .then(
                             function (doc) {
@@ -103,17 +100,14 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
 
 
     function register(req, res) {
-        console.log(req.body);
 
         var newUser = req.body;
         newUser.password = bcrypt.hashSync(newUser.password);
 
-        console.log(newUser);
 
         UserModel.findUserByUsername(newUser.username)
             .then(
                 function (user) {
-                    console.log(user);
                     if (user) {
                         res.json(null);
                     }

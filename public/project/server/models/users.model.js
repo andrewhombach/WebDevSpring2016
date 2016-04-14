@@ -55,7 +55,6 @@ module.exports = function(ProjectModel, TaskModel, mongoose, db) {
     function createUser(user) {
         var deferred = q.defer();
 
-        console.log(user);
 
         UserModel.create(user, function(err, doc) {
 
@@ -63,7 +62,6 @@ module.exports = function(ProjectModel, TaskModel, mongoose, db) {
                 deferred.reject(err);
             }
             else {
-                console.log(doc);
                 deferred.resolve(doc);
             }
         });

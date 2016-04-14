@@ -26,19 +26,13 @@ module.exports = function(mongoose, db) {
             createDate: (new Date).getTime()
         };
 
-        console.log(dmId);
-        console.log(message);
-
         var deferred = q.defer();
 
         DMSModel.findByIdAndUpdate(dmId, {$push: {"messages": newMessage}}, {new: true}, function (err, doc) {
             if (err) {
-                console.log(err);
-
                 deferred.reject(err);
             }
             else {
-                console.log(doc);
                 deferred.resolve(doc);
             }
         });

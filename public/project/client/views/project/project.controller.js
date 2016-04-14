@@ -43,7 +43,7 @@
             console.log(userIds);
             console.log(result);
 
-            return result.substring(0, result.length - 2);
+            return result.substring(0, result.length - 1);
         }
 
 

@@ -52,11 +52,19 @@
             UserService.findUserByUsername(username)
                 .then(
                     function (response) {
-                        vm.users.push(response.data);
-                        vm.task.userIds = vm.users.map(function (u) {return u._id});
-                    }
-                );
+                        if (!response.data || response.data.length === 0) {
+                            return;
+                        }
 
+                        if (vm.users.length === 0) {
+                            vm.users[0] = response.data;
+                        }
+                        else {
+                            vm.users.push(response.data);
+
+                        }
+                        vm.task.userIds = vm.users.map(function (u) {return u._id});
+                    });
         }
 
         function removeUser(user) {

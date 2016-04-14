@@ -131,7 +131,6 @@ module.exports = function (mongoose, db) {
     }
 
     function searchTasks(term) {
-        console.log(term);
         var results = [];
         for (var t in tasks) {
             var searchLength = tasks[t].name.length - term.length;
@@ -146,21 +145,16 @@ module.exports = function (mongoose, db) {
 
 
     function addResult(task, results) {
-        console.log("Made it to add result");
         if (results.length == 0) {
             results.push(task);
             return results;
         }
         else {
             for (var t in results) {
-                console.log("inside of the loop");
                 if (results[t]._id == task._id) {
-                    console.log("not where i want to be");
                     return results;
                 }
-                console.log("Adding result");
                 results.push(task);
-                console.log(results);
                 return results;
             }
             return results;

@@ -19,12 +19,12 @@
         w.bind('resize', function() {
 
             if (window.innerWidth < 768) {
-                console.log(window.innerWidth);
                 vm.showSidebar = false;
             }
             else {
                 vm.showSidebar = true;
             }
+            $scope.$apply();
         });
 
         $scope.$on('toggle', vm.toggle);

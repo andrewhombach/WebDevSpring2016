@@ -10,6 +10,7 @@ module.exports = function(mongoose, db) {
         findProject: findProject,
         updateProject: updateProject,
         findProjectsByUserId: findProjectsByUserId,
+        findProjectByTaskId: findProjectByTaskId,
         findAllProjects: findAllProjects,
         searchProjects: searchProjects,
         addMessage: addMessage,
@@ -21,7 +22,8 @@ module.exports = function(mongoose, db) {
         updateTask: updateTask,
         findTask: findTask,
         findAllTasks: findAllTasks,
-        findTasksByProjectId: findTasksByProjectId
+        findTasksByProjectId: findTasksByProjectId,
+        findTasksByUserId: findTasksByUserId
     };
 
     return api;
@@ -180,6 +182,25 @@ module.exports = function(mongoose, db) {
         return deferred.promise;
     }
 
+    function findTasksByUserId(userId) {
+        var deferred = q.defer();
+
+        ProjectModel.find({"tasks.userIds" : {$in : [userId]}}, {"tasks":true}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                if (doc[0].tasks) {
+                    deferred.resolve(doc[0].tasks)
+                }
+                else {
+                    deferred.resolve(doc[0]);
+                }
+            }
+        });
+        return deferred.promise;
+    }
+
 
     function createProject(project) {
 
@@ -285,6 +306,20 @@ module.exports = function(mongoose, db) {
             }
             else {
                 deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function findProjectByTaskId(taskId) {
+        var deferred = q.defer();
+
+        ProjectModel.find({"tasks._id" : taskId}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc[0]);
             }
         });
         return deferred.promise;
