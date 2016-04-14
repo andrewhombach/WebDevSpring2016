@@ -1,4 +1,4 @@
 (function() {
     angular
-        .module("CoLabApp", ["ngRoute", "luegg.directives"]);
+        .module("CoLabApp", ["ngRoute", "ui.bootstrap", "luegg.directives"]);
 })();

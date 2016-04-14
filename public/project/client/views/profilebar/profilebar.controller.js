@@ -3,7 +3,7 @@
         .module("CoLabApp")
         .controller("ProfileBarController", ProfileBarController);
 
-    function ProfileBarController(ProjectService, TaskService, UserService, $location) {
+    function ProfileBarController(ProjectService, TaskService, UserService, $location, $uibModal) {
         var vm = this;
         vm.leaveProject = leaveProject;
         var userId = UserService.getProfile()._id;
@@ -48,6 +48,10 @@
                 ProjectService.updateProject(tempProject)
                 .then(init);
             });
+
+        }
+
+        function addProject() {
 
         }
 

@@ -190,7 +190,7 @@ module.exports = function(mongoose, db) {
                 deferred.reject(err);
             }
             else {
-                if (doc[0].tasks) {
+                if (doc[0]) {
                     deferred.resolve(doc[0].tasks)
                 }
                 else {
