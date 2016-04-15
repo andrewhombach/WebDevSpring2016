@@ -166,20 +166,32 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     function updateUser(req, res) {
         var user = req.body;
 
-        user.password = bcrypt.hashSync(user.password);
-
-        UserModel.updateUser(user)
+        UserModel
+            .findUser(user._id)
             .then(
-                function (na) {
-                    UserModel.findUserById(req.user._id)
+                function (oUser) {
+                    if (oUser.password !== user.password) {
+                        user.password = bcrypt.hashSync(user.password);
+                    }
+                    UserModel.updateUser(user)
                         .then(
-                            function (doc) {
-                                res.json(doc);
+                            function (na) {
+                                UserModel
+                                    .findUser(user._id)
+                                    .then(
+                                        function (doc) {
+                                            res.json(doc);
+                                        }
+                                    ),
+                                    function (err) {
+                                        res.status(400).send(err);
+                                    }
+                            },
+                            function (err) {
+                                res.status(400).send(err);
                             }
-                        ),
-                        function (err) {
-                            res.status(400).send(err);
-                        }
+                        );
+
                 },
                 function (err) {
                     res.status(400).send(err);

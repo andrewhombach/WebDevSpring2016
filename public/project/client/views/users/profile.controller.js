@@ -5,12 +5,13 @@
 
     function ProfileController ($scope, $rootScope, UserService) {
         $scope.update = update;
-        $scope.user = $rootScope.cUser;
+        $scope.user = UserService.getProfile();
 
         function update (user) {
-            UserService.updateUser(user)
+            UserService
+                .updateUser(user)
                 .then(function (response) {
-                    $rootScope.cUser = response.data;
+                    UserService.setCurrentUser(response.data);
                     console.log(response.data);
                 });
          }

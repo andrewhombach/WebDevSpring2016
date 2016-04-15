@@ -12,7 +12,6 @@ module.exports = function(mongoose, db) {
         findProjectsByUserId: findProjectsByUserId,
         findProjectByTaskId: findProjectByTaskId,
         findAllProjects: findAllProjects,
-        searchProjects: searchProjects,
         addMessage: addMessage,
         deleteMessage: deleteMessage,
         updateMessage: updateMessage,
@@ -23,7 +22,9 @@ module.exports = function(mongoose, db) {
         findTask: findTask,
         findAllTasks: findAllTasks,
         findTasksByProjectId: findTasksByProjectId,
-        findTasksByUserId: findTasksByUserId
+        findTasksByUserId: findTasksByUserId,
+        searchTasksByName: searchTasksByName,
+        searchProjectsByName: searchProjectsByName
     };
 
     return api;
@@ -325,34 +326,12 @@ module.exports = function(mongoose, db) {
         return deferred.promise;
     }
 
-    function searchProjects(term) {
-        var results = [];
-        for (var t in projects) {
-            var searchLength = projects[t].name.length - term.length;
-            for(i = 0; i <= searchLength; i++) {
-                if (projects[t].name.substring(0 + i, term.length + i).toLowerCase() == term.toLowerCase()) {
-                    results = addResult(projects[t], results)
-                }
-            }
-        }
-        return results;
+    function searchProjectsByName(term) {
+        return ProjectModel.find({"name": {$regex: term, $options: "i"}});
     }
 
-    function addResult(project, results) {
-        if (results.length == 0) {
-            results.push(project);
-            return results;
-        }
-        else {
-            for (var t in results) {
-                if (results[t]._id == project._id) {
-                    return results;
-                }
-                results.push(project);
-                return results;
-            }
-            return results;
-        }
-
+    function searchTasksByName(term) {
+        return ProjectModel.find({"tasks.name": {$regex: term, $options: "i"}}, {"tasks.$":1});
     }
+
 };

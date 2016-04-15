@@ -11,12 +11,14 @@
         vm.selectUser = selectUser;
         vm.users;
         vm.user;
+        vm.password = null;
 
         function init() {
             UserService.findAllUsers()
                 .then(
                     function (response) {
                         vm.users = response.data;
+                        vm.user = null;
                     }
                 )
         }
@@ -34,12 +36,20 @@
         }
 
         function updateUser(user) {
-            UserService.updateUser(user)
+            user.password = vm.user.password;
+            if (vm.password) {
+                user.password = vm.password;
+            }
+            vm.user = null;
+            vm.password = null;
+            UserService
+                .updateUser(user)
                 .then(init);
         }
 
         function selectUser(uIndex) {
             vm.user = vm.users[uIndex];
+
         }
     }
 })();

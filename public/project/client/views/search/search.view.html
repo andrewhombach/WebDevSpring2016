@@ -3,7 +3,7 @@
     <hr>
     <h3>Projects</h3>
     <hr>
-    <div ng-repeat="p in projects">
+    <div  ng-repeat="p in model.projects">
         <a href="#/projectdetails/{{p._id}}">
         <h5>{{p.name}}</h5>
         </a>
@@ -11,15 +11,17 @@
 
     <h3>Tasks</h3>
     <hr>
-    <div ng-repeat="t in tasks">
-        <a href="#/taskdetails/{{t._id}}">
+    <div  ng-repeat="t in model.tasks">
+        <a ng-click="model.goToTask(t)">
         <h5>{{t.name}}</h5>
         </a>
     </div>
 
-    <h3>Messages</h3>
+    <h3>Users</h3>
     <hr>
-    <div ng-repeat="t in messages">
-        <h5>{{t.text}}</h5>
+    <div ng-repeat="u in model.users">
+        <a href="#/profile/{{u._id}}">
+        <h5>{{u.username}}</h5>
+        </a>
     </div>
 </div>

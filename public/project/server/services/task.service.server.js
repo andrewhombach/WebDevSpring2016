@@ -1,4 +1,4 @@
-module.exports = function(app, TaskModel, ProjectModel, UserModel, auth) {
+module.exports = function(app, ProjectModel, UserModel, auth) {
     app.get("/api/task/:taskId", auth, findTaskById);
     app.get("/api/task", auth, findAllTasks);
     app.get("/api/user/:userId/task", auth, findTasksByUserId);

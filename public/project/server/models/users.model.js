@@ -1,6 +1,6 @@
 var q = require('q');
 
-module.exports = function(ProjectModel, TaskModel, mongoose, db) {
+module.exports = function(ProjectModel, mongoose, db) {
 
     var UserSchema = require("./user.schema.server.js")(mongoose);
     var UserModel = mongoose.model('pUser', UserSchema);
@@ -13,7 +13,10 @@ module.exports = function(ProjectModel, TaskModel, mongoose, db) {
         findAllUsers: findAllUsers,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
-        findUsersByIds: findUsersByIds
+        findUsersByIds: findUsersByIds,
+        searchUsersByUsername: searchUserByUsername,
+        searchUsersByFirstName: searchUserByFirstName,
+        searchUsersByLastName: searchUserByLastName
     };
 
     return api;
@@ -106,7 +109,8 @@ module.exports = function(ProjectModel, TaskModel, mongoose, db) {
             password: user.password,
             firstName: user.firstName,
             lastName: user.lastName,
-            email: user.email
+            email: user.email,
+            phoneNumber: user.phoneNumber
         };
 
         var deferred = q.defer();
@@ -151,5 +155,17 @@ module.exports = function(ProjectModel, TaskModel, mongoose, db) {
             }
         });
         return deferred.promise;
+    }
+
+    function searchUserByUsername(username) {
+        return UserModel.find({'username': {$regex: username, $options: 'i'}});
+    }
+
+    function searchUserByFirstName(firstName) {
+        return UserModel.find({'firstName': {$regex: firstName, $options: 'i'}});
+    }
+
+    function searchUserByLastName(lastName) {
+        return UserModel.find({'lastName': {$regex: lastName, $options: 'i'}});
     }
 };

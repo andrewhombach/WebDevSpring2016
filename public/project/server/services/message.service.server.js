@@ -1,4 +1,4 @@
-module.exports = function(app, MessageModel, ProjectModel, DMModel, auth) {
+module.exports = function(app, ProjectModel, DMModel, auth) {
     app.get("/api/message/:messageId", auth, getMessageById);
     app.get("/api/message", auth, getAllMessages);
     app.get("/api/user/:userId/message", auth, getMessagesByUserId);
