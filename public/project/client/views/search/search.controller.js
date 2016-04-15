@@ -8,14 +8,16 @@
         var vm = this;
 
         vm.searchTerm = $location.search().query.toString();
-        console.log(vm.searchTerm);
         vm.goToTask = goToTask;
 
         function renderResults(results) {
-            console.log(results);
             vm.projects = results.projects;
             vm.tasks = results.tasks;
             vm.users = results.users;
+
+            vm.showUsers = vm.users.length !== 0;
+            vm.showProjects = vm.projects.length !== 0;
+            vm.showTasks = vm.tasks.length !== 0;
 
         }
 
@@ -30,7 +32,6 @@
         }
 
         function search() {
-            console.log(vm.searchTerm);
             SearchService.search(vm.searchTerm)
                 .then(function (response) {
                     vm.results = response.data;

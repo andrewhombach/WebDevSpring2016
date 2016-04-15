@@ -1,24 +1,24 @@
 <div ng-include="'views/sidebar/sidebar.view.html'"></div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="SearchController">
     <hr>
-    <h3>Projects</h3>
-    <hr>
+    <h3 ng-show="model.showProjects">Projects</h3>
+    <hr ng-show="model.showProjects">
     <div  ng-repeat="p in model.projects">
         <a href="#/projectdetails/{{p._id}}">
         <h5>{{p.name}}</h5>
         </a>
     </div>
 
-    <h3>Tasks</h3>
-    <hr>
-    <div  ng-repeat="t in model.tasks">
+    <h3 ng-show="model.showTasks">Tasks</h3>
+    <hr ng-show="model.showTasks">
+    <div ng-repeat="t in model.tasks">
         <a ng-click="model.goToTask(t)">
         <h5>{{t.name}}</h5>
         </a>
     </div>
 
-    <h3>Users</h3>
-    <hr>
+    <h3 ng-show="model.showUsers">Users</h3>
+    <hr ng-show="model.showUsers">
     <div ng-repeat="u in model.users">
         <a href="#/profile/{{u._id}}">
         <h5>{{u.username}}</h5>
