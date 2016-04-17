@@ -10,6 +10,7 @@
         vm.updateTask = updateTask;
         vm.addUser = addUser;
         vm.removeUser = removeUser;
+        vm.deleteTask = deleteTask;
         vm.taskId = $routeParams.taskId;
         vm.projectId = $routeParams.projectId;
         vm.chatHeight = window.innerHeight;
@@ -42,12 +43,20 @@
         }
 
         function updateTask(task) {
-            console.log("this is the task before update");
-            console.log(task);
             TaskService.updateTask(task, vm.projectId)
                 .then(function (response) {
                     $location.path("/project/" + vm.projectId + "/taskdetails/" + vm.taskId);
                 });
+        }
+
+        function deleteTask() {
+            console.log("in delete");
+            TaskService.deleteTaskById(vm.taskId, vm.projectId)
+                .then(
+                    function (response) {
+                        $location.path("/home/" + vm.projectId);
+                    }
+                )
         }
 
         function addUser(username) {

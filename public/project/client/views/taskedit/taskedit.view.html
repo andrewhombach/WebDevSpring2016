@@ -1,18 +1,14 @@
 <div ng-include="'views/sidebar/sidebar.view.html'"></div>
-<div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskEditController">
+<div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main" ng-controller="TaskEditController as model">
     <div class="chat-body">
         <br>
         <button class="btn btn-success pull-right col-xs-2" ng-click="model.updateTask(model.task)">
             <span>Update</span>
         </button>
-
-        <div class="visible-xs col-xs-3 pull-left">
-            <a href="#/project/{{model.projectId}}/taskdetails/{{model.taskId}}">
-                <button class="btn btn-info">
-                    Back to Tasks
-                </button>
-
-            </a>
+        <div class="col-xs-3 pull-left">
+            <button class="btn btn-danger" ng-click="model.deleteTask()">
+                Delete
+            </button>
         </div>
         <br>
         <div class="row">

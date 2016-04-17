@@ -37,6 +37,7 @@
         }
 
         function leaveProject(projectId) {
+            console.log("activated");
             ProjectService.findProjectById(projectId)
             .then(function (response) {
                 var tempProject = response.data;

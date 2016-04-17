@@ -28,6 +28,7 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     app.post("/api/register", register);
     app.post("/api/login", passport.authenticate('local'), login);
     app.post("/api/profile/pic", upload.single('file'), function (req, res) {res.json(req.file.path)});
+    app.post("/api/logout", logout);
 
 
 
