@@ -3,9 +3,11 @@
         .module("CoLabApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController ($scope, $rootScope, UserService) {
+    function ProfileController ($scope, UserService, Upload) {
         $scope.update = update;
         $scope.user = UserService.getProfile();
+        var vm = this;
+        vm.uploadPic = uploadPic;
 
         function update (user) {
             UserService
@@ -15,5 +17,23 @@
                     console.log(response.data);
                 });
          }
+
+        function uploadPic(pic) {
+            Upload.upload({
+                url: '/api/profile/pic',
+                data: {file: pic}
+            }).then(
+                function (response) {
+                    console.log(response.data);
+                    $scope.user.pic = response.data;
+                    console.log($scope.user);
+                    $scope.update($scope.user);
+                },
+                function (response) {
+                    console.log(response.data);
+
+                }
+            );
+        }
     }
-})();
+})() ;

@@ -11,8 +11,6 @@
         vm.tasks = null;
         vm.chatHeight = window.innerHeight;
 
-        console.log(vm.chatHeight);
-
         var w = angular.element($window);
 
         w.bind('resize', function() {

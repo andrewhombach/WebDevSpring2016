@@ -42,6 +42,8 @@
         }
 
         function updateTask(task) {
+            console.log("this is the task before update");
+            console.log(task);
             TaskService.updateTask(task, vm.projectId)
                 .then(function (response) {
                     $location.path("/project/" + vm.projectId + "/taskdetails/" + vm.taskId);
@@ -52,16 +54,17 @@
             UserService.findUserByUsername(username)
                 .then(
                     function (response) {
-                        if (!response.data || response.data.length === 0) {
+                        if (!response.data) {
                             return;
                         }
 
-                        if (vm.users.length === 0) {
+                        if (!vm.users) {
+                            vm.users = [];
                             vm.users[0] = response.data;
                         }
+
                         else {
                             vm.users.push(response.data);
-
                         }
                         vm.task.userIds = vm.users.map(function (u) {return u._id});
                     });

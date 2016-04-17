@@ -9,8 +9,6 @@
 
         vm.active = active();
 
-        console.log(vm.active);
-
         vm.showSidebar = window.innerWidth < 768 ? false : true;
         vm.toggle = toggle;
 
@@ -36,7 +34,6 @@
             ProjectService.findAllProjectsByUserId(userId)
             .then(function (response) {
                 vm.projects = response.data;
-                console.log(vm.projects);
 
             });
 
@@ -64,7 +61,6 @@
 
         function toggle() {
             vm.showSidebar = !vm.showSidebar;
-            console.log(vm.showSidebar);
         }
 
         function active() {

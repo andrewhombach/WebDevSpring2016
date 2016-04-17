@@ -1,7 +1,19 @@
 
 
-module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt) {
+module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt, multer) {
 
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './public/project/server/uploads/profile_pictures')
+
+        },
+        filename: function (req, file, cb) {
+            var datetimestamp = Date.now();
+            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+        }
+    });
+
+    var upload = multer({storage: storage});
     var auth = authorized;
     var admin = admin;
     app.post("/api/user", register);
@@ -15,6 +27,9 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     app.get("/api/dm/:dmId/user", auth, findUsersByDMId);
     app.post("/api/register", register);
     app.post("/api/login", passport.authenticate('local'), login);
+    app.post("/api/profile/pic", upload.single('file'), function (req, res) {res.json(req.file.path)});
+
+
 
     function login(req, res) {
         var user = req.user;

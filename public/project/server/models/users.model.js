@@ -1,6 +1,6 @@
 var q = require('q');
 
-module.exports = function(ProjectModel, mongoose, db) {
+module.exports = function(ProjectModel, mongoose, db, multer) {
 
     var UserSchema = require("./user.schema.server.js")(mongoose);
     var UserModel = mongoose.model('pUser', UserSchema);
@@ -58,6 +58,7 @@ module.exports = function(ProjectModel, mongoose, db) {
     function createUser(user) {
         var deferred = q.defer();
 
+        user.pic = "./uploads/profile_pictures/default.jpg";
 
         UserModel.create(user, function(err, doc) {
 
