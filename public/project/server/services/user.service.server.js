@@ -1,6 +1,6 @@
 
 
-module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt, multer) {
+module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt, multer, fs) {
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -29,6 +29,7 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     app.post("/api/login", passport.authenticate('local'), login);
     app.post("/api/profile/pic", upload.single('file'), function (req, res) {res.json(req.file.path)});
     app.post("/api/logout", logout);
+    app.get("/api/user/:userId/pic", auth, findUserPicture);
 
 
 
@@ -177,6 +178,28 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
                     res.status(400).send(err);
                 }
             )
+    }
+
+    function findUserPicture(req, res) {
+        var userId = req.params.userId;
+        UserModel
+            .findUser(userId)
+            .then(
+                function (doc) {
+                    fs.readFile(doc.pic, function(err, img) {
+                        if (err) {
+                            res.status(400).send(err);
+                        }
+                        else {
+                            res.writeHead(200, {'Content-type':'image/*'});
+                            res.end(img);
+                        }
+                    })
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function updateUser(req, res) {

@@ -1,4 +1,4 @@
 (function() {
     angular
-        .module("CoLabApp", ["ngRoute", "ui.bootstrap", "luegg.directives", "ngFileUpload"]);
+        .module("CoLabApp", ["ngRoute", "ui.bootstrap", "luegg.directives", "ngFileUpload", "getServerFile"]);
 })();

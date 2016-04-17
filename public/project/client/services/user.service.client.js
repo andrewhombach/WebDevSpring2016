@@ -21,7 +21,8 @@
             findUsersByDMId: findUsersByDMId,
             register: register,
             login: login,
-            logOut: logOut
+            logOut: logOut,
+            findUserPic, findUserPic
         };
 
         return api;
@@ -79,6 +80,10 @@
 
         function findUsersByTaskId(taskId) {
             return $http.get("/api/task/" + taskId + "/user");
+        }
+
+        function findUserPic(userId) {
+            return $http.get("/api/user/" + userId + "/pic");
         }
 
         function getCurrentUser() {

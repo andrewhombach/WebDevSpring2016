@@ -111,7 +111,8 @@ module.exports = function(ProjectModel, mongoose, db, multer) {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            phoneNumber: user.phoneNumber
+            phoneNumber: user.phoneNumber,
+            pic: user.pic
         };
 
         var deferred = q.defer();

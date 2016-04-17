@@ -3,11 +3,27 @@
         .module("CoLabApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController ($scope, UserService, Upload) {
+    function ProfileController ($scope, UserService, Upload, $route) {
         $scope.update = update;
         $scope.user = UserService.getProfile();
+
         var vm = this;
         vm.uploadPic = uploadPic;
+
+        function init() {
+            UserService
+                .findUserById($scope.user._id)
+                .then(
+                    function (response) {
+                        $scope.user = response.data;
+                        vm.profPic = $scope.user.pic;
+                        console.log(vm.profPic);
+
+                    }
+                )
+        }
+
+        init();
 
         function update (user) {
             UserService
@@ -24,12 +40,15 @@
                 data: {file: pic}
             }).then(
                 function (response) {
+                    console.log("made it to the right place");
                     console.log(response.data);
                     $scope.user.pic = response.data;
                     console.log($scope.user);
                     $scope.update($scope.user);
+                    $route.reload();
                 },
                 function (response) {
+                    console.log("in the wrong place");
                     console.log(response.data);
 
                 }

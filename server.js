@@ -10,6 +10,7 @@ var uuid = require('node-uuid');
 var mongoose = require('mongoose');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var fs = require('fs');
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev-db/';
 
@@ -53,8 +54,9 @@ io.on('connection', function(socket) {
     });
 });
 
+
 //require("./public/assignment/server/app.js")(app, uuid, mongoose, db);
-require("./public/project/server/app.js") (app, mongoose, db, multer);
+require("./public/project/server/app.js") (app, mongoose, db, multer, fs);
 
 http.listen(port, ipaddress);
 

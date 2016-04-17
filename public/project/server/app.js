@@ -1,4 +1,4 @@
-module.exports = function(app, mongoose, db, multer) {
+module.exports = function(app, mongoose, db, multer, fs) {
 
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
@@ -8,7 +8,8 @@ module.exports = function(app, mongoose, db, multer) {
     var ProjectModel = require("./models/project.model.js") (mongoose, db);
     var UserModel = require("./models/users.model.js") (ProjectModel, mongoose, db);
 
-    var userService = require("./services/user.service.server.js") (app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt, multer);
+    var fileService = require("./services/file.service.server.js") (app);
+    var userService = require("./services/user.service.server.js") (app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt, multer, fs);
     var dmService = require("./services/dm.service.server.js") (app, DMModel, authorized);
     var taskService = require("./services/task.service.server.js") (app, ProjectModel, UserModel, authorized);
     var projectService = require("./services/project.service.server.js") (app, ProjectModel, authorized);
