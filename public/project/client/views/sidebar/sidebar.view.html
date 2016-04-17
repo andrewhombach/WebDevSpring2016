@@ -5,7 +5,7 @@
     </ul>
     <hr>
     <ul class="nav nav-sidebar" ng-repeat="d in model.dms">
-        <li><a ng-class="model.active === p._id ? 'active' : ''" href="#/directmessage/{{d._id}}">{{d.name}}</a></li>
+        <li><a ng-class="model.active === p._id ? 'active' : ''" href="#/directmessage/{{d._id}}">{{model.getName(d)}}</a></li>
     </ul>
 </div>
 </div>

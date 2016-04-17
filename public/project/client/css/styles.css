@@ -344,6 +344,7 @@ NEW  CHAT  STYLES
 .profile-pricture {
     height: 230px;
     width: auto;
+    max-width: 400px;
 
 }
 

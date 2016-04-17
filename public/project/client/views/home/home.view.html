@@ -36,9 +36,9 @@
                         <div class="chat-box-name-left">
                             <a href="#/profile/{{message.userId}}">
                             <img class="chatIcon"
-                                 src="https://pbs.twimg.com/profile_images/1407284510/254187_10150214580401865_643336864_7179279_4815578_n.jpg"
+                                 ng-src="/api/file/{{model.getUserPicOfMessage(message.userId)}}"
                                  alt="bootstrap Chat box user image" class="img-circle"/>
-                            {{model.getUserOfMessage(message.userId)}}
+                            {{model.getUserOfMessage(message.userId).username}}
                             </a>
                         </div>
                         <br>
@@ -50,9 +50,9 @@
                         <div class="chat-box-name-right">
                             <a href="#/profile/{{message.userId}}">
                             <img class="chatIcon"
-                                 src="https://pbs.twimg.com/profile_images/535191980704555008/YU-yrdKM.jpeg"
+                                 ng-src="/api/file/{{model.getUserPicOfMessage(message.userId)}}"
                                  alt="bootstrap Chat box user image" class="img-circle"/>
-                            {{model.getUserOfMessage(message.userId)}}
+                            {{model.getUserOfMessage(message.userId).username}}
                             </a>
                         </div>
                         <br>

@@ -13,7 +13,8 @@ module.exports = function(mongoose, db) {
         updateDM: updateDM,
         findDMsByUserId: findDMsByUserId,
         findAllDms: findAllDms,
-        addMessage: addMessage
+        addMessage: addMessage,
+        findDmsByIds: findDmsByIds
     };
 
     return api;
@@ -126,6 +127,20 @@ module.exports = function(mongoose, db) {
         var deferred = q.defer();
 
         DMSModel.find({}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
+    }
+
+    function findDmsByIds(dmIds) {
+        var deferred = q.defer();
+
+        DMSModel.find({_id : {$in: dmIds}}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }

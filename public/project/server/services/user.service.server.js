@@ -30,6 +30,7 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     app.post("/api/profile/pic", upload.single('file'), function (req, res) {res.json(req.file.path)});
     app.post("/api/logout", logout);
     app.get("/api/user/:userId/pic", auth, findUserPicture);
+    app.post("/api/dms/users", auth, findUsersByDmIds);
 
 
 
@@ -98,6 +99,38 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
                                 res.status(400).send(err);
                             }
                         );
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findUsersByDmIds(req, res) {
+        var dms = req.body;
+
+        console.log("called");
+
+        DMModel
+            .findDmsByIds(dms)
+            .then(
+                function(doc) {
+                    var tempArray = [];
+                    for (d in doc) {
+                        tempArray.push(doc[d].user1);
+                        tempArray.push(doc[d].user2);
+                    }
+                    UserModel
+                        .findUsersByIds(tempArray)
+                        .then(
+                            function (users) {
+                                console.log(users);
+                                res.json(users);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        )
                 },
                 function (err) {
                     res.status(400).send(err);

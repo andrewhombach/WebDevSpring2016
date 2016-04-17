@@ -11,6 +11,7 @@
         vm.dmId = $routeParams.dmId;
         var socket = io.connect('ws://webdev2016-hombachandrew.rhcloud.com:8000');
         vm.chatHeight = window.innerHeight;
+        vm.getUserPicOfMessage = getUserPicOfMessage;
         var w = angular.element($window);
 
         w.bind('resize', function() {
@@ -50,9 +51,13 @@
         function getUserOfMessage(userId) {
             for(var u in vm.users) {
                 if (vm.users[u]._id === userId) {
-                    return vm.users[u].username;
+                    return vm.users[u]
                 }
             }
+        }
+
+        function getUserPicOfMessage(userId) {
+            return getUserOfMessage(userId).pic;
         }
 
         function notMe() {

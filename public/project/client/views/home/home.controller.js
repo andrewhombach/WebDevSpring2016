@@ -11,6 +11,7 @@
         vm.projectId = $routeParams.projectId;
         vm.chatHeight = window.innerHeight;
         var w = angular.element($window);
+        vm.getUserPicOfMessage = getUserPicOfMessage;
 
         w.bind('resize', function() {
             vm.chatHeight = window.innerHeight;
@@ -49,12 +50,14 @@
         function getUserOfMessage(userId) {
             for(var u in vm.users) {
                 if (vm.users[u]._id === userId) {
-                    return vm.users[u].username;
+                    return vm.users[u]
                 }
             }
         }
 
-
+        function getUserPicOfMessage(userId) {
+            return getUserOfMessage(userId).pic;
+        }
 
     }
 })();

@@ -11,6 +11,7 @@
 
         vm.showSidebar = window.innerWidth < 768 ? false : true;
         vm.toggle = toggle;
+        vm.getName = getName;
 
         var w = angular.element($window);
 
@@ -37,26 +38,26 @@
 
             });
 
-            DMService.findAllDMsByUserId(userId)
-            .then(function (response) {
-                vm.dms = response.data;
-                for (var d in vm.dms) {
-                    if (vm.dms[d].user1 == userId) {
-                        UserService.findUserById(vm.dms[d].user2)
-                        .then(function (response) {
-                            vm.dms[d].name = response.data.firstName + " " + response.data.lastName;
-                        })
+            DMService
+                .findAllDMsByUserId(userId)
+                .then(function (response) {
+                    vm.dms = response.data;
+                    var tempArray = [];
+                    for (var v in vm.dms) {
+                        tempArray.push(vm.dms[v]._id);
                     }
-                    else {
-                        UserService.findUserById(vm.dms[d].user1)
-                        .then(function (response) {
-                            vm.dms[d].name = response.data.firstName + " " + response.data.lastName;
-                        })
 
-                    }
-                }
+                    UserService.findUsersByDmIds(tempArray)
+                        .then(
+                            function (users) {
+                                vm.users = users.data;
+                            },
+                            function (err) {
+                                console.log(err);
+                            });
             });
         }
+
         init();
 
         function toggle() {
@@ -73,6 +74,28 @@
 
             return null;
         }
+
+        function getName(dm) {
+            var u = null;
+            if (dm.user1 === userId) {
+                u = dm.user2;
+            }
+            else {
+                u = dm.user1;
+            }
+
+            console.log(u);
+
+            for (var x in vm.users) {
+                if (vm.users[x]._id == u) {
+                    console.log("success");
+                    return vm.users[x].firstName + " " + vm.users[x].lastName;
+                }
+            }
+
+            return null;
+        }
+
     }
 })();
 
