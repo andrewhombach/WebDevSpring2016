@@ -109,8 +109,6 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     function findUsersByDmIds(req, res) {
         var dms = req.body;
 
-        console.log("called");
-
         DMModel
             .findDmsByIds(dms)
             .then(
@@ -124,7 +122,6 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
                         .findUsersByIds(tempArray)
                         .then(
                             function (users) {
-                                console.log(users);
                                 res.json(users);
                             },
                             function (err) {

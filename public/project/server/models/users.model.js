@@ -105,6 +105,9 @@ module.exports = function(ProjectModel, mongoose, db, multer) {
 
     function updateUser(user) {
 
+        console.log(user.pic);
+        console.log(user.pic.replace("./",""));
+
         var newUser = {
             username: user.username,
             password: user.password,
