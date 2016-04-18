@@ -40,6 +40,24 @@
     </table>
     <table class="table table-responsive">
         <thead>
+            <th>
+                Admin
+            </th>
+            <th></th>
+        </thead>
+        <tbody>
+            <td>
+                {{model.admin.username}}
+            </td>
+            <td>
+                <button ng-click="model.directMessage()" class="btn btn-success">
+                    Direct Message
+                </button>
+            </td>
+        </tbody>
+    </table>
+    <table class="table table-responsive">
+        <thead>
         <th>
             Tasks
         </th>

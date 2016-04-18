@@ -4,11 +4,12 @@
         .module("CoLabApp")
         .controller("ProjectController", ProjectController);
 
-    function ProjectController(ProjectService, UserService, $routeParams) {
+    function ProjectController(ProjectService, UserService, $routeParams, DMService, $location) {
         var vm = this;
 
         vm.projectId = $routeParams.projectId;
         vm.showUsers = showUsers;
+        vm.directMessage = directMessage;
 
         function init() {
             ProjectService.findProjectById(vm.projectId)
@@ -21,6 +22,7 @@
             vm.project = response.data;
             vm.tasks = vm.project.tasks;
             getUsers();
+            getAdmin();
         }
 
         function getUsers() {
@@ -44,6 +46,26 @@
             console.log(result);
 
             return result.substring(0, result.length - 1);
+        }
+
+        function getAdmin() {
+            UserService
+                .findUserById(vm.project.admin)
+                .then(
+                    function (response) {
+                        vm.admin = response.data;
+                    }
+                )
+        }
+
+        function directMessage() {
+            DMService
+                .createDM({user1: vm.admin._id, user2: UserService.getProfile()._id})
+                .then(
+                    function (response) {
+                        $location.path('/directmessage/' + response.data._id)
+                    }
+                )
         }
 
 

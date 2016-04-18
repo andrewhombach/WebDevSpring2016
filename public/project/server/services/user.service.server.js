@@ -31,6 +31,7 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     app.post("/api/logout", logout);
     app.get("/api/user/:userId/pic", auth, findUserPicture);
     app.post("/api/dms/users", auth, findUsersByDmIds);
+    app.get("/api/user/:userId", isAdmin);
 
 
 
@@ -319,11 +320,18 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     }
 
     function admin(req, res, next) {
-        if(req.user.roles.indexOf("admin") === -1) {
+        if(!req.user.admin) {
             res.send(403);
         }
         next();
     }
+
+    function isAdmin(req, res) {
+        res.json(true);
+    }
+
+
+
 
 
 };

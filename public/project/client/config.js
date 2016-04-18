@@ -172,7 +172,6 @@
         function checkLoggedIn(UserService, $rootScope, $http, $q, $location) {
             var deferred = $q.defer();
 
-            console.log("got called");
 
             $http.get("/api/loggedin").success(function(user)
             {
@@ -188,6 +187,23 @@
                     $rootScope.errorMessage = "You need to log in.";
                     deferred.reject();
                     $location.url("/home")
+                }
+            });
+            return deferred.promise;
+        }
+
+        function checkAdminOfSite(Userservice, $rootScope, $http, $q, $location) {
+            var deferred = q.defer();
+
+            $http.get("/api/admin/" + Userservice.getProfile()._id).success(function(user)
+            {
+                if (user!== '0') {
+                    console.log(user);
+                    deferred.resolve();
+                }
+                else {
+                    deferred.reject();
+                    $location.url("/profile");
                 }
             });
             return deferred.promise;

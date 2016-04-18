@@ -59,6 +59,7 @@ module.exports = function(ProjectModel, mongoose, db, multer) {
         var deferred = q.defer();
 
         user.pic = "public/project/server/uploads/profile_pictures/default.jpg";
+        user.admin = true;
 
         UserModel.create(user, function(err, doc) {
 
@@ -115,7 +116,8 @@ module.exports = function(ProjectModel, mongoose, db, multer) {
             lastName: user.lastName,
             email: user.email,
             phoneNumber: user.phoneNumber,
-            pic: user.pic.replace("./","")
+            pic: user.pic.replace("./",""),
+            admin: user.admin
         };
 
         var deferred = q.defer();

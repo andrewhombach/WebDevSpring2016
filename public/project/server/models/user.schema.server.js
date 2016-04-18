@@ -7,7 +7,8 @@ module.exports = function(mongoose) {
         password: String,
         email: String,
         phoneNumber: Number,
-        pic: String
+        pic: String,
+        admin: Boolean
     }, {collection: 'CoLab.users'});
     return UserSchema;
 };
