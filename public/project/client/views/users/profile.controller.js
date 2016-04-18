@@ -40,17 +40,12 @@
                 data: {file: pic}
             }).then(
                 function (response) {
-                    console.log("made it to the right place");
                     console.log(response.data);
                     $scope.user.pic = response.data;
-                    console.log($scope.user);
                     $scope.update($scope.user);
                     $route.reload();
                 },
                 function (response) {
-                    console.log("in the wrong place");
-                    console.log(response.data);
-
                 }
             );
         }
