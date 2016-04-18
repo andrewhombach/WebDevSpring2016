@@ -163,14 +163,48 @@ module.exports = function(ProjectModel, mongoose, db, multer) {
     }
 
     function searchUserByUsername(username) {
-        return UserModel.find({'username': {$regex: username, $options: 'i'}});
+        var deferred = q.defer();
+
+        UserModel.find({'username': {$regex: username, $options: 'i'}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
+
 
     function searchUserByFirstName(firstName) {
-        return UserModel.find({'firstName': {$regex: firstName, $options: 'i'}});
+        var deferred = q.defer();
+
+        UserModel.find({'firstName': {$regex: firstName, $options: 'i'}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
+
+
     function searchUserByLastName(lastName) {
-        return UserModel.find({'lastName': {$regex: lastName, $options: 'i'}});
+        var deferred = q.defer();
+
+        UserModel.find({'lastName': {$regex: lastName, $options: 'i'}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
+
 };

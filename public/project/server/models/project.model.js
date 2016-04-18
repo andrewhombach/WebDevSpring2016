@@ -327,11 +327,35 @@ module.exports = function(mongoose, db) {
     }
 
     function searchProjectsByName(term) {
-        return ProjectModel.find({"name": {$regex: term, $options: "i"}});
+        var deferred = q.defer();
+
+        ProjectModel.find({"name": {$regex: term, $options: "i"}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
+
+
     function searchTasksByName(term) {
-        return ProjectModel.find({"tasks.name": {$regex: term, $options: "i"}}, {"tasks.$":1});
+        var deferred = q.defer();
+
+        ProjectModel.find({"tasks.name": {$regex: term, $options: "i"}}, {"tasks.$":1}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
+
+
 
 };
