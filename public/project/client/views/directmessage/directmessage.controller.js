@@ -8,10 +8,10 @@
 
         vm.me = UserService.getProfile()._id;
         vm.getUserOfMessage = getUserOfMessage;
+        vm.deleteDM = deleteDM;
         vm.dmId = $routeParams.dmId;
         var socket = io.connect('ws://webdev2016-hombachandrew.rhcloud.com:8000');
         vm.chatHeight = window.innerHeight;
-        vm.getUserPicOfMessage = getUserPicOfMessage;
         var w = angular.element($window);
 
         w.bind('resize', function() {
@@ -56,15 +56,16 @@
             }
         }
 
-        function getUserPicOfMessage(userId) {
-            return getUserOfMessage(userId).pic;
-        }
 
         function notMe() {
             if (vm.me === vm.users[0]._id) {
                 return vm.users[1];
             }
             return vm.users[0];
+        }
+
+        function deleteDM() {
+            DMService.deleteDMById($routeParams.dmId);
         }
 
     }

@@ -8,11 +8,8 @@
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><span class="fa fa-map-marker"></span>&nbsp;Invisible</a></li>
-                    <li><a href="#"><span class="fa fa-comments-o"></span>&nbsp;Online</a></li>
-                    <li><a href="#"><span class="fa fa-lock"></span>&nbsp;Busy</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><span class="fa fa-circle-o-notch"></span>&nbsp;Logout</a></li>
+                    <li><a href="#/profile/{{model.notMe._id}}"><span class="fa fa-map-marker"></span>&nbsp;View Profile</a></li>
+                    <li><a ng-click="model.deleteDM()" href="#/profile"><span class="fa fa-comments-o"></span>&nbsp;Close Direct Message</a></li>
                 </ul>
             </div>
         </h1>
@@ -27,7 +24,7 @@
                             <div class="chat-box-name-left">
                                 <a href="#/profile/{{m.userId}}">
                                 <img class="chatIcon"
-                                     src="/api/file/{{model.getUserPicOfMessage(m.userId)}}"
+                                     src="/api/file/{{model.getUserOfMessage(m.userId).pic}}"
                                      alt="bootstrap Chat box user image" class="img-circle"/>
                                 {{model.getUserOfMessage(m.userId).username}}
                                 </a>
@@ -41,7 +38,7 @@
                             <div class="chat-box-name-right">
                                 <a href="#/profile/{{m.userId}}">
                                 <img class="chatIcon"
-                                     src="/api/file/{{model.getUserPicOfMessage(m.userId)}}"
+                                     src="/api/file/{{model.getUserOfMessage(m.userId).pic}}"
                                      alt="bootstrap Chat box user image" class="img-circle"/>
                                 {{model.getUserOfMessage(m.userId).username}}
                                 </a>

@@ -13,17 +13,26 @@
         <th></th>
         </thead>
         <tbody>
-        <tr ng-repeat="u in model.users">
-            <td>
-                {{u.firstName + " " + u.lastName}}
+        <tr>
+            <td class="col-xs-8">
+                <input class="form-control" type="text" placeholder="username" ng-model="username">
             </td>
             <td>
-                <button ng-click="model.removeUser(u)" class="btn btn-danger">Remove</button>
+                <button type="button" class="btn btn-success" ng-click="model.addUser(username)">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </td>
+        </tr>
+        <tr ng-repeat="u in model.users">
+            <td>{{u.username}}</td>
+            <td>
+                <button type="button" class="btn btn-danger" ng-click="model.removeUser(u)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
-    <button class="btn btn-success">Add member</button>
     <table class="table table-responsive">
         <thead>
         <th>
@@ -52,7 +61,7 @@
         </tr>
         </tbody>
     </table>
-    <button class="btn btn-success" ng-click="model.updateProject(model.project)">
+    <button class="btn btn-success" ng-click="model.updateProject()">
         Update
     </button>
 </div>

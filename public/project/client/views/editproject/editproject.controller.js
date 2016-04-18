@@ -9,6 +9,7 @@
         vm.updateProject = updateProject;
         vm.deleteTask = deleteTask;
         vm.removeUser = removeUser;
+        vm.addUser = addUser;
 
         function init() {
             ProjectService
@@ -40,25 +41,40 @@
             })
         }
 
-        function updateProject(project) {
+        function updateProject() {
+            console.log(vm.users);
+            vm.project.userIds = vm.users.map(function (user) {return user._id});
+            console.log(vm.project);
             ProjectService
-                .updateProject(project)
+                .updateProject(vm.project)
                 .then(function (response) {
                 $location.path("/projectdetails/" + vm.projectId);
             });
         }
 
         function deleteTask(task) {
-            TaskService.deleteTaskById(task._id, vm.projectId).then(init);
+            TaskService
+                .deleteTaskById(task._id, vm.projectId)
+                .then(init);
         }
+
 
         function removeUser(user) {
             for (var u in vm.users) {
                 if (vm.users[u]._id === user._id) {
                     vm.users.splice(u, 1);
-                    vm.project.userIds.splice(u, 1);
                 }
             }
+
+        }
+
+        function addUser(username) {
+            UserService.findUserByUsername(username)
+                .then(
+                    function (response) {
+                        vm.users.push(response.data);
+                    }
+                );
         }
 
 

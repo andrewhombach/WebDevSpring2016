@@ -53,7 +53,6 @@
                                 vm.users = users.data;
                             },
                             function (err) {
-                                console.log(err);
                             });
             });
         }
@@ -84,11 +83,9 @@
                 u = dm.user1;
             }
 
-            console.log(u);
 
             for (var x in vm.users) {
                 if (vm.users[x]._id == u) {
-                    console.log("success");
                     return vm.users[x].firstName + " " + vm.users[x].lastName;
                 }
             }
