@@ -9,7 +9,6 @@
         function register(user) {
             UserService.register(user)
                 .then(function (response) {
-                    console.log(response.data);
                     $rootScope.cUser = response.data;
                     $location.url("/profile");
 

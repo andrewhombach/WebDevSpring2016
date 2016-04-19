@@ -10,7 +10,7 @@
                 controller: "HomeController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdmin: checkAdmin
                 }
             })
             .when("/profile", {
@@ -26,7 +26,7 @@
                 controller: "AdminUsersController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdmin : checkAdmin
                 }
             })
             .when("/admin/users", {
@@ -34,7 +34,7 @@
                 controller: "AdminUsersController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdmin : checkAdmin
                 }
 
             })
@@ -43,7 +43,7 @@
                 controller: "AdminTasksController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdmin : checkAdmin
                 }
             })
             .when("/admin/projects", {
@@ -51,7 +51,7 @@
                 controller: "AdminProjectsController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdmin : checkAdmin
                 }
             })
             .when("/admin/message", {
@@ -59,7 +59,7 @@
                 controller: "AdminMessageController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdmin : checkAdmin
                 }
             })
             .when("/admin/dm", {
@@ -67,7 +67,7 @@
                 controller: "AdminDMController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdmin : checkAdmin
                 }
             })
             .when("/register", {
@@ -146,7 +146,7 @@
                 controller: "EditProjectController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdminOfPage : checkAdminOfPage
                 }
             })
             .when("/projectdetails/:projectId", {
@@ -192,13 +192,12 @@
             return deferred.promise;
         }
 
-        function checkAdminOfSite(Userservice, $rootScope, $http, $q, $location) {
-            var deferred = q.defer();
+        function checkAdmin($http, $q, $location) {
+            var deferred = $q.defer();
 
-            $http.get("/api/admin/" + Userservice.getProfile()._id).success(function(user)
+            $http.get("/api/loggedin").success(function(user)
             {
-                if (user!== '0') {
-                    console.log(user);
+                if (user.admin) {
                     deferred.resolve();
                 }
                 else {
@@ -207,6 +206,27 @@
                 }
             });
             return deferred.promise;
+        }
+
+        function checkAdminOfPage($http, $q, $location, $routeParams, ProjectService) {
+            var deferred = $q.defer();
+
+            $http.get("/api/loggedin").success(function(user)
+            {
+                ProjectService
+                    .findProjectById($routeParams.projectId)
+                    .then(
+                        function (response) {
+                            if (response.data.admin === user._id) {
+                                deferred.resolve();
+                            }
+                            else {
+                                deferred.reject();
+                            }
+                        }
+                    )
+            });
+            return deferred.promise
         }
     }
 })();
