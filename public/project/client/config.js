@@ -11,7 +11,7 @@
                 controller: "HomeController",
                 controllerAs: "model",
                 resolve: {
-                    checkAdmin: checkAdmin
+                    checkLoggedIn: checkLoggedIn
                 }
             })
             .when("/profile", {

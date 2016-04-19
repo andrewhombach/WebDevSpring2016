@@ -30,17 +30,17 @@
 
         function deleteDM(dm) {
             DMService.deleteDMById(dm._id)
-                .then(retrieveDMs);
+                .then(init);
         }
 
         function addDM(dm) {
             DMService.createDM(dm)
-                .then(retrieveDMs);
+                .then(init);
         }
 
         function updateDM(dm) {
             DMService.updateDM(dm._id, dm)
-                .then(retrieveDMs);
+                .then(init);
             $scope.dm = null;
         }
 
