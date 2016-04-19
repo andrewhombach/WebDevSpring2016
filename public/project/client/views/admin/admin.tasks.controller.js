@@ -48,9 +48,8 @@
         }
 
         function taskProjectLookup(task) {
-            for (d in vm.taskDictionary) {
-                console.log(vm.taskDictionary[d]);
-                for (t in vm.taskDictionary[d].tasks) {
+            for (var d in vm.taskDictionary) {
+                for (var t in vm.taskDictionary[d].tasks) {
                     if (vm.taskDictionary[d].tasks[t]._id == task._id) {
                         return vm.taskDictionary[d]._id;
                     }
