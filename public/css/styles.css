@@ -50,18 +50,18 @@ body {
 /* Declare heights because of positioning of img element */
 .carousel .item {
     background-color: #777;
-    max-height: 600px;
+    max-height: 682px;
 
 }
 .carousel-inner > .item > img {
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     alignment: center;
     margin: 0 auto;
 }
 
 .carousel-inner > .container {
-    max-height: 600px;
+    max-height: 682px;
 }
 
 
@@ -155,3 +155,4 @@ body {
     margin-left: 0;
     margin-right: 0;
 }
+
