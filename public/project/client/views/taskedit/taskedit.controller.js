@@ -23,7 +23,8 @@
         });
 
         function init() {
-            TaskService.findTaskById(vm.taskId)
+            TaskService
+                .findTaskById(vm.taskId)
                 .then(function (response) {
                     vm.task = response.data;
                     vm.userIds = vm.task.userIds;
@@ -34,7 +35,8 @@
         init();
 
         function getUsers() {
-            UserService.findUsersByTaskId(vm.taskId)
+            UserService
+                .findUsersByTaskId(vm.taskId)
                 .then(function (response) {
                     if (response.data) {
                         vm.users = response.data;
@@ -43,7 +45,8 @@
         }
 
         function updateTask(task) {
-            TaskService.updateTask(task, vm.projectId)
+            TaskService
+                .updateTask(task, vm.projectId)
                 .then(function (response) {
                     $location.path("/project/" + vm.projectId + "/taskdetails/" + vm.taskId);
                 });
@@ -51,7 +54,8 @@
 
         function deleteTask() {
             console.log("in delete");
-            TaskService.deleteTaskById(vm.taskId, vm.projectId)
+            TaskService
+                .deleteTaskById(vm.taskId, vm.projectId)
                 .then(
                     function (response) {
                         $location.path("/home/" + vm.projectId);
@@ -60,7 +64,8 @@
         }
 
         function addUser(username) {
-            UserService.findUserByUsername(username)
+            UserService
+                .findUserByUsername(username)
                 .then(
                     function (response) {
                         if (!response.data) {

@@ -12,13 +12,13 @@
         vm.name = null;
 
         function createTask(name) {
-            TaskService.createTask({name: name}, $routeParams.projectId)
+            TaskService
+                .createTask({name: name}, $routeParams.projectId)
                 .then(
                     function (response) {
-                        console.log(response.data);
-                        $location.path("/project/" + $routeParams.projectId + "/taskdetails/" + response.data._id)
+                        $location.path("/project/" + $routeParams.projectId + "/taskdetails/" + response.data._id);
                     }
-                )
+                );
 
         }
 

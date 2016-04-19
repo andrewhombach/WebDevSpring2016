@@ -45,7 +45,6 @@
                 data: {file: pic}
             }).then(
                 function (response) {
-                    console.log(response.data);
                     $scope.user.pic = response.data;
                     $scope.update($scope.user);
                     $route.reload();

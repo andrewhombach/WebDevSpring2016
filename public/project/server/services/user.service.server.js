@@ -24,7 +24,6 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
     app.get("/api/task/:taskId/user", auth, findUsersByTaskId);
     app.get("/api/dm/:dmId/user", auth, findUsersByDMId);
     app.post("/api/profile/pic", auth, upload.single('file'), function (req, res) {res.json(req.file.path)});
-    app.get("/api/user/:userId/pic", auth, findUserPicture);
     app.post("/api/dms/users", auth, findUsersByDmIds);
 
 
@@ -146,28 +145,6 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
                     res.status(400).send(err);
                 }
             )
-    }
-
-    function findUserPicture(req, res) {
-        var userId = req.params.userId;
-        UserModel
-            .findUser(userId)
-            .then(
-                function (doc) {
-                    fs.readFile(doc.pic, function(err, img) {
-                        if (err) {
-                            res.status(400).send(err);
-                        }
-                        else {
-                            res.writeHead(200, {'Content-type':'image/*'});
-                            res.end(img);
-                        }
-                    })
-                },
-                function (err) {
-                    res.status(400).send(err);
-                }
-            );
     }
 
     function updateUser(req, res) {
