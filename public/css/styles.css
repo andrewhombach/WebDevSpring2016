@@ -147,3 +147,11 @@ body {
             -1px 1px 0 #000,
             1px 1px 0 #000;
 }
+
+.document
+{
+    width: 80%;
+    height: 500px;
+    margin-left: 0;
+    margin-right: 0;
+}
