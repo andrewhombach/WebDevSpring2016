@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function(app, ProjectModel, DMModel, auth) {
     app.get("/api/message/:messageId", auth, getMessageById);
     app.get("/api/message", auth, getAllMessages);
@@ -10,7 +11,8 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     app.get("/api/dm/:dmId/message", auth, findMessagesByDMId);
 
     function getAllMessages(req, res) {
-        ProjectModel.findAllMessages()
+        ProjectModel
+            .findAllMessages()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -22,7 +24,8 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     }
 
     function getMessageById(req, res) {
-        MessageModel.findMessage(req.params.messageId)
+        MessageModel
+            .findMessage(req.params.messageId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -34,7 +37,8 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     }
 
     function getMessagesByUserId(req, res) {
-        ProjectModel.findMessagesByUserId(req.params.userId)
+        ProjectModel
+            .findMessagesByUserId(req.params.userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -46,7 +50,8 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     }
 
     function deleteMessageById(req, res) {
-        ProjectModel.deleteMessage(req.params.projectId, req.params.messageId)
+        ProjectModel
+            .deleteMessage(req.params.projectId, req.params.messageId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -58,7 +63,8 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     }
 
     function createMessageForProject(req, res) {
-        ProjectModel.addMessage(req.params.projectId, req.body)
+        ProjectModel
+            .addMessage(req.params.projectId, req.body)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -70,7 +76,8 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     }
 
     function createMessageForDM(req, res) {
-        DMModel.addMessage(req.params.dmId, req.body)
+        DMModel
+            .addMessage(req.params.dmId, req.body)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -82,7 +89,8 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     }
 
     function updateMessage(req, res) {
-        ProjectModel.updateMessage(req.params.projectId, req.body)
+        ProjectModel
+            .updateMessage(req.params.projectId, req.body)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -94,10 +102,12 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     }
 
     function findMessagesByProjectId(req, res) {
-        ProjectModel.findProject(req.params.projectId)
+        ProjectModel
+            .findProject(req.params.projectId)
             .then(
                 function (project) {
-                    MessageModel.findMessagesByIds(project.messages)
+                    MessageModel
+                        .findMessagesByIds(project.messages)
                         .then(
                             function (doc) {
                                 res.json(doc);
@@ -114,7 +124,8 @@ module.exports = function(app, ProjectModel, DMModel, auth) {
     }
 
     function findMessagesByDMId(req, res) {
-        DMModel.findMessagesByDMId(req.params.dmId)
+        DMModel
+            .findMessagesByDMId(req.params.dmId)
             .then(
                 function (doc) {
                     res.json(doc);

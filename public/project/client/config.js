@@ -1,4 +1,5 @@
-(function(){
+(function() {
+    "use strict";
     angular
         .module("CoLabApp")
         .config(Configure);
@@ -192,12 +193,14 @@
             return deferred.promise;
         }
 
-        function checkAdmin($http, $q, $location) {
+        function checkAdmin($http, $q, $location, UserService) {
             var deferred = $q.defer();
 
             $http.get("/api/loggedin").success(function(user)
             {
                 if (user.admin) {
+                    console.log(user);
+                    UserService.setCurrentUser(user);
                     deferred.resolve();
                 }
                 else {
@@ -208,7 +211,7 @@
             return deferred.promise;
         }
 
-        function checkAdminOfPage($http, $q, $location, $routeParams, ProjectService) {
+        function checkAdminOfPage($http, $q, $location, $routeParams, ProjectService, UserService) {
             var deferred = $q.defer();
 
             $http.get("/api/loggedin").success(function(user)
@@ -218,10 +221,12 @@
                     .then(
                         function (response) {
                             if (response.data.admin === user._id) {
+                                UserService.setCurrentUser(user);
                                 deferred.resolve();
                             }
                             else {
                                 deferred.reject();
+                                $location.url("/projectdetails/" + $routeParams.projectId);
                             }
                         }
                     )

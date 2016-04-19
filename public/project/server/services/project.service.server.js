@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function(app, ProjectModel, auth) {
     app.get("/api/project/:projectId", auth, getProjectById);
     app.get("/api/project", auth, getAllProject);
@@ -8,7 +9,8 @@ module.exports = function(app, ProjectModel, auth) {
     app.get("/api/task/:taskId/project", findProjectByTaskId);
 
     function getAllProject(req, res) {
-        ProjectModel.findAllProjects()
+        ProjectModel
+            .findAllProjects()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -20,7 +22,8 @@ module.exports = function(app, ProjectModel, auth) {
     }
 
     function getProjectById(req, res) {
-        ProjectModel.findProject(req.params.projectId)
+        ProjectModel
+            .findProject(req.params.projectId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -32,7 +35,8 @@ module.exports = function(app, ProjectModel, auth) {
     }
 
     function getProjectsByUserId(req, res) {
-        ProjectModel.findProjectsByUserId(req.params.userId)
+        ProjectModel
+            .findProjectsByUserId(req.params.userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -44,7 +48,8 @@ module.exports = function(app, ProjectModel, auth) {
     }
 
     function deleteProjectById(req, res) {
-        ProjectModel.deleteProject(req.params.projectId)
+        ProjectModel
+            .deleteProject(req.params.projectId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -62,7 +67,8 @@ module.exports = function(app, ProjectModel, auth) {
             project.userIds = project.userIds.replace(" ", "").split(",");
         }
 
-        ProjectModel.createProject(project)
+        ProjectModel
+            .createProject(project)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -81,7 +87,8 @@ module.exports = function(app, ProjectModel, auth) {
             project.userIds = project.userIds.replace(" ", "").split(",");
         }
 
-        ProjectModel.updateProject(project)
+        ProjectModel
+            .updateProject(project)
             .then(
                 function (doc) {
                     res.json(doc);

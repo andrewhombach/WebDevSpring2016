@@ -1,5 +1,4 @@
-
-
+"use strict";
 module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, multer, fs, bcrypt) {
 
     var storage = multer.diskStorage({
@@ -40,7 +39,8 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
     }
 
     function findUserByUsername(req, res) {
-        UserModel.findUserByUsername(req.query.username)
+        UserModel
+            .findUserByUsername(req.query.username)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -53,7 +53,8 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
 
     function findUsersByProjectId(req, res) {
 
-        ProjectModel.findProject(req.params.projectId)
+        ProjectModel
+            .findProject(req.params.projectId)
             .then(
                 function (project) {
                     UserModel.findUsersByIds(project.userIds)
@@ -74,7 +75,8 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
 
     function findUsersByTaskId(req, res) {
 
-        ProjectModel.findTask(req.params.taskId)
+        ProjectModel
+            .findTask(req.params.taskId)
             .then(
                 function(task) {
                     UserModel.findUsersByIds(task.userIds)
@@ -101,7 +103,7 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
             .then(
                 function(doc) {
                     var tempArray = [];
-                    for (d in doc) {
+                    for (var d in doc) {
                         tempArray.push(doc[d].user1);
                         tempArray.push(doc[d].user2);
                     }
@@ -123,7 +125,8 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
     }
 
     function getUsers(req, res) {
-        UserModel.findAllUsers()
+        UserModel
+            .findAllUsers()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -136,7 +139,8 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
 
     function findUserById(req, res) {
         var userId = req.params.id;
-        UserModel.findUser(userId)
+        UserModel
+            .findUser(userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -157,9 +161,7 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
             .then(
                 function (oUser) {
                     if (oUser.password !== user.password) {
-                        console.log("made it");
                         user.password = bcrypt.hashSync(user.password);
-                        console.log(user.password);
                     }
                     UserModel.updateUser(user)
                         .then(
@@ -193,7 +195,8 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
             username: req.query.username,
             password: req.query.password
         };
-        UserModel.findUserByCredentials(cred)
+        UserModel
+            .findUserByCredentials(cred)
             .then(
                 function (doc) {
                     req.session.cUser = doc;
@@ -227,7 +230,8 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, mul
     function deleteUser(req, res) {
         var id = req.params.id;
 
-        UserModel.deleteUser(id)
+        UserModel
+            .deleteUser(id)
             .then(
                 function (doc) {
                     res.json(doc);

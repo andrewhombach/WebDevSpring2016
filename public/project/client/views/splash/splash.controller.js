@@ -5,7 +5,7 @@
         .module("CoLabApp")
         .controller("SplashController", SplashController);
 
-    function SplashController($scope, $rootScope, $location) {
+    function SplashController($scope, $location) {
         $scope.$location = $location.url();
     }
 })();

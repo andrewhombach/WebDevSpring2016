@@ -19,10 +19,12 @@
         });
 
         function init() {
-            TaskService.findTasksByProjectId($routeParams.projectId)
-            .then(function (response) {
-                vm.tasks = response.data;
-            });
+            TaskService
+                .findTasksByProjectId($routeParams.projectId)
+                .then(function (response) {
+                    vm.tasks = response.data;
+                }
+            );
         }
 
         init();

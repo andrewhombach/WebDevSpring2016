@@ -1,4 +1,5 @@
 (function () {
+    "use strict";
     angular
         .module("CoLabApp")
         .controller("ProfileController", ProfileController);
@@ -6,7 +7,6 @@
     function ProfileController ($scope, UserService, Upload, $route) {
         $scope.update = update;
         $scope.user = UserService.getProfile();
-
         var vm = this;
         vm.uploadPic = uploadPic;
 

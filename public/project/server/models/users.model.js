@@ -42,8 +42,7 @@ module.exports = function(ProjectModel, mongoose, db) {
         var deferred = q.defer();
 
         UserModel.findOne(
-            {username: credentials.username,
-                password: credentials.password},
+            {username: credentials.username, password: credentials.password},
             function (err, doc) {
                 if (err) {
                     deferred.reject(err);

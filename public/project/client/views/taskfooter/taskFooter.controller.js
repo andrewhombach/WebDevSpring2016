@@ -19,8 +19,6 @@
                         $location.path("/project/" + $routeParams.projectId + "/taskdetails/" + response.data._id);
                     }
                 );
-
         }
-
     }
 })();

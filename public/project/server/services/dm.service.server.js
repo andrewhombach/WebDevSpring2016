@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function(app, DMModel, auth) {
     app.get("/api/dm/:dmId", auth, getDMById);
     app.get("/api/dm", auth, getAllDM);
@@ -7,7 +8,8 @@ module.exports = function(app, DMModel, auth) {
     app.put("/api/dm/:dmId", auth, updateDMById);
 
     function getAllDM(req, res) {
-        DMModel.findAllDms()
+        DMModel
+            .findAllDms()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -19,7 +21,8 @@ module.exports = function(app, DMModel, auth) {
     }
 
     function getDMById(req, res) {
-        DMModel.findDM(req.params.dmId)
+        DMModel
+            .findDM(req.params.dmId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -32,7 +35,8 @@ module.exports = function(app, DMModel, auth) {
 
 
     function getDMsByUserId(req, res) {
-        DMModel.findDMsByUserId(req.params.userId)
+        DMModel
+            .findDMsByUserId(req.params.userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -45,7 +49,8 @@ module.exports = function(app, DMModel, auth) {
 
 
     function deleteDMById(req, res) {
-        DMModel.deleteDM(req.params.dmId)
+        DMModel
+            .deleteDM(req.params.dmId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -57,7 +62,8 @@ module.exports = function(app, DMModel, auth) {
     }
 
     function createDM(req, res) {
-        DMModel.createDM(req.body)
+        DMModel
+            .createDM(req.body)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -70,7 +76,8 @@ module.exports = function(app, DMModel, auth) {
 
 
     function updateDMById(req, res) {
-        DMModel.updateDM(req.body, req.body._id)
+        DMModel
+            .updateDM(req.body, req.body._id)
             .then(
                 function (doc) {
                     res.json(doc);

@@ -32,11 +32,11 @@
 
         function init() {
 
-            ProjectService.findAllProjectsByUserId(userId)
-            .then(function (response) {
-                vm.projects = response.data;
-
-            });
+            ProjectService
+                .findAllProjectsByUserId(userId)
+                .then(function (response) {
+                    vm.projects = response.data;
+                });
 
             DMService
                 .findAllDMsByUserId(userId)
@@ -90,6 +90,7 @@
             }
             return null;
         }
+
 
     }
 })();

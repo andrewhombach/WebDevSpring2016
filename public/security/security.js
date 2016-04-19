@@ -1,3 +1,5 @@
+"use strict";
+
 var passport         = require('passport');
 var LocalStrategy    = require('passport-local').Strategy;
 
@@ -101,7 +103,6 @@ module.exports = function(app, projectUserModel, assignmentUserModel, bcrypt) {
     }
 
     function assignmentLoggedIn(req, res) {
-        console.log(req.user);
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
@@ -155,21 +156,16 @@ module.exports = function(app, projectUserModel, assignmentUserModel, bcrypt) {
     }
 
     function assignmentRegister(req, res) {
-        console.log(req.body);
         var newUser = req.body;
         newUser.password = bcrypt.hashSync(newUser.password);
-
-        console.log(newUser);
 
         assignmentUserModel.findUserByUsername(newUser.username)
             .then(
                 function (user) {
-                    console.log(user);
                     if (user) {
                         res.json(null);
                     }
                     else {
-                        console.log(newUser);
                         return assignmentUserModel.createUser(newUser);
                     }
                 },
@@ -192,8 +188,7 @@ module.exports = function(app, projectUserModel, assignmentUserModel, bcrypt) {
                 },
                 function (err) {
                     res.status(400).send(err);
-                });
-
-
+                }
+            );
     }
 };

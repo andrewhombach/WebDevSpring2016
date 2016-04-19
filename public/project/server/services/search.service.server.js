@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function(app, ProjectModel, DMModel, UserModel) {
     app.get("/api/user/:userId/search", search);
 

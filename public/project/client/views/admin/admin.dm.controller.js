@@ -1,4 +1,5 @@
 (function () {
+    "use strict";
     angular
         .module("CoLabApp")
         .controller("AdminDMController", AdminDMController);
@@ -8,7 +9,6 @@
         $scope.addDM = addDM;
         $scope.updateDM = updateDM;
         $scope.selectDM = selectDM;
-        $scope.changePicker = changePicker;
 
         var all = true;
 
@@ -20,37 +20,12 @@
         }
 
         function init() {
-            DMService.findAllDMsByUserId($rootScope.cUser._id)
-                .then(renderDms);
-        }
-
-        init();
-
-        function seeAllDMs() {
             DMService.findAllDMs()
                 .then(renderDms);
 
         }
 
-        function retrieveDMs (){
-            if (!all) {
-                seeAllDMs();
-            }
-            else {
-                init();
-            }
-        }
-
-        function changePicker() {
-            if (all) {
-                all = false;
-                seeAllDMs();
-            }
-            else {
-                all = true;
-                init();
-            }
-        }
+        init();
 
 
         function deleteDM(dm) {

@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function(app, ProjectModel, UserModel, auth) {
     app.get("/api/task/:taskId", auth, findTaskById);
     app.get("/api/task", auth, findAllTasks);
@@ -8,7 +9,8 @@ module.exports = function(app, ProjectModel, UserModel, auth) {
     app.get("/api/project/:projectId/task", auth, findTasksByProjectId);
 
     function findAllTasks(req, res) {
-        ProjectModel.findAllTasks()
+        ProjectModel
+            .findAllTasks()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -20,7 +22,8 @@ module.exports = function(app, ProjectModel, UserModel, auth) {
     }
 
     function findTaskById(req, res) {
-        ProjectModel.findTask(req.params.taskId)
+        ProjectModel
+            .findTask(req.params.taskId)
             .then(
                 function (doc) {
                     doc.userIds = doc.userIds.toString();
@@ -33,10 +36,12 @@ module.exports = function(app, ProjectModel, UserModel, auth) {
     }
 
     function findTasksByUserId(req, res) {
-        UserModel.findUser(req.params.userId)
+        UserModel
+            .findUser(req.params.userId)
             .then(
                 function (user) {
-                    ProjectModel.findTasksByUserId(user._id)
+                    ProjectModel
+                        .findTasksByUserId(user._id)
                         .then(
                             function (doc) {
                                 res.json(doc);
@@ -53,7 +58,8 @@ module.exports = function(app, ProjectModel, UserModel, auth) {
     }
 
     function deleteTaskById(req, res) {
-        ProjectModel.deleteTask(req.params.projectId, req.params.taskId)
+        ProjectModel
+            .deleteTask(req.params.projectId, req.params.taskId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -73,7 +79,8 @@ module.exports = function(app, ProjectModel, UserModel, auth) {
 
         task.createDate = new Date;
 
-        ProjectModel.addTask(req.params.projectId, task)
+        ProjectModel
+            .addTask(req.params.projectId, task)
             .then(
                 function (task) {
                     res.json(task);
@@ -91,7 +98,8 @@ module.exports = function(app, ProjectModel, UserModel, auth) {
             task.userIds = task.userIds.replace(" ", "").split(",");
         }
 
-        ProjectModel.updateTask(req.params.projectId, task)
+        ProjectModel
+            .updateTask(req.params.projectId, task)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -103,7 +111,8 @@ module.exports = function(app, ProjectModel, UserModel, auth) {
     }
 
     function findTasksByProjectId(req, res) {
-        ProjectModel.findTasksByProjectId(req.params.projectId)
+        ProjectModel
+            .findTasksByProjectId(req.params.projectId)
             .then(
                 function (doc) {
                     res.json(doc);

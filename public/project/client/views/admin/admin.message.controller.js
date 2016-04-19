@@ -1,4 +1,5 @@
 (function () {
+    "use strict";
     angular
         .module("CoLabApp")
         .controller("AdminMessageController", AdminMessageController);
@@ -15,14 +16,14 @@
         vm.updateMessage = updateMessage;
         vm.selectMessage = selectMessage;
 
-
         function init() {
 
-            MessageService.findAllMessages()
+            MessageService
+                .findAllMessages()
                 .then(function (response) {
                     console.log(response.data);
                     vm.messages = [];
-                    for (x in response.data) {
+                    for (var x in response.data) {
                         vm.messages = vm.messages.concat(response.data[x].messages);
                     }
                     console.log(vm.messages);
@@ -54,9 +55,8 @@
         }
 
         function messageProjectLookup(message) {
-            for (d in vm.messageDictionary) {
-                console.log(vm.messageDictionary[d]);
-                for (t in vm.messageDictionary[d].messages) {
+            for (var d in vm.messageDictionary) {
+                for (var t in vm.messageDictionary[d].messages) {
                     if (vm.messageDictionary[d].messages[t]._id == message._id) {
                         return vm.messageDictionary[d]._id;
                     }

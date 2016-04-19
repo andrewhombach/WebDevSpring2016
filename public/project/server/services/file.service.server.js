@@ -1,9 +1,9 @@
+"use strict";
 module.exports = function(app) {
 
     app.get("/api/file/*", getFile);
 
     var fs = require("fs");
-
 
     function getFile(req, res) {
         var file = req.params[0];

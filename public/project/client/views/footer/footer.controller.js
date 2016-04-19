@@ -1,4 +1,5 @@
 (function () {
+    "use strict";
     angular
         .module("CoLabApp")
         .controller("FooterController", FooterController);
@@ -48,7 +49,6 @@
                             vm.message = null;
                         });
             }
-
         }
     }
 })();
