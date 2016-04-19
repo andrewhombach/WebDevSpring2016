@@ -345,7 +345,7 @@ module.exports = function(mongoose, db) {
     function searchTasksByName(term) {
         var deferred = q.defer();
 
-        ProjectModel.find({"tasks.name": {$regex: term, $options: "i"}}, {"tasks.$":1}, function (err, doc) {
+        ProjectModel.find({"tasks.name": {$regex: term, $options: "i"}}, {"tasks":true}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }
