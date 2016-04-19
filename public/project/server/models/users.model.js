@@ -58,7 +58,7 @@ module.exports = function(ProjectModel, mongoose, db) {
         var deferred = q.defer();
 
         user.pic = "public/project/server/uploads/profile_pictures/default.jpg";
-        user.admin = true;
+        user.admin = false;
         user.type = "project";
 
         UserModel.create(user, function(err, doc) {
