@@ -48,7 +48,6 @@
                 function (response) {
                     vm.user.pic = response.data;
                     vm.update(vm.user);
-                    vm.reload();
                 },
                 function (response) {
                 }
