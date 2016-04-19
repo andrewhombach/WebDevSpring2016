@@ -24,7 +24,7 @@
                 <li ng-show="cUser" ng-click="model.logout()" ><a href="#/splash">Logout</a></li>
             </ul>
             <form ng-hide="$location.url() == '/splash' || !cUser" class="navbar-form navbar-right">
-                <input ng-model="searchTerm" type="text" class="form-control" placeholder="Search...">
+                <input ng-model="model.searchTerm" type="text" class="form-control" placeholder="Search...">
                 <br class="visible-xs">
                 <button class="btn btn-info" ng-click="model.search(model.searchTerm)">Search</button>
             </form>
