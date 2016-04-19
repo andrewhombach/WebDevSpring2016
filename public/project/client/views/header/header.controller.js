@@ -4,11 +4,12 @@
         .module("CoLabApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($rootScope, UserService, $location, $scope) {
-        $scope.sidebarToggle = sidebarToggle;
-        $scope.logout = logout;
-        $scope.search = search;
-        $scope.searchTerm = "";
+    function HeaderController($rootScope, UserService, $location) {
+        var vm = this;
+        vm.sidebarToggle = sidebarToggle;
+        vm.logout = logout;
+        vm.search = search;
+        vm.searchTerm = "";
 
         function sidebarToggle() {
             $rootScope.$broadcast('toggle');

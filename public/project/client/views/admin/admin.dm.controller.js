@@ -4,25 +4,21 @@
         .module("CoLabApp")
         .controller("AdminDMController", AdminDMController);
 
-    function AdminDMController(DMService, $rootScope, $scope) {
-        $scope.deleteDM = deleteDM;
-        $scope.addDM = addDM;
-        $scope.updateDM = updateDM;
-        $scope.selectDM = selectDM;
-
-        var all = true;
+    function AdminDMController(DMService) {
+        var vm = this;
+        vm.deleteDM = deleteDM;
+        vm.addDM = addDM;
+        vm.updateDM = updateDM;
+        vm.selectDM = selectDM;
 
         function renderDms(response) {
-            console.log(response.data);
-            $scope.dms = response.data;
-            $scope.dm = null;
-
+            vm.dms = response.data;
+            vm.dm = null;
         }
 
         function init() {
             DMService.findAllDMs()
                 .then(renderDms);
-
         }
 
         init();
@@ -41,11 +37,11 @@
         function updateDM(dm) {
             DMService.updateDM(dm._id, dm)
                 .then(init);
-            $scope.dm = null;
+            vm.dm = null;
         }
 
         function selectDM(pIndex) {
-            $scope.dm = $scope.dms[pIndex];
+            vm.dm = vm.dms[pIndex];
         }
     }
 })();

@@ -53,12 +53,5 @@
 
         }
 
-        function addProject() {
-
-        }
-
-
-
-
     }
 })();

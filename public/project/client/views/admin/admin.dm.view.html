@@ -1,7 +1,6 @@
 <div ng-include="'views/sidebar/sidebar.view.html'"></div>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminDMController">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminDMController as model">
     <h1 class="page-header">Direct Messages</h1>
-
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="#/admin/projects">Projects</a></li>
         <li role="presentation"><a href="#/admin/users">Users</a></li>
@@ -37,29 +36,29 @@
         <tbody>
         <tr>
             <td>
-                <input ng-model="dm._id" type="text" class="form-control" placeholder="dm id">
+                <input ng-model="model.dm._id" type="text" class="form-control" placeholder="dm id">
             </td>
             <td>
-                <input ng-model="dm.user1" type="text" class="form-control" placeholder="user1 ID">
+                <input ng-model="model.dm.user1" type="text" class="form-control" placeholder="user1 ID">
             </td>
             <td>
-                <input ng-model="dm.user2" type="text" class="form-control" placeholder="user2 ID">
+                <input ng-model="model.dm.user2" type="text" class="form-control" placeholder="user2 ID">
             </td>
             <td>
-                <input ng-model="dm.messages" type="text" class="form-control" placeholder="comma separated message IDs">
+                <input ng-model="model.dm.messages" type="text" class="form-control" placeholder="comma separated message IDs">
             </td>
             <td>
                 <div class="input-group">
-                    <button ng-click="addDM(dm)" class="btn btn-success">
+                    <button ng-click="model.addDM(model.dm)" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button ng-click="updateDM(dm)" class="btn btn-info">
+                    <button ng-click="model.updateDM(model.dm)" class="btn btn-info">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="dm in dms">
+        <tr ng-repeat="dm in model.dms">
             <td>
                 <p class="text-right">{{dm._id}}</td>
             <td>
@@ -73,10 +72,10 @@
             </td>
             <td width="100px">
                 <div class="input-group">
-                    <button ng-click="deleteDM(dm)" class="btn btn-danger">
+                    <button ng-click="model.deleteDM(dm)" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <button ng-click="selectDM($index)" class="btn btn-warning">
+                    <button ng-click="model.selectDM($index)" class="btn btn-warning">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </div>

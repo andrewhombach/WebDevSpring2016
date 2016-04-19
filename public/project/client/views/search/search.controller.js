@@ -4,7 +4,7 @@
         .module("CoLabApp")
         .controller("SearchController", SearchController);
 
-    function SearchController($scope, $location, SearchService, ProjectService) {
+    function SearchController($location, SearchService, ProjectService) {
         var vm = this;
 
         vm.searchTerm = $location.search().query.toString();

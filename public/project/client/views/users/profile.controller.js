@@ -5,20 +5,21 @@
         .controller("ProfileController", ProfileController);
 
     function ProfileController ($scope, UserService, Upload, $route) {
-        $scope.update = update;
-        $scope.user = UserService.getProfile();
+
         var vm = this;
+        vm.update = update;
+        vm.user = UserService.getProfile();
         vm.uploadPic = uploadPic;
 
         function init() {
             UserService
-                .findUserById($scope.user._id)
+                .findUserById(vm.user._id)
                 .then(
                     function (response) {
-                        $scope.user = response.data;
-                        vm.profPic = $scope.user.pic;
-                        vm.password = $scope.user.password;
-                        delete $scope.user.password;
+                        vm.user = response.data;
+                        vm.profPic = vm.user.pic;
+                        vm.password = vm.user.password;
+                        delete vm.user.password;
 
                     }
                 )
@@ -45,9 +46,9 @@
                 data: {file: pic}
             }).then(
                 function (response) {
-                    $scope.user.pic = response.data;
-                    $scope.update($scope.user);
-                    $route.reload();
+                    vm.user.pic = response.data;
+                    vm.update(vm.user);
+                    vm.reload();
                 },
                 function (response) {
                 }

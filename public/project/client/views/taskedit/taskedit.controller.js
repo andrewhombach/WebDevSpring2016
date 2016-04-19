@@ -53,7 +53,6 @@
         }
 
         function deleteTask() {
-            console.log("in delete");
             TaskService
                 .deleteTaskById(vm.taskId, vm.projectId)
                 .then(

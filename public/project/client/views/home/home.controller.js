@@ -24,7 +24,6 @@
         socket.on('chat message'+vm.projectId, function (message) {
             vm.messages.push(message);
             $scope.$apply();
-
         });
 
         function init() {
