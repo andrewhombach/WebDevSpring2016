@@ -10,6 +10,7 @@
         vm.projectId = $routeParams.projectId;
         vm.showUsers = showUsers;
         vm.directMessage = directMessage;
+        vm.me = UserService.getProfile()._id;
 
         function init() {
             ProjectService.findProjectById(vm.projectId)

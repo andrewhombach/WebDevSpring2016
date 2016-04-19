@@ -1,6 +1,6 @@
 var q = require('q');
 
-module.exports = function(ProjectModel, mongoose, db, multer) {
+module.exports = function(ProjectModel, mongoose, db) {
 
     var UserSchema = require("./user.schema.server.js")(mongoose);
     var UserModel = mongoose.model('pUser', UserSchema);
@@ -60,6 +60,7 @@ module.exports = function(ProjectModel, mongoose, db, multer) {
 
         user.pic = "public/project/server/uploads/profile_pictures/default.jpg";
         user.admin = true;
+        user.type = "project";
 
         UserModel.create(user, function(err, doc) {
 
@@ -106,8 +107,7 @@ module.exports = function(ProjectModel, mongoose, db, multer) {
 
     function updateUser(user) {
 
-        console.log(user.pic);
-        console.log(user.pic.replace("./",""));
+        console.log(user.password);
 
         var newUser = {
             username: user.username,
@@ -117,8 +117,10 @@ module.exports = function(ProjectModel, mongoose, db, multer) {
             email: user.email,
             phoneNumber: user.phoneNumber,
             pic: user.pic.replace("./",""),
-            admin: user.admin
+            admin: user.admin,
+            type: "project"
         };
+
 
         var deferred = q.defer();
 

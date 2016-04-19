@@ -1,6 +1,6 @@
 
 
-module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, passport, bcrypt, multer, fs) {
+module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, multer, fs, bcrypt) {
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -16,30 +16,17 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     var upload = multer({storage: storage});
     var auth = authorized;
     var admin = admin;
-    app.post("/api/user", register);
     app.get("/api/user", userRouter);
     app.get("/api/user/:id", auth, findUserById);
     app.put("/api/user/", auth, updateUser);
     app.delete("/api/user/:id", auth, deleteUser);
     app.get("/api/project/:projectId/user", auth, findUsersByProjectId);
     app.get("/api/task/:taskId/user", auth, findUsersByTaskId);
-    app.get("/api/loggedin", loggedIn);
     app.get("/api/dm/:dmId/user", auth, findUsersByDMId);
-    app.post("/api/register", register);
-    app.post("/api/login", passport.authenticate('local'), login);
-    app.post("/api/profile/pic", upload.single('file'), function (req, res) {res.json(req.file.path)});
-    app.post("/api/logout", logout);
+    app.post("/api/profile/pic", auth, upload.single('file'), function (req, res) {res.json(req.file.path)});
     app.get("/api/user/:userId/pic", auth, findUserPicture);
     app.post("/api/dms/users", auth, findUsersByDmIds);
-    app.get("/api/user/:userId", isAdmin);
 
-
-
-    function login(req, res) {
-        var user = req.user;
-        delete user.password;
-        res.json(user);
-    }
 
     function userRouter(req, res) {
         if (req.query.username && req.query.password) {
@@ -136,56 +123,6 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
             );
     }
 
-
-    function loggedIn(req, res) {
-        res.send(req.isAuthenticated() ? req.user : '0');
-    }
-
-    function logout(req, res) {
-        req.logOut();
-        res.send(200);
-    }
-
-
-    function register(req, res) {
-
-        var newUser = req.body;
-        newUser.password = bcrypt.hashSync(newUser.password);
-
-
-        UserModel.findUserByUsername(newUser.username)
-            .then(
-                function (user) {
-                    if (user) {
-                        res.json(null);
-                    }
-                    else {
-                        return UserModel.createUser(newUser);
-                    }
-                },
-                function (err) {
-                    res.status(400).send(err);
-                }
-            )
-            .then(
-                function (user) {
-                    if (user) {
-                        req.login(user, function (err) {
-                            if (err) {
-                                res.status(400).send(err);
-                            }
-                            else {
-                                res.json(user);
-                            }
-                        });
-                    }
-                },
-                function (err) {
-                    res.status(400).send(err);
-                });
-    }
-
-
     function getUsers(req, res) {
         UserModel.findAllUsers()
             .then(
@@ -236,16 +173,21 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
     function updateUser(req, res) {
         var user = req.body;
 
+        console.log(user.password);
+
         UserModel
             .findUser(user._id)
             .then(
                 function (oUser) {
                     if (oUser.password !== user.password) {
+                        console.log("made it");
                         user.password = bcrypt.hashSync(user.password);
+                        console.log(user.password);
                     }
                     UserModel.updateUser(user)
                         .then(
                             function (na) {
+                                console.log(na);
                                 UserModel
                                     .findUser(user._id)
                                     .then(
@@ -325,13 +267,5 @@ module.exports = function(app, UserModel, ProjectModel, DMModel, authorized, pas
         }
         next();
     }
-
-    function isAdmin(req, res) {
-        res.json(true);
-    }
-
-
-
-
 
 };

@@ -72,8 +72,6 @@ module.exports = function(app, ProjectModel, DMModel, UserModel) {
                                                             res.status(400).send(err);
                                                         }
                                                     );
-
-
                                             },
                                             function (err) {
                                                 res.status(400).send(err);

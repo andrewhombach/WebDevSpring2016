@@ -3,7 +3,7 @@ module.exports = function(app) {
     app.get("/api/file/*", getFile);
 
     var fs = require("fs");
-    var htmlencode = require('htmlencode');
+
 
     function getFile(req, res) {
         var file = req.params[0];

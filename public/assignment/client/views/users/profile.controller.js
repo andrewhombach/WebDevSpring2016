@@ -21,9 +21,7 @@
             if (vm.user.roles) {
                 vm.user.roles = vm.user.roles.toString();
             }
-            console.log(vm.user);
             delete vm.user.password;
-            console.log(vm.user);
 
         }
 

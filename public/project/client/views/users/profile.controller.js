@@ -18,6 +18,8 @@
                         $scope.user = response.data;
                         vm.profPic = $scope.user.pic;
                         console.log(vm.profPic);
+                        vm.password = $scope.user.password;
+                        delete $scope.user.password;
 
                     }
                 )
@@ -26,6 +28,12 @@
         init();
 
         function update (user) {
+            if (!user.password) {
+                user.password = vm.password;
+            }
+
+            console.log(user);
+
             UserService
                 .updateUser(user)
                 .then(function (response) {

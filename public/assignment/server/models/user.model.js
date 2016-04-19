@@ -1,7 +1,7 @@
 
 var q = require('q');
 
-module.exports = function (uuid, mongoose, db) {
+module.exports = function (mongoose, db) {
 
     var UserSchema = require("./user.schema.server.js")(mongoose);
 
@@ -106,6 +106,8 @@ module.exports = function (uuid, mongoose, db) {
     function createUser(user) {
 
         var deferred = q.defer();
+        user.type = "assignment";
+        console.log(user);
 
         UserModel.create(user, function(err, doc) {
 
@@ -129,7 +131,8 @@ module.exports = function (uuid, mongoose, db) {
             lastName: user.lastName,
             emails: user.emails,
             phones: user.phones,
-            roles: user.roles
+            roles: user.roles,
+            type: "assignment"
         };
 
         var deferred = q.defer();

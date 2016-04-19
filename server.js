@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
+var bcrypt = require('bcrypt-nodejs');
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev-db/';
 
@@ -54,9 +55,14 @@ io.on('connection', function(socket) {
     });
 });
 
+var assignmentUserModel = require("./public/assignment/server/models/user.model.js")(mongoose, db);
 
-//require("./public/assignment/server/app.js")(app, uuid, mongoose, db);
-require("./public/project/server/app.js") (app, mongoose, db, multer, fs);
+var ProjectModel = require("./public/project/server/models/project.model.js") (mongoose, db);
+var UserModel = require("./public/project/server/models/users.model.js") (ProjectModel, mongoose, db);
+
+require("./public/security/security.js") (app, UserModel, assignmentUserModel, bcrypt);
+require("./public/assignment/server/app.js")(app, mongoose, db, assignmentUserModel, bcrypt);
+require("./public/project/server/app.js") (app, mongoose, db, multer, fs, ProjectModel, UserModel, bcrypt);
 
 http.listen(port, ipaddress);
 

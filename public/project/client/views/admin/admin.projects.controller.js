@@ -32,6 +32,9 @@
         }
 
         function updateProject(project) {
+            if (!project.name || !project.admin) {
+                return;
+            }
             ProjectService.updateProject(project)
                 .then(init);
             vm.project = null;

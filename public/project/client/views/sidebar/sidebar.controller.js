@@ -83,13 +83,11 @@
                 u = dm.user1;
             }
 
-
             for (var x in vm.users) {
                 if (vm.users[x]._id == u) {
                     return vm.users[x].firstName + " " + vm.users[x].lastName;
                 }
             }
-
             return null;
         }
 

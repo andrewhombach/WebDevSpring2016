@@ -8,7 +8,8 @@ module.exports = function(mongoose) {
         email: String,
         phoneNumber: Number,
         pic: String,
-        admin: Boolean
+        admin: Boolean,
+        type: String
     }, {collection: 'CoLab.users'});
     return UserSchema;
 };

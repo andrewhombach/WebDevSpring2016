@@ -13,28 +13,25 @@
         <thead>
         <tr>
             <th>
-                <span class="caret"></span>
                 User ID
             </th>
             <th>
-                <span class="caret"></span>
                 User Name
             </th>
             <th>
-                <span class="caret"></span>
                 Password
             </th>
             <th>
-                <span class="caret"></span>
                 First Name
             </th>
             <th>
-                <span class="caret"></span>
                 Last Name
             </th>
             <th>
-                <span class="caret"></span>
                 Email
+            </th>
+            <th>
+                Admin
             </th>
             <th width="100px">
             </th>
@@ -58,6 +55,10 @@
             </td>
             <td>
                 <input ng-model="model.user.email" type="text" class="form-control" placeholder="email">
+            </td>
+            <td>
+                <input ng-model="model.user.admin" type="text" class="form-control" placeholder="true or false">
+
             </td>
             <td>
                 <div class="input-group">
@@ -87,6 +88,9 @@
             </td>
             <td>
                 {{user.email}}
+            </td>
+            <td>
+                {{user.admin}}
             </td>
             <td  width="100px">
                 <div class="input-group">
