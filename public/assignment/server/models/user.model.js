@@ -106,6 +106,7 @@ module.exports = function (mongoose, db) {
     function createUser(user) {
 
         var deferred = q.defer();
+
         user.type = "assignment";
 
         UserModel.create(user, function(err, doc) {

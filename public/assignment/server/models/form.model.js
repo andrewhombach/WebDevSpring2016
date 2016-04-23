@@ -104,17 +104,19 @@ module.exports = function (mongoose, db) {
     }
 
     function createFormForUser (userId, newForm) {
-        var nForm = {
-            title: newForm.title,
-            userId: userId,
-            fields: [],
-            created: (new Date).getTime(),
-            updated: (new Date).getTime()
-        };
+
+        if (!newForm.title) {
+            newForm.title = "New Form";
+        }
+
+        newForm.created = (new Date).getTime();
+        newForm.updated = (new Date).getTime();
+        newForm.userId = userId;
+        newForm.fields = [];
 
         var deferred = q.defer();
 
-        FormModel.create(nForm, function (err, doc) {
+        FormModel.create(newForm, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             }
