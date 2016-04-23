@@ -24,7 +24,7 @@
                 controller: "AdminController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    checkAdmin : checkAdmin
                 }
             })
             .when("/forms", {
@@ -81,6 +81,24 @@
                     $rootScope.errorMessage = "You need to log in.";
                     deferred.reject();
                     $location.url("/home")
+                }
+            });
+            return deferred.promise;
+        }
+
+        function checkAdmin($http, $q, $location, UserService) {
+            var deferred = $q.defer();
+
+            $http.get("/api/assignment/loggedin").success(function(user)
+            {
+                if (user.roles.indexOf("admin") > -1) {
+                    console.log(user);
+                    UserService.setCurrentUser(user);
+                    deferred.resolve();
+                }
+                else {
+                    deferred.reject();
+                    $location.url("/profile");
                 }
             });
             return deferred.promise;

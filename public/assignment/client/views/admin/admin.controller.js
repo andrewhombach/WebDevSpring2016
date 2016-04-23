@@ -18,6 +18,7 @@
         vm.sortOnFirstName = sortOnFirstName;
         vm.sortOnUsername = sortOnUsername;
         vm.sortOnLastName = sortOnLastName;
+        vm.password = null;
 
         function init() {
             UserService
@@ -38,6 +39,11 @@
         }
 
         function updateUser(user) {
+
+            if (vm.password) {
+                user.password = vm.password;
+            }
+
             UserService
                 .adminUpdateUser(user)
                 .then(init);
@@ -45,6 +51,14 @@
         }
 
         function addUser(user) {
+            if (!vm.password) {
+                alert("user must have password");
+                return;
+            }
+            user.password = vm.password;
+
+            console.log(user);
+
             UserService
                 .adminCreateUser(user)
                 .then(init);

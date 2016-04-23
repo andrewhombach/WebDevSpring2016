@@ -8,6 +8,7 @@
         var vm = this;
         vm.update = update;
         vm.deleteUser = deleteUser;
+        vm.password = null;
 
         function init() {
             vm.user = UserService.getCurrentUser();
@@ -21,8 +22,6 @@
             if (vm.user.roles) {
                 vm.user.roles = vm.user.roles.toString();
             }
-            delete vm.user.password;
-
         }
 
         init();
@@ -45,6 +44,9 @@
             }
             else {
                 user.roles = [];
+            }
+            if (vm.password) {
+                user.password = vm.password;
             }
             UserService.updateUser(user._id, user)
                 .then(function (response) {

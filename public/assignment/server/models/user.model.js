@@ -107,7 +107,6 @@ module.exports = function (mongoose, db) {
 
         var deferred = q.defer();
         user.type = "assignment";
-        console.log(user);
 
         UserModel.create(user, function(err, doc) {
 
@@ -122,22 +121,14 @@ module.exports = function (mongoose, db) {
         return deferred.promise;
     }
 
-    function updateUser(userId, user) {
+    function updateUser(user) {
 
-        var newUser = {
-            username: user.username,
-            password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            emails: user.emails,
-            phones: user.phones,
-            roles: user.roles,
-            type: "assignment"
-        };
+        user.type = "assignment";
+
 
         var deferred = q.defer();
 
-        UserModel.findByIdAndUpdate(userId, {$set:newUser}, {new: true, upsert: true}, function(err, doc) {
+        UserModel.findByIdAndUpdate(user._id, {$set:user}, {new: true, upsert: true}, function(err, doc) {
             if (err) {
                 deferred.reject(err);
             }

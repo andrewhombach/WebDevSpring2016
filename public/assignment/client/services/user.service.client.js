@@ -14,6 +14,7 @@
             updateUser: updateUser,
             getCurrentUser: getCurrentUser,
             getProfile: getProfile,
+            findUserByUsername: findUserByUsername,
             setCurrentUser: setCurrentUser,
             adminCreateUser: adminCreateUser,
             adminFindAllUsers: adminFindAllUsers,

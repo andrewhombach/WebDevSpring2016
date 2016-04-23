@@ -1,70 +1,19 @@
-//var passport = require('passport');
-//var LocalStrategy = require('passport-local').Strategy;
-//var bcrypt = require('bcrypt-nodejs');
-
-module.exports = function(app, userModel) {
+module.exports = function(app, userModel, bcrypt) {
 
     var auth = authorized;
-    var admin = admin;
+    var isAdmin = isAdmin;
 
-    app.post("/api/assignment/user", auth, createUser);
     app.get("/api/assignment/userCred/:username/:password", auth ,findUserByCredentials);
     app.get("/api/assignment/user", auth,  userRouter);
     app.get("/api/assignment/user/:userId", auth, findUserById);
     app.get("/api/assignment/user?username=username", auth, findUserByUsername);
     app.put("/api/assignment/user/:userId", auth, updateUser);
     app.delete("/api/assignment/user/:userId", auth, deleteUser);
-    app.get("/api/assignment/admin/user", auth, admin, findAllUsers);
-    app.get("/api/assignment/admin/user/:userId", auth, admin, findUserById);
-    app.post("/api/assignment/admin/user", auth, admin, createUser);
-    app.delete("/api/assignment/admin/user/:userId", auth, admin, deleteUser);
-    app.put("/api/assignment/admin/user/:userId", auth, admin, updateUser);
-
-
-    //passport.use(new LocalStrategy(localStrategy));
-    //passport.serializeUser(serializeUser);
-    //passport.deserializeUser(deserializeUser);
-    //
-    //function localStrategy(username, password, done){
-    //
-    //    userModel
-    //        .findUserByUsername(username)
-    //        .then(
-    //            function (user) {
-    //                console.log(user);
-    //                if (user && bcrypt.compareSync(password, user.password)) {
-    //                    return done(null, user);
-    //                }
-    //                else {
-    //                    return done(null, false);
-    //                }
-    //            },
-    //            function (err){
-    //                if (err) { return done (err); }
-    //            }
-    //        );
-    //}
-    //
-    //function serializeUser(user, done){
-    //    delete user.password;
-    //    done(null, user);
-    //}
-    //
-    //function deserializeUser(user, done){
-    //    userModel
-    //        .findUserById(user._id)
-    //        .then(
-    //            function (user) {
-    //                delete user.password;
-    //                done(null, user);
-    //            },
-    //            function (err) {
-    //                done(err, null);
-    //            }
-    //        )
-    //}
-
-
+    app.get("/api/assignment/admin/user", auth, isAdmin, findAllUsers);
+    app.get("/api/assignment/admin/user/:userId", auth, isAdmin, findUserById);
+    app.post("/api/assignment/admin/user", auth, isAdmin, createUserAdmin);
+    app.delete("/api/assignment/admin/user/:userId", auth, isAdmin, deleteUser);
+    app.put("/api/assignment/admin/user/:userId", auth, isAdmin, updateUserAdmin);
 
     function userRouter(req, res) {
         if (req.query.username && req.query.password) {
@@ -78,13 +27,10 @@ module.exports = function(app, userModel) {
         }
     }
 
-
-
     function findAllUsers(req, res) {
         userModel.findAllUsers()
             .then(
                 function (doc) {
-                    console.log(doc);
                     res.json(doc);
                 },
                 function (err) {
@@ -94,8 +40,30 @@ module.exports = function(app, userModel) {
     }
 
     function createUser(req, res) {
+        var user = req.body;
+        delete user.roles;
 
-        userModel.createUser(req.body)
+        user.password = bcrypt.hashSync(user.password);
+
+
+        userModel.createUser(user)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
+    function createUserAdmin(req, res) {
+        var user = req.body;
+
+        user.password = bcrypt.hashSync(user.password);
+
+
+        userModel.createUser(user)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -124,7 +92,7 @@ module.exports = function(app, userModel) {
         userModel.findUserById(userId)
               .then(
                 function (doc) {
-                    delete doc.password
+                    delete doc.password;
                     res.json(doc);
                 },
                 function (err) {
@@ -133,28 +101,73 @@ module.exports = function(app, userModel) {
             );
     }
 
-
-
     function updateUser(req, res) {
         var user = req.body;
-        var userId = req.params.userId;
 
-        user.password = bcrypt.hashSync(user.password);
+        delete user.roles;
 
-        userModel.updateUser(userId, user)
+        userModel
+            .findUserById(user._id)
             .then(
-                function (na) {
-                    userModel.findUserById(req.user._id)
+                function (oUser) {
+                    if (oUser.password !== user.password) {
+                        user.password = bcrypt.hashSync(user.password);
+                    }
+                    userModel.updateUser(user)
                         .then(
-                            function (doc) {
-                                console.log("this is coming back from find user by id");
-                                console.log(doc);
-                                res.json(doc);
+                            function (na) {
+                                userModel
+                                    .findUserById(user._id)
+                                    .then(
+                                        function (doc) {
+                                            res.json(doc);
+                                        }
+                                    ),
+                                    function (err) {
+                                        res.status(400).send(err);
+                                    }
+                            },
+                            function (err) {
+                                res.status(400).send(err);
                             }
-                        ),
-                        function (err) {
-                            res.status(400).send(err);
-                        }
+                        );
+
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function updateUserAdmin(req, res) {
+        var user = req.body;
+
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (oUser) {
+                    if (oUser.password !== user.password) {
+                        user.password = bcrypt.hashSync(user.password);
+                    }
+                    userModel.updateUser(user)
+                        .then(
+                            function (na) {
+                                userModel
+                                    .findUserById(user._id)
+                                    .then(
+                                        function (doc) {
+                                            res.json(doc);
+                                        }
+                                    ),
+                                    function (err) {
+                                        res.status(400).send(err);
+                                    }
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        );
+
                 },
                 function (err) {
                     res.status(400).send(err);
@@ -204,7 +217,7 @@ module.exports = function(app, userModel) {
     }
 
 
-    function admin(req, res, next) {
+    function isAdmin(req, res, next) {
         if(req.user.roles.indexOf("admin") === -1) {
             res.send(403);
         }
