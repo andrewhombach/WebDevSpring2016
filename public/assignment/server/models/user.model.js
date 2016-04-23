@@ -125,11 +125,13 @@ module.exports = function (mongoose, db) {
     function updateUser(user) {
 
         user.type = "assignment";
+        var id = user._id;
+        delete user._id;
 
 
         var deferred = q.defer();
 
-        UserModel.findByIdAndUpdate(user._id, {$set:user}, {new: true, upsert: true}, function(err, doc) {
+        UserModel.findByIdAndUpdate(id, {$set:user}, {new: true, upsert: true}, function(err, doc) {
             if (err) {
                 deferred.reject(err);
             }
