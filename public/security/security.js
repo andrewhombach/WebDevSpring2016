@@ -156,7 +156,6 @@ module.exports = function(app, projectUserModel, assignmentUserModel, bcrypt) {
 
     function assignmentRegister(req, res) {
         var newUser = req.body;
-        newUser.roles = ["admin"];
 
         assignmentUserModel.findUserByUsername(newUser.username)
             .then(
